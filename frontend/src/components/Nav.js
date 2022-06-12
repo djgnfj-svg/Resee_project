@@ -1,8 +1,7 @@
 import {Navbar, Container, Nav,} from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate,BrowserRouter } from 'react-router-dom';
-import App from '../App';
-import Login from '../router/Login';
-
+import Login from '../router/login/Login';
+import Sign_up from '../router/sign_up/Sign_up';
 function MyNavbar() {
   let navigate = useNavigate();
   return (
@@ -19,7 +18,7 @@ function MyNavbar() {
           </Nav>
           <Nav>
           <Nav.Link onClick={()=>navigate('/login')}>로그인</Nav.Link>
-          <Nav.Link onClick={()=>navigate('/register')}>회원가입</Nav.Link>
+          <Nav.Link onClick={()=>navigate('/sign_up')}>회원가입</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -36,6 +35,7 @@ function MyNavbar() {
             </div>
             }/>
           <Route path="/login" element={<Login />}/>
+          <Route path="/sign_up" element={<Sign_up />}/>
           <Route path="*" element={<div>test</div>}/>
       </Routes>
     </div>
