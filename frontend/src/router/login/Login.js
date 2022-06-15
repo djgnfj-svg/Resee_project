@@ -16,18 +16,13 @@ function Login() {
 			[name] : value
 		});
 	};
-
 	const Login_button = ()=>{
 		axios.post("http://127.0.0.1:8000/api/UserLogin/", input,)
 		.then(res =>{
 			if (res.data.Token){
-				axios.get("http://127.0.0.1:8000/api/UserLogin/",
-				{headers:{
-					Authorization : `Token ${res.data.Token}`
-				}})
 				localStorage.clear()
 				localStorage.setItem('token', res.data.Token)
-				window.location.replace('/')
+				window.location.replace("http://localhost:3000/");
 				}
 			}
 		)

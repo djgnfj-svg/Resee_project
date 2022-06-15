@@ -17,15 +17,17 @@ function MyNavbar() {
 		}
 	}, [])
 
-	// const handleLogout = () =>{
-	// 	let SessionId = getCookie('sessionid')
-
-	// 	axios.post("http://127.0.0.1:8000/api/UserLogout/", SessionId)
-	// 	.then(res => {
-	// 		localStorage.clear()
-	// 		// window.location.replace('/')
-	// 	})
-	// }
+	const handleLogout = ()=>{
+		console.log(`Token ${localStorage.getItem('token')}`)
+		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
+				headers:{
+					Authorization : `Token ${localStorage.getItem('token')}`
+			}
+		}).then(data=>{
+			localStorage.clear();
+			window.location.replace("http://localhost:3000/");
+		})
+	}
 	return (
 		<div>
 			<Navbar bg="dark" variant="dark">
@@ -41,7 +43,7 @@ function MyNavbar() {
 					{auth ?
 						<Nav>
 							<Nav.Link onClick={()=>navigate('/profile')}>개인정보</Nav.Link>
-							
+							<Nav.Link onClick={handleLogout}>로그아웃</Nav.Link>
 						</Nav>
 						:
 						<Nav>
