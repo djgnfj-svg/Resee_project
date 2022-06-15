@@ -23,13 +23,9 @@ class UserLoginViewSet(viewsets.ModelViewSet):
 
 class UserLogoutViewSet(viewsets.ViewSet):
 	def list(self, request):
-		print(request.user)
-		print(request.user.id)
 		return Response({"msg" : "test"}, status=status.HTTP_200_OK)
 
 	def create(self, request):
-		print(request.user)
-		print(request.user.id)
 		user =User.objects.get(id=request.user.id)
 		logout(user)
 		return None

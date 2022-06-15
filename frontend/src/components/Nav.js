@@ -4,7 +4,6 @@ import {Navbar, Container, Nav,} from 'react-bootstrap';
 import { Routes, Route, useNavigate,  } from 'react-router-dom';
 import Login from '../router/login/Login';
 import Sign_up from '../router/sign_up/Sign_up';
-import { getCookie } from '../utils/cookie';
 
 
 

@@ -29,15 +29,11 @@ function Sign_up() {
 				localStorage.setItem('token', res.data.Token)
 				window.location.replace('/')
 				console.log(res.data.key)
-				console.log("성공함")
-				alert("멈취!")
+				window.location.replace("http://localhost:3000/");
 			}else{
 				localStorage.clear()
-				console.log("설마 여기로온다고?")
-				alert("멈춰요!")
 			}
-		}
-		)
+		})
 		.catch(error => {
 			if (!error.response) {
 				// network error
