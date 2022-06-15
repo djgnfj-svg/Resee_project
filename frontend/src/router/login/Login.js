@@ -1,18 +1,50 @@
 import "./Login.css";
+import axios from 'axios'
+import CSRFToken from '../../components/CSRF';
+import { useState } from 'react';
 
 function Login() {
+	const [input, setInput] = useState({
+		email:"",
+		password:"",
+	});
+	const {email, password} = input;
+	const onChange = (e) =>  {
+		const {value, name} = e.target;
+		setInput({
+			...input,
+			[name] : value
+		});
+	};
+
+	const Login_button = ()=>{
+		axios.post("http://127.0.0.1:8000/api/UserLogin/", input,)
+		.then(res =>{
+			if (res.data.Token){
+				axios.get("http://127.0.0.1:8000/api/UserLogin/",
+				{headers:{
+					Authorization : `Token ${res.data.Token}`
+				}})
+				localStorage.clear()
+				localStorage.setItem('token', res.data.Token)
+				window.location.replace('/')
+				}
+			}
+		)
+	};
 	return (
-		<main>
-			<form id="login_form" class="form_class" action="login/login-access.php" method="post">
+		<main class="login_main">
+			<form class="form_class">
+			<CSRFToken />
 				<div class="form_div">
-					<label>Login:</label>
-					<input class="field_class" name="login_txt" type="text" placeholder="Insira o seu login" autofocus />
-					<label>Password:</label>
-					<input id="pass" class="field_class" name="password_txt" type="password" placeholder="Insira a sua senha" />
-					<button class="submit_class" type="submit" form="login_form" onclick="return validarLogin()">Entrar</button>
+					<label>이메일:</label>
+					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={onChange} value={email} />
+					<label>비밀번호:</label>
+					<input name="password" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChange} value={password} />
+					<button className="submit_class" onClick={Login_button}>로그인</button>
 				</div>
 				<div class="info_div">
-					<p>Ainda não é um usuário registrado? <a href="register/reg-form.php">Cadastre-se!</a></p>
+					<p>회원이 아니십니까? <a href="/sign_up">회원가입</a></p>
 				</div>
 			</form>
 		</main>

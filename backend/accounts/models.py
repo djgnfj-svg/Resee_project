@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
 	username = models.CharField(unique=True, max_length=20, null=False)
 	email = models.EmailField(verbose_name='email', max_length=255,	unique=True,)
-	date_of_birth = models.DateField()
+	date_of_birth = models.DateField(auto_now_add=True)
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
 

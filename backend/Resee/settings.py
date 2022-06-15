@@ -45,7 +45,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -63,9 +63,13 @@ INSTALLED_APPS = [
     'accounts',
 
 	'rest_framework',
+    'rest_framework.authtoken',
 	'corsheaders',
 ]
-
+REST_FRAMEWORK = {    
+    'DEFAULT_AUTHENTICATION_CLASSES': 
+        ['rest_framework.authentication.TokenAuthentication',],
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -161,5 +165,5 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:8000",
 ]
-
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True

@@ -1,8 +1,8 @@
 from rest_framework import routers
 
-from .apis import UserInfoViewSet, UserGameViewSet, UserStatsViewSet
+from api.ViewSets.UserViewSet import UserLoginViewSet, UserLogoutViewSet,UserSignUpViewSet
 
 router = routers.DefaultRouter()
-router.register(r'UserInfo', UserInfoViewSet, basename="api_user")
-router.register(r'UserGameRecord', UserGameViewSet, basename="api_gamerecord")
-router.register(r'UserStats', UserStatsViewSet, basename="api_stats")
+router.register(r'UserSignUp', UserSignUpViewSet, basename="user_signup")
+router.register(r'UserLogin', UserLoginViewSet, basename="user_login")
+router.register(r'UserLogout', UserLogoutViewSet, basename="user_logout")
