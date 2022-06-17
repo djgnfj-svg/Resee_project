@@ -2,9 +2,13 @@ import './Sign_up.css'
 import axios from 'axios'
 import CSRFToken from '../../components/CSRF';
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 
 function Sign_up() {
+
+	const navigate = useNavigate("");
+
 	const [input, setInput] = useState({
 		email:"",
 		username:"",
@@ -27,14 +31,12 @@ function Sign_up() {
 				alert("temp")
 				localStorage.clear()
 				localStorage.setItem('token', res.data.Token)
-				// window.location.replace("http://localhost:3000/");
+				navigate("/");
 			}else{
-				alert("temp2")
 				localStorage.clear()
 			}
 		})
 		.catch(error => {
-			alert("시이바알")
 			if (!error.response) {
 				this.errorStatus = 'Error: Network Error';
 			} else {

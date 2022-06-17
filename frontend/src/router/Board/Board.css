@@ -1,0 +1,23 @@
+.board{
+    display:flex;
+    margin: 0 auto;
+}
+
+.books_img{
+   margin-right: 20px;
+}
+
+.books_title{
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 30px;
+    color: rgb(178,178,178);
+}
+
+.books_name{
+    width: 400px;
+    height: 280px;
+    margin-top: 20px;
+    color: rgb(178,178,178);
+    font-size: 18px;
+}
