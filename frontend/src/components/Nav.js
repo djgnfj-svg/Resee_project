@@ -8,18 +8,14 @@ import { Routes, Route, useNavigate,  } from 'react-router-dom';
 function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
-	let [test,setTest] = useState(true);
 
 	useEffect(() => {
 		if (localStorage.getItem('token') !== null){
 			setAuth(true);
-		}else {
-			setAuth(false)
 		}
 	}, [localStorage.getItem('token')])
 
 	const handleLogout = ()=>{
-		console.log(`Token ${localStorage.getItem('token')}`)
 		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
 				headers:{
 					Authorization : `Token ${localStorage.getItem('token')}`
