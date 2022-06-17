@@ -18,6 +18,7 @@ class UserLoginViewSet(viewsets.ModelViewSet):
 		user = User.objects.get(email=request.data['email'])
 		token = Token.objects.get(user=user)
 		login(request,user)
+		print("test")
 		return Response({'Token' : token.key}, status=201)
 # 버튼 잘만드는법
 
@@ -39,7 +40,6 @@ class UserSignUpViewSet(viewsets.ModelViewSet):
 		serializer = UserCreateSerializer(data=request.data) 
 		if serializer.is_valid(raise_exception=True):
 			User = serializer.save() # DB 저장
-			login(request, User)
 			token = Token.objects.create(user=User)
 			return Response({'Token' : token.key}, status=201)
 		return Response({"msg" : "실패"}, status=status.HTTP_400_BAD_REQUEST)

@@ -19,24 +19,23 @@ function Sign_up() {
 		});
 	};
 
-	const Sign_up_button = ()=>{
-		axios.post("http://127.0.0.1:8000/api/UserSignUp/", input)
+	const Sign_up_button = (e)=>{
+		e.preventDefault();
+		axios.post('http://127.0.0.1:8000/api/UserSignUp/', input)
 		.then(res =>{
-				console.log(res.data)
-				console.log(res.data.Token)
 			if (res.data.Token){
+				alert("temp")
 				localStorage.clear()
 				localStorage.setItem('token', res.data.Token)
-				window.location.replace('/')
-				console.log(res.data.key)
-				window.location.replace("http://localhost:3000/");
+				// window.location.replace("http://localhost:3000/");
 			}else{
+				alert("temp2")
 				localStorage.clear()
 			}
 		})
 		.catch(error => {
+			alert("시이바알")
 			if (!error.response) {
-				// network error
 				this.errorStatus = 'Error: Network Error';
 			} else {
 				this.errorStatus = error.response.data.message;
@@ -46,7 +45,6 @@ function Sign_up() {
 	return (
 		<main className="sign_up_main">
 			<form className="form_class">
-			<CSRFToken />
 				<div className="form_div">
 					<label>닉네임:</label>
 					<input name="username"className="field_class" type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={onChange} value={username}/>
