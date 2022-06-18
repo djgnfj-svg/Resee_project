@@ -13,8 +13,9 @@ class BooksViewSet(viewsets.ModelViewSet):
 	def list(self, request, *args, **kwargs):
 		userid = getUserId(request.user)
 		queryset = ReviewBook.objects.filter(user_id = userid)
-		# return Response({"msg" : "books가 없습니다."}, status=status.HTTP_200_OK)
 		serializer = BooksSerializer(queryset, many=True)
+		if not serializer.data:
+			return Response({"msg" : "books가 없습니다."}, status=status.HTTP_200_OK)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 	def create(self, request, *args, **kwargs):

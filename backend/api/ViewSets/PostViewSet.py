@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 
 from api.Utils.getUser import getUserId
-from api.Seriailzers.BookSerialzer import PostsSerializer
+from api.Seriailzers.PostSerializer import PostsSerializer, PostsCreateSerializer
 from books.models import ReviewPost
 
 from books.models import ReviewBook
@@ -22,7 +22,13 @@ class PostViewSet(viewsets.ModelViewSet):
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 	def create(self, request, book_id, *args, **kwargs):
-		return super().create(request, *args, **kwargs)
+		serializer = PostsCreateSerializer(data=request.data)
+		if serializer.is_valid():
+			rtn = serializer.create(request, book_id, serializer.data)
+			if rtn:
+				return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
+		else :
+			return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_200_OK)
 	
 	def retrieve(self, request, book_id, pk, *args, **kwargs):
 		return super().retrieve(request, *args, **kwargs)
