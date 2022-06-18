@@ -1,0 +1,36 @@
+.add_title title{
+
+}
+.add_title input{
+    margin-top: 5px;
+    width: 189px;
+    height: 40px;
+    padding: 0.3rem 0.1rem;
+    padding-left: 0.7rem;
+    margin-bottom: 5px;
+    background-color: #282830;
+    border: 1px solid #515163;
+    border-radius: 0.3rem;
+    outline: none;
+    color: aliceblue;
+}
+input :focus{
+    color: none;
+}
+
+.add_description .description{
+    width: 100px;
+}
+.add_description textarea{
+    width: 464px;
+    height: 160px;
+    padding: 0.5rem 0.3rem;
+    padding-left: 0.7rem;
+    outline: none;
+    resize: none;
+    background-color: #282830;
+    border: 1px solid #515163;
+    border-radius: 0.3rem;
+    margin-top: 10px;
+    color: aliceblue;
+}

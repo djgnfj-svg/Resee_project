@@ -1,38 +1,69 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState,useEffect } from 'react'
 import './Board.css'
+import Add_modal from './Section/js/Add_modal'
 
 function Board() {
 
+    
+    
+    const [showModal , setShowModal] = useState(false);
+    const [booksData , setBooksData] = useState([]);
+    const modalClose = () => {
+        setShowModal(!showModal)
+    }
+    
+    useEffect(() => {
+      getBooksData();
+    }, [showModal === false])
+
+    const getBooksData = () => {
+        axios.get("http://127.0.0.1:8000/api/Books/",
+        {
+            headers:{
+                Authorization : `Token ${localStorage.getItem('token')}`
+            } 
+        })
+        .then(res => {
+            setBooksData(res.data);
+        })
+    }
+
   return (
-    <div style={{display:"inline-block", margin:"0 auto" , marginTop : "100px"}}>
-        <div className="board">
-            <div className="books_img">
-                <img src={`${process.env.PUBLIC_URL}/img/books.png`} />
-            </div>
-            <div className="books">
-                <div className='books_title'>리액트 전역 변수 설정</div>
-                <div className='books_content'>생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구함</div>
-            <div className='books_btn'>
-                <button className='ReSee_books'>복습</button>
-                <button className='Edit_books'>수정</button>
-            </div>
-            </div>
-        </div>
-        <div className="board">
-            <div className="books_img">
-                <img src={`${process.env.PUBLIC_URL}/Img/books.png`} />
-            </div>
-            <div className="books">
-                <div className='books_title'>흥부의 마케팅 강의</div>
-                <div className='books_content'>생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구함</div>
-                <div className='books_btn'>
-                    <button className='ReSee_books'>복습</button>
-                    <button className='Edit_books'>수정</button>
+      <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
+        <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
+        { booksData.length > 0 ? booksData.map((item) => (
+            <>
+                {console.log(Object.keys(booksData))}
+                    <div className="board">
+                        <div className="books_img">
+                            <img src={`${process.env.PUBLIC_URL}/img/books.png`} />
+                        </div> 
+                        <div className="books">
+                            <div className='books_title'>{item.title}</div>
+                            <div className='books_content'>{item.rough_description}</div>
+                            <div className='books_btn'>
+                                <button className='write_books'>작성</button>
+                                <button className='ReSee_books'>복습</button>
+                                <button className='Edit_books'>수정</button>
+                            </div>
+                        </div>
+                    </div>
+            </>
+    ))
+            :
+            <>
+                <div className='No_data'>
+                <img src={`${process.env.PUBLIC_URL}/img/No_Data.png`} />
+                <div>음? 데이터가 없어요 추가해주실래요?</div>
+                <button onClick={modalClose}>추가하기</button>
                 </div>
-            </div>
-        </div>
-            <div className='write_btn'>
-                <button>글쓰기</button>
+            </>
+}
+    </div>
+            <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === 0 && "hide" || 'write_btn'}>
+                <button onClick={modalClose}>추가하기</button>
+                { showModal && <Add_modal  show={modalClose} /> }
             </div>
     </div>
   )
