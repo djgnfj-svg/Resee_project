@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 import './Board.css'
 import Add_modal from './Section/js/Add_modal'
+import { useNavigate }  from 'react-router-dom'
 
 function Board() {
 
-    
+    const navigate = useNavigate("");
     
     const [showModal , setShowModal] = useState(false);
     const [booksData , setBooksData] = useState([]);
@@ -32,9 +33,8 @@ function Board() {
   return (
       <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
         <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
-        { booksData.length > 0 ? booksData.map((item) => (
+        { booksData.length > 0 ? booksData.map((item , index) => (
             <>
-                {console.log(Object.keys(booksData))}
                     <div className="board">
                         <div className="books_img">
                             <img src={`${process.env.PUBLIC_URL}/img/books.png`} />
@@ -43,7 +43,7 @@ function Board() {
                             <div className='books_title'>{item.title}</div>
                             <div className='books_content'>{item.rough_description}</div>
                             <div className='books_btn'>
-                                <button className='write_books'>작성</button>
+                                <button className='write_books' onClick={() => navigate("/board/CategoryBooks/"+index)}>작성</button>
                                 <button className='ReSee_books'>복습</button>
                                 <button className='Edit_books'>수정</button>
                             </div>
@@ -61,7 +61,8 @@ function Board() {
             </>
 }
     </div>
-            <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === 0 && "hide" || 'write_btn'}>
+            <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === undefined && "hide" || 'write_btn'}>
+                {console.log(booksData.length)}
                 <button onClick={modalClose}>추가하기</button>
                 { showModal && <Add_modal  show={modalClose} /> }
             </div>
