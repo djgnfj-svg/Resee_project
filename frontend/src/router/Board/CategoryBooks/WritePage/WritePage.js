@@ -1,11 +1,14 @@
 import axios from 'axios'
 import React from 'react'
 import './WritePage.css'
+import {useNavigate} from 'react-router-dom'
 
 function WritePage() {
 
+    const navigate = useNavigate("");
+
     const handleSubmitPost = () => {
-        
+        navigate("/board/CategoryBooks/0")
     }
 
   return (

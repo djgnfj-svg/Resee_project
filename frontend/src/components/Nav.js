@@ -17,7 +17,7 @@ function MyNavbar() {
 	}, [localStorage.getItem('token')])
 
 	const handleLogout = ()=>{
-		console.log("로그아웃 성공")
+		
 		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
 				headers:{
 					Authorization : `Token ${localStorage.getItem('token')}`
@@ -26,6 +26,7 @@ function MyNavbar() {
 			localStorage.clear();
 			navigate("/");
 			setAuth(false);
+			alert("로그아웃 성공")
 		})
 	}
 	return (
