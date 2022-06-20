@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate,  } from 'react-router-dom';
 
 
 
+
 function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
@@ -16,6 +17,7 @@ function MyNavbar() {
 	}, [localStorage.getItem('token')])
 
 	const handleLogout = ()=>{
+		
 		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
 				headers:{
 					Authorization : `Token ${localStorage.getItem('token')}`
@@ -24,11 +26,13 @@ function MyNavbar() {
 			localStorage.clear();
 			navigate("/");
 			setAuth(false);
+			alert("로그아웃 성공")
 		})
 	}
 	return (
 		<div>
-			<Navbar bg="dark" variant="dark">
+			<Navbar style={{backgroundColor:"rgb(207 207 207)"}}
+			 >
 				<Container>
 					<Navbar.Brand onClick={()=>navigate('/')}>ReSee</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
