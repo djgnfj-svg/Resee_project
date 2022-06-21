@@ -32,7 +32,7 @@ class UserLogoutViewSet(viewsets.ViewSet):
 		user =User.objects.get(id=request.user.id)
 		logout(user)
 		del(request.session['user'])
-		return None
+		return Response({"msg" : "로그아웃성공"}, status=status.HTTP_200_OK)
 
 class UserSignUpViewSet(viewsets.ModelViewSet):
 	serializer_class = UserSignUpSerializer
