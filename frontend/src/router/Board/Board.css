@@ -48,15 +48,43 @@
 .books_img{
    position: relative;
    margin-right: -30px;
-   transform: scale(1.5);
    top: 70px;
    height: 200px;
+   
+
 }
+.books_img .test_a{
+   transform: scale(1.5);
+}
+
+.books_img:hover .test_a {
+    cursor: pointer;
+    transform: rotate(-30deg) scale(1.5);
+    display: none;
+}
+.books_img .test_b{
+    width: 196.5px;
+    opacity: 0;
+    position: absolute;
+    top: -14px;
+    left: -33px;
+}
+.books_img:hover .test_b{
+    opacity: 1;
+    transition: 0.7s;
+    position: relative;
+    height: 200px;
+    margin-right: -70px;
+}
+
 
 .books .books_title{
     font-weight: bold;
     font-size: 30px;
     color: rgb(178,178,178);
+}
+.books .books_title:hover{
+    cursor: pointer;
 }
 
 .books .books_content{
@@ -69,6 +97,7 @@
 .books .books_btn{
     position: relative;
     top: -70px;
+    left: 15px;
 }
 .books .books_btn button{
     width: 62px;
