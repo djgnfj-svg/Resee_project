@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, exceptions
 from rest_framework.response import Response
 
@@ -36,7 +37,7 @@ class BooksViewSet(viewsets.ModelViewSet):
 			userid = int(request.session.get("user"))
 		else:
 			userid = getUserId(request.user)
-		temp = ReviewBook.objects.get(id=pk).user_id
+		temp = get_object_or_404(ReviewBook, id=pk).user_id
 		if temp != userid:
 			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
 		return super().retrieve(request, *args, **kwargs)
@@ -46,7 +47,7 @@ class BooksViewSet(viewsets.ModelViewSet):
 			userid = int(request.session.get("user"))
 		else:
 			userid = getUserId(request.user)
-		temp = ReviewBook.objects.get(id=pk).user_id
+		temp = get_object_or_404(ReviewBook, id=pk).user_id
 		if temp != userid:
 			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
 		return super().destroy(request, *args, **kwargs)
