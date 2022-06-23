@@ -37,15 +37,15 @@ function Board() {
             <>
                     <div className="board">
                         <div className="books_img">
-                            <img src={`${process.env.PUBLIC_URL}/img/books.png`} />
+                            <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate("/board/CategoryBooks/"+index)} />
+                            <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate("/board/CategoryBooks/"+index)} />
                         </div> 
                         <div className="books">
-                            <div className='books_title'>{item.title}</div>
+                            <div className='books_title' onClick={() => navigate("/board/CategoryBooks/"+index)}>{item.title}</div>
                             <div className='books_content'>{item.rough_description}</div>
                             <div className='books_btn'>
-                                <button className='write_books' onClick={() => navigate("/board/CategoryBooks/"+index)}>작성</button>
+                                <button className='write_books' onClick={() => navigate("/board/CategoryBooks/"+index+"/test")}>작성</button>
                                 <button className='ReSee_books'>복습</button>
-                                <button className='Edit_books'>수정</button>
                             </div>
                         </div>
                     </div>

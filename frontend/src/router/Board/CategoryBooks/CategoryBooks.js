@@ -14,7 +14,7 @@ function CategoryBooks() {
         <div className='wrapper_category'>
           <div className='category_List'>
             <div className='books_title'><a href='#'>1. React BootStrap</a><button className='edit_btn'>수정</button></div>
-            <div className='books_title'>2. Props Request</div>
+            <div className='books_title'>06-23. Props Request</div>
             <div className='books_title'>3. JavaScript</div>
             <div className='books_title'>4. Python Feed</div>
             <div className='books_title'>5. Algorithm</div>
