@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import './WritePage.css'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 function WritePage() {
 
     const [title,setTitle] = useState("")
     const [description,setDescription] = useState("")
+    const {index} = useParams();
 
     const navigate = useNavigate("");
 
@@ -14,7 +15,7 @@ function WritePage() {
     const handleChangeInput2 = (e) => {setDescription(e.target.value)}
 
     const handleSubmitPost = () => {
-        axios.post("http://127.0.0.1:8000/api/Books/40/post/",{
+        axios.post("http://127.0.0.1:8000/api/Books/"+index + 1+"/post/",{
             title : title,
             description : description,
         },
@@ -39,15 +40,6 @@ function WritePage() {
         </div>
         <div className='Write_addBtn'>
             <button onClick={handleSubmitPost}>추가하기</button>
-            <div style={{display:"flex" , flexDirection : "row" , position:"relative" , left:"100px"}}>
-                <div className='te' style={{ }}>
-                    <button onClick={handleSubmitPost}>이전</button>
-                </div>
-                <span style={{color:"white" , marginTop:"2px"}}>1 / 7</span>
-                <div className='te' style={{}}>
-                    <button onClick={handleSubmitPost}>다음</button>
-                </div>
-        </div>
         </div>
     </div>
   )

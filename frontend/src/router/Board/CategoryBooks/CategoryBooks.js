@@ -1,11 +1,13 @@
 import React , {useEffect , useState} from 'react'
 import './CategoryBooks.css'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
 
 function CategoryBooks() {
 
   const navigate = useNavigate("");
+  const { index } = useParams();
+
   const [postList , setPostList] = useState("");
 
   useEffect(() => {
@@ -14,7 +16,7 @@ function CategoryBooks() {
   
 
   const getCategoryList = () => {
-    axios.get("http://127.0.0.1:8000/api/Books/40/post/",
+    axios.get("http://127.0.0.1:8000/api/Books/"+index + 1 +"/post/",
     {
       headers:{
         Authorization : `Token ${localStorage.getItem('token')}`
@@ -29,6 +31,8 @@ function CategoryBooks() {
   return (
     <>
     <div style={{margin:"0 auto" , display:"inline-block"}}>
+
+      {console.log(index)}
         <div className='category'>
         <img src={`${process.env.PUBLIC_URL}/img/revels.png`} />
         <div className='wrapper_category'>

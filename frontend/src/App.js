@@ -3,7 +3,7 @@ import MyNavbar from './components/Nav';
 import Login from './router/Login/Login'
 import Sign_up from './router/Sign_up/Sign_up'
 import Home from './router/Main/Home'
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import useState from 'react'
 import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
@@ -11,6 +11,7 @@ import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
 import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksReviewPage';
 
 function App() {
+	let { index } = useParams();
 
 	return (
 		<div className="App">

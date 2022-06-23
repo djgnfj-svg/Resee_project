@@ -39,6 +39,14 @@ function Login() {
 			<form class="form_class">
 			{/* <CSRFToken /> */}
 				<div class="form_div">
+					<div className="social_login">
+						<div className="social_naver">
+							<img />
+						</div>
+						<div className="social_google">
+							<img />
+						</div>
+					</div>
 					<label>이메일:</label>
 					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={onChange} value={email} />
 					<label>비밀번호:</label>
