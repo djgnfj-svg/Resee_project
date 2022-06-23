@@ -8,6 +8,7 @@ import useState from 'react'
 import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
 import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
+import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksReviewPage';
 
 function App() {
 
@@ -21,7 +22,8 @@ function App() {
 					<Route path="/board" element={<Board />}/>
 					<Route path="/board/CategoryBooks/:index" element={<CategoryBooks />}/>
 					<Route path="/board/CategoryBooks/:index/test" element={<WritePage />}/>
-					<Route path="*" element={<div>test</div>}/>
+					<Route path="/test" element={<BooksReviewPage />}/>
+					<Route path="*" element={<div>testa</div>}/>
 				</Routes>
 		</div>
 	);
