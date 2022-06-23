@@ -30,9 +30,10 @@ class User(AbstractBaseUser):
 	username = models.CharField(unique=True, max_length=20, null=False)
 	email = models.EmailField(verbose_name='email', max_length=255,	unique=True,)
 	date_of_birth = models.DateField(auto_now_add=True)
+	verified = models.BooleanField(default=False, null=False)
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
-
+	
 	objects = UserManager()
 
 	USERNAME_FIELD = 'username'
@@ -50,3 +51,11 @@ class User(AbstractBaseUser):
 	@property
 	def is_staff(self):
 		return self.is_admin
+
+class UserVerification(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	key = models.CharField(null=False, max_length=200, unique=True)
+	verified = models.BooleanField(default=False)
+	expired_at = models.DateTimeField(null=False)
+	verified_at = models.DateTimeField(null=True)
+	created_at = models.DateTimeField(auto_now_add=True, null=False)

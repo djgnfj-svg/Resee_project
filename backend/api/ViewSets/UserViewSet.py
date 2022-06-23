@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout
 from api.Seriailzers.UserSerialzer import UserLoginSerializer, UserCreateSerializer,UserSignUpSerializer
 
 from accounts.models import User
+from api.Utils.email_utils import send_verification_mail
 
 class UserLoginViewSet(viewsets.ModelViewSet):
 	serializer_class = UserLoginSerializer
@@ -43,6 +44,7 @@ class UserSignUpViewSet(viewsets.ModelViewSet):
 		serializer = UserCreateSerializer(data=request.data) 
 		if serializer.is_valid(raise_exception=True):
 			user = serializer.save() # DB 저장
+			send_verification_mail(request, user, user.email)
 			login(request, user)
 			token = Token.objects.create(user=user)
 			return Response({'Token' : token.key}, status=201)

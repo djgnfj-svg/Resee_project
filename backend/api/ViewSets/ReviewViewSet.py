@@ -40,3 +40,11 @@ class ReviewViewSet(viewsets.ViewSet):
 			review_data[i] = PostsSerializer(data).data
 
 		return Response(review_data, status=status.HTTP_200_OK)
+	def create(self, request, book_id):
+		temp = request.data['Ids']
+		if request.user.is_anonymous:
+			userid = int(request.session.get("user"))
+		else:
+			userid = getUserId(request.user)
+
+		
