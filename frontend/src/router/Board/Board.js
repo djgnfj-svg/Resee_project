@@ -45,7 +45,7 @@ function Board() {
                             <div className='books_content'>{item.rough_description}</div>
                             <div className='books_btn'>
                                 <button className='write_books' onClick={() => navigate("/board/CategoryBooks/"+index+"/test")}>작성</button>
-                                <button className='ReSee_books'>복습</button>
+                                <button className='ReSee_books' onClick={() => navigate("/board/CategoryBooks/"+index+"/Review")}>복습</button>
                             </div>
                         </div>
                     </div>

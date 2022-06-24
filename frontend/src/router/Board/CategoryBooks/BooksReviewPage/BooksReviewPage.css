@@ -28,6 +28,9 @@
     padding: 1rem 1rem;
     color: #adb5ca;
     outline: none;
+    text-align: left;
+    padding-left: 10rem;
+    padding-top: 4rem;
 
 } 
 .Review_addBtn{
