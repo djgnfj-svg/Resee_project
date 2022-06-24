@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 import './Board.css'
 import Add_modal from './Section/js/Add_modal'
-import { useNavigate }  from 'react-router-dom'
+import { useNavigate, useParams }  from 'react-router-dom'
 
 function Board() {
 
@@ -41,11 +41,11 @@ function Board() {
                             <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate("/board/CategoryBooks/"+index)} />
                         </div> 
                         <div className="books">
-                            <div className='books_title' onClick={() => navigate("/board/CategoryBooks/"+index)}>{item.title}</div>
+                            <div className='books_title' onClick={() => navigate(`/board/CategoryBooks/+${index}`)}>{item.title}</div>
                             <div className='books_content'>{item.rough_description}</div>
                             <div className='books_btn'>
                                 <button className='write_books' onClick={() => navigate("/board/CategoryBooks/"+index+"/test")}>작성</button>
-                                <button className='ReSee_books'>복습</button>
+                                <button className='ReSee_books' onClick={() => navigate("/board/CategoryBooks/"+index+"/Review")}>복습</button>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ function Board() {
             </>
 }
     </div>
-            <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === undefined && "hide" || 'write_btn'}>
+            <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === 0  || booksData.length === undefined&& "hide"|| 'write_btn'}>
                 {console.log(booksData.length)}
                 <button onClick={modalClose}>추가하기</button>
                 { showModal && <Add_modal  show={modalClose} /> }

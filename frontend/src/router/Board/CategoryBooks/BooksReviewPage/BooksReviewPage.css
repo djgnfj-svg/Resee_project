@@ -1,13 +1,13 @@
-.Write_page{
+.Review_page{
     position: relative;
     top: 50px;
 }
 
-.Write_title{
+.Review_title{
     margin-bottom: 50px;
 }
 
-.Write_title input{
+.Review_title input{
     width:500px;
     height: 50px;
     background-color: #282830;
@@ -18,7 +18,7 @@
     padding: 1rem 1rem;
 }
 
-.Write_content textarea{
+.Review_content textarea{
     width: 1500px;
     height: 650px;
     background-color: #282830;
@@ -28,15 +28,18 @@
     padding: 1rem 1rem;
     color: #adb5ca;
     outline: none;
+    text-align: left;
+    padding-left: 10rem;
+    padding-top: 4rem;
 
 } 
-.Write_addBtn{
-    text-align: right;
-    margin-right: 210px;
+.Review_addBtn{
     margin-top: 20px;
+    display: inline-block;
+    width: 200px;
 }
 
-.Write_addBtn button{
+.Review_addBtn button{
     background-color: #5c72ab;
     color: #DCE2F0;
     padding: 0.3rem;
@@ -51,6 +54,9 @@
     border-bottom-left-radius: 4px;
 }
 
+.te{
+    position: relative;
+}
 
 
 .te button{
@@ -68,4 +74,13 @@
     border-bottom-left-radius: 4px;
     margin-right: 10px;
     margin-left: 13px;
+}
+button:disabled{
+    background-color: gray;
+}
+input , textarea { 
+    cursor: auto;
+}
+textarea{
+    text-align: center;
 }

@@ -11,12 +11,28 @@ function Login() {
 		email:"",
 		password:"",
 	});
+	const [useEmailError,setUserEmailError] = useState(false)
+
 	const {email, password} = input;
+
+	const handleEmailChangeInput = (e) => {
+		const userEmailRegex = new RegExp('^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+		if((!e.target.value || (userEmailRegex.test(e.target.value)))){
+			setUserEmailError(false);
+		}
+		else{
+			setUserEmailError(true)
+		}
+		setInput({
+			email:e.target.value,
+		});
+			
+	}
+
 	const onChange = (e) =>  {
 		const {value, name} = e.target;
 		setInput({
-			...input,
-			[name] : value
+			password : e.target.value,
 		});
 	};
 	
@@ -36,17 +52,33 @@ function Login() {
 	return (
 		<>
 		<main class="login_main">
-			<form class="form_class">
+			<form class="form_class" style={{backgroundColor:"white"}}>
 			{/* <CSRFToken /> */}
 				<div class="form_div">
+					<div className="social_login">
+						<div className="social_google">
+							<img src={`${process.env.PUBLIC_URL}/img/btn_google.png`} />
+							<span>구글 아이디로 로그인</span>
+						</div>
+						<div className="social_naver">
+							<img src={`${process.env.PUBLIC_URL}/img/btn_naver.png`} />
+							<span>네이버 아이디로 로그인</span>
+						</div>
+					</div>
+					<hr />
 					<label>이메일:</label>
-					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={onChange} value={email} />
+					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={handleEmailChangeInput} value={email} />
+					{
+						useEmailError && 
+						<div style={{fontSize:"14px" , marginTop:"-12px" , marginBottom:"10px" , paddingLeft:"0.5rem" , color:"red"}}>@ 를 포함한 이메일을 입력해주세요.</div>
+					}
 					<label>비밀번호:</label>
 					<input name="password" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChange} value={password} />
-					<button className="submit_class" onClick={(e) => Login_button(e)}>로그인</button>
+					<button className="submit_class" style={{backgroundColor:"2a9f5c"}} onClick={(e) => Login_button(e)}>로그인</button>
 				</div>
 				<div class="info_div">
-					<p>회원이 아니십니까? <a href="/sign_up">회원가입</a></p>
+					<p>ReSee가 처음이신가요?</p>
+					<a href="/sign_up">가입하기</a>
 				</div>
 			</form>
 		</main>
