@@ -8,18 +8,102 @@ import {useNavigate} from 'react-router-dom'
 function Sign_up() {
 
 	const navigate = useNavigate("");
+	const [erroruserNickname  , setErroruserNickname] = useState(false);
+	const [errorUserEmail  , setErrorUserEmail] = useState(false);
+	const [errorUserPassword  , setErrorUserPassword] = useState(false);
+
+	const [nameUpdated , setNameUpdated] = useState(false)
+	const [emailUpdated , setEmailUpdated] = useState(false)
+	const [passwordUpdated , setPasswordUpdated] = useState(false)
+
+	const [nameLength , setNameLength] = useState(true)
+	const [emailLength , setEmailLength] = useState(false)
+	const [passwordLength , setPasswordLength] = useState(false)
+
+	const [Alltrue ,setAllTrue] = useState(false)
+	
 
 	const [input, setInput] = useState({
 		email:"",
 		username:"",
 		password:"",
 	});
-	const {username, email, password} = input;
-	const onChange = (e) =>  {
-		const {value, name} = e.target;
+
+	const {username, email, password} = input;	
+
+
+	const BluerUserName = (e) => {
+		if(e.target.value.length < 1){
+			setNameLength(false)
+		}else{
+			setNameLength(true);
+		}
+		setNameUpdated(true);
+	}
+
+	const BluerEmail = (e) => {
+		if(e.target.value.length < 1){
+			setEmailLength(false)
+		}else{
+			setEmailLength(true);
+		}
+		setEmailUpdated(true);
+	}
+
+	const BluerPassword = (e) => {
+		if(e.target.value.length < 1){
+			setPasswordLength(false)
+		}else{
+			setPasswordLength(true);
+		}
+		setPasswordUpdated(true);
+	}
+
+	const onChangeuserName = (e) =>  {
+
+		const usernameRegex = new RegExp("^[a-zA-Z0-9가-힣ㄱ-ㅎ]{1,10}$");
+
+		if((!e.target.value || (usernameRegex.test(e.target.value)))){
+			setErroruserNickname(false)
+			setNameUpdated(false)
+			setNameLength(true);
+		}else{
+			setErroruserNickname(true)
+		}
+
 		setInput({
-			...input,
-			[name] : value
+			username : e.target.value
+		});
+	};
+
+	const onChangeEmail = (e) =>  {
+		const emailRegex = new RegExp("^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+
+		if((!e.target.value || (emailRegex.test(e.target.value)))){
+			setErrorUserEmail(false)
+			setEmailUpdated(false)
+		}else{
+			setErrorUserEmail(true)
+		}
+
+		setInput({
+			email : e.target.value
+		});
+	};
+
+	const onChangepassword = (e) =>  {
+
+		const passwordRegex = new RegExp("^[A-Za-z0-9]{8,25}$");
+
+		if((!e.target.value || (passwordRegex.test(e.target.value)))){
+			setErrorUserPassword(false)
+			setPasswordUpdated(false)
+		}else{
+			setErrorUserPassword(true)
+		}
+
+		setInput({
+			password : e.target.value
 		});
 	};
 
@@ -44,17 +128,58 @@ function Sign_up() {
 			}
 		})
 	};
+
 	return (
 		<main className="sign_up_main">
 			<form className="form_class">
 				<div className="form_div">
-					<label>닉네임:</label>
-					<input name="username"className="field_class" type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={onChange} value={username}/>
-					<label>이메일:</label>
-					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={onChange} value={email} />
-					<label>비밀번호:</label>
-					<input name="password" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChange} value={password} />
-					<button className="submit_class" onClick={Sign_up_button}>회원가입</button>
+
+					<label>닉네임</label>
+					{erroruserNickname === false && nameUpdated && nameLength && 
+						<span className='succes_check'>
+							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+						</span>
+					}
+					<input name="username" className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)} type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={(e) => onChangeuserName(e)} value={username} maxLength="10" />
+					{nameLength===false && 
+					<>
+						<div className='blank_txt'>필수 입력 요소입니다</div>
+					</>
+					 }
+					{erroruserNickname &&
+						<div className='errorMsg'>
+							닉네임에 ^,@,#,% 등의 특수문자를 포함할 수 없습니다.
+						</div>
+					}
+					
+					
+					<label>이메일</label>
+					{errorUserEmail === false && emailUpdated  && emailLength &&
+						<span className='succes_check'>
+							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+						</span>
+					}
+					<input name='email' className="field_class" onBlur={(e) => BluerEmail(e)} type="text" placeholder="이메일주소를 입력하세요" onChange={onChangeEmail} value={email} />
+					{errorUserEmail &&
+						<div className='errorMsg'>
+							올바른 이메일 형식이 아닙니다.
+						</div>
+					}
+
+					<label>비밀번호</label>
+					{errorUserPassword === false && passwordUpdated && passwordLength &&
+						<span className='succes_check'>
+							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+						</span>
+					}
+					<input name="password" id="pass" onBlur={(e) => BluerPassword(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword} value={password} />
+					{errorUserPassword &&
+						<div className='errorMsg'>
+							10글자 이상의 영어 , 숫자를 포함한 비밀번호를 입력해주세요
+						</div>
+					}
+
+					<button className="submit_class" onClick={Sign_up_button} disabled={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>
 				<div className="info_div">
 					<p>이미회원이라면 <a href="/login">로그인</a></p>

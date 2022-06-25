@@ -18,7 +18,8 @@
 }
 .form_div {
   text-align: left;
-  text-transform: uppercase;
+  text-transform: none !important;
+  
 }
 .form_div > label {
   letter-spacing: 3px;
@@ -51,7 +52,6 @@
   color: white;
   padding: 8px 35px;
   font-family: 'system-ui';
-  text-transform: uppercase;
   letter-spacing: .8px;
   display: block;
   margin: auto;
@@ -128,7 +128,7 @@ footer {
 .social_google span{
   position: relative;
   top: 8px;
-  left: 128px;
+  left: 125px;
   color: rgb(108, 108, 108);
   font-weight: 700;
 }

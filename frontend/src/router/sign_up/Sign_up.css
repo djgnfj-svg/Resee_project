@@ -44,6 +44,29 @@
   font-size: 0.9rem;
   letter-spacing: 2px;
 }
+
+.field_errorClass{
+  width: 100%;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px 0px;
+  text-indent: 6px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: 'system-ui';
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  background-color: rgb(251, 210, 210);
+  
+}
+.field_errorClass::placeholder{
+  font-size: 15px;
+  color: #313131;
+}
+
+
+
 .submit_class {
   border-style: none;
   border-radius: 5px;
@@ -58,6 +81,12 @@
   box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
   cursor: pointer;
 }
+
+.submit_class:disabled{
+  background-color: gray !important;
+}
+
+
 footer {
   height: 10vh;
   background-color: black;
@@ -76,4 +105,30 @@ footer > p > a {
   text-decoration: none;
   color: white;
   font-weight: bold;
+}
+
+.errorMsg{
+  position: relative;
+  font-size:13.5px;
+  color:red;
+  margin-top:-15px;
+  margin-bottom:10px;
+  padding-left:0.3rem;
+}
+
+.blank_txt{
+  position: relative;
+  font-size:13.5px;
+  margin-top:-15px;
+  margin-bottom:10px;
+  padding-left:0.3rem;
+  color: red;
+}
+.succes_check{
+
+}
+.succes_check img{
+  object-fit: cover;
+  width: 15px;
+  height: 15px;
 }
