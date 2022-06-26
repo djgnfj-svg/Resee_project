@@ -12,7 +12,14 @@ function WritePage() {
     const navigate = useNavigate("");
 
     const handleChangeInput = (e) => {setTitle(e.target.value)}
-    const handleChangeInput2 = (e) => {setDescription(e.target.value)}
+    const handleChangeInput2 = (e) => {
+        setDescription(e.target.value)
+    }
+
+    const handleKeyup = (e) =>{
+        setTitle(e.target.value.split("##",1))
+        
+    }
 
     const handleSubmitPost = () => {
         axios.post("http://127.0.0.1:8000/api/Books/"+index + 1+"/post/",{
@@ -32,11 +39,9 @@ function WritePage() {
 
   return (
     <div className='Write_page'>
-        <div className='Write_title'>
-            <input value={title} onChange={handleChangeInput} />
-        </div>
         <div className='Write_content'>
-            <textarea value={description} onChange={handleChangeInput2} />
+            <input placeholder='제목을 입력해주세요' />
+            <textarea value={description} onChange={handleChangeInput2} placeholder="내용을 입력해주세요" />
         </div>
         <div className='Write_addBtn'>
             <button onClick={handleSubmitPost}>추가하기</button>

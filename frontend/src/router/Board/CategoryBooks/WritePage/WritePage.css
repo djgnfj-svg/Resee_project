@@ -1,35 +1,46 @@
 .Write_page{
     position: relative;
-    top: 50px;
 }
 
 .Write_title{
     margin-bottom: 50px;
 }
 
-.Write_title input{
-    width:500px;
-    height: 50px;
-    background-color: #282830;
-    outline: none;
+.Write_content input{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(25,25,25);
+    resize: none;
     border: none;
-    color: #adb5ca;
-    padding-left: 3rem;
     padding: 1rem 1rem;
+    color: #bababa;
+    outline: none;
+    text-align: left;
+    margin-top: 8rem;
+    margin-right: 30rem;
+    margin-left: 30rem;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .Write_content textarea{
-    width: 1500px;
-    height: 650px;
-    background-color: #282830;
+    width: 100%;
+    height: 800px;
+    background-color: rgb(25,25,25);
     resize: none;
     border: none;
-    padding-left: 3rem;
     padding: 1rem 1rem;
-    color: #adb5ca;
+    color: #bababa;
     outline: none;
-
+    text-align: left;
+    margin-top: 4rem;
+    margin-right: 30rem;
+    margin-left: 30rem;
 } 
+
+
+
+
 .Write_addBtn{
     text-align: right;
     margin-right: 210px;
