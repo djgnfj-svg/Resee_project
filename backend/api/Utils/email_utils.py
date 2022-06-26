@@ -23,20 +23,16 @@ def create_email_key(user_id):
 
 
 def send_verification_mail(request, user, receiver):
-	print("test0")
 	key = create_email_key(user.id)
 	link = 'http://' + request.get_host() + '/api/Verification/' + '?key=' + key
 	
-	print("test1")
 	expired_at = timezone.now() + timedelta(days=3)
 	UserVerification.objects.create(user=user, key=key, expired_at=expired_at)
 	
-	print("test2")
 	email_context = {'link' : link}
 	msg_plain = render_to_string('email/email.txt', email_context)
 	msg_html = render_to_string('email/email.html', email_context)
 	
-	print("test3")
 	send_mail(
 		'이메일 인증을 완료해주세요', msg_plain,
 		'djgnfj3795@gmail.com',
