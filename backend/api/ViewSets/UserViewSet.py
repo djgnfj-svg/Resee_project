@@ -44,8 +44,8 @@ class UserSignUpViewSet(viewsets.ModelViewSet):
 		serializer = UserCreateSerializer(data=request.data) 
 		if serializer.is_valid(raise_exception=True):
 			user = serializer.save() # DB 저장
-			send_verification_mail(request, user, user.email)
-			login(request, user)
+			# send_verification_mail(request, user, user.email)
+			# login(request, user)
 			token = Token.objects.create(user=user)
 			return Response({'Token' : token.key}, status=201)
 		return Response({"msg" : "실패"}, status=status.HTTP_400_BAD_REQUEST)

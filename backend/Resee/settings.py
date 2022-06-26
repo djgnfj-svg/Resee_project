@@ -9,14 +9,16 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import os, json
-from pathlib import Path
+import os, json, sys, datetime
 
+from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_FRONTEND_URL = "http://127.0.0.1:8000"
+SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
+STATE = 'random_string'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -28,6 +30,11 @@ secret_file = os.path.join(BASE_DIR, 'secrets.json')  # secrets.json 파일 위�
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
+secrets = json.loads(open(SECRET_BASE_FILE).read())
+
+for key, value in secrets.items():
+    setattr(sys.modules[__name__], key, value)
+
 def get_secret(setting):
     """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
     try:
@@ -35,9 +42,6 @@ def get_secret(setting):
     except KeyError:
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
@@ -47,9 +51,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 AUTH_USER_MODEL = 'accounts.User'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -58,18 +62,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'books',
     'accounts',
 
 	'rest_framework',
     'rest_framework.authtoken',
-	'corsheaders',
+
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    'corsheaders',
+    #all auth
+	"allauth",
+	"allauth.account",
+	"allauth.socialaccount",
+	"allauth.socialaccount.providers.auth0",
+	"allauth.socialaccount.providers.google",
 ]
-REST_FRAMEWORK = {    
-    'DEFAULT_AUTHENTICATION_CLASSES': 
-        ['rest_framework.authentication.TokenAuthentication',],
-}
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -150,6 +164,37 @@ USE_I18N = True
 
 USE_TZ = True
 
+## DRF 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
+        # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
+        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
+    ),
+	
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication', 
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+# 추가적인 JWT_AUTH 설젇
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+REST_USE_JWT = True
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -167,9 +212,13 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 
+# AWS SES
+# EMAIL_BACKEND = 'django_ses.SESBackend'
+# AWS_ACCESS_KEY_ID = 'AKIAW6CR4NEW4T3FJI6U'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_SES_REGION_NAME = 'ap-northeast-2'
+# AWS_SES_REGION_ENDPOINT = 'email.ap-northeast-2.amazonaws.com'
 
-EMAIL_BACKEND = 'django_ses.SESBackend'
-AWS_ACCESS_KEY_ID = 'AKIAW6CR4NEW4T3FJI6U'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_SES_REGION_NAME = 'ap-northeast-2'
-AWS_SES_REGION_ENDPOINT = 'email.ap-northeast-2.amazonaws.com'
+
+# All auth
+SITE_ID = 1

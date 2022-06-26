@@ -2,24 +2,22 @@ from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 class UserManager(BaseUserManager):
-	def create_user(self, email, date_of_birth, password=None):
+	def create_user(self, email, password=None):
 		if not email:
 			raise ValueError('Users must have an email address')
 
 		user = self.model(
 			email=self.normalize_email(email),
-			date_of_birth=date_of_birth,
 		)
 
 		user.set_password(password)
 		user.save(using=self._db)
 		return user
 
-	def create_superuser(self, email, date_of_birth, password):
+	def create_superuser(self, email, password):
 		user = self.create_user(
 			email,
 			password=password,
-			date_of_birth=date_of_birth,
 		)
 		user.is_admin = True
 		user.save(using=self._db)
@@ -27,7 +25,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-	username = models.CharField(unique=True, max_length=20, null=False)
+	username = models.CharField(max_length=20, null=False)
 	email = models.EmailField(verbose_name='email', max_length=255,	unique=True,)
 	date_of_birth = models.DateField(auto_now_add=True)
 	verified = models.BooleanField(default=False, null=False)
@@ -36,8 +34,7 @@ class User(AbstractBaseUser):
 	
 	objects = UserManager()
 
-	USERNAME_FIELD = 'username'
-	REQUIRED_FIELDS = ['date_of_birth']
+	USERNAME_FIELD = 'email'
 
 	def __str__(self):
 		return self.email
