@@ -179,6 +179,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
     ),
 }
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'api.Seriailzers.UserSerialzer.CustomRegisterSerializer',
+}
 # 추가적인 JWT_AUTH 설젇
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

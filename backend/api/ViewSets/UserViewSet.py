@@ -23,7 +23,7 @@ class UserLoginViewSet(viewsets.ModelViewSet):
 		request.session['user'] = user.id
 		print(request.session.get("user"))
 		return Response({'Token' : token.key}, status=201)
-# 버튼 잘만드는법
+
 
 class UserLogoutViewSet(viewsets.ViewSet):
 	def list(self, request):

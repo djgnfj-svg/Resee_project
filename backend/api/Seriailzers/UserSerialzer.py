@@ -1,26 +1,13 @@
-from rest_framework import serializers
+from dj_rest_auth.registration.serializers import RegisterSerializer
+from api.Utils.email_utils import send_verification_mail
 
-from accounts.models import User
-
-class UserLoginSerializer(serializers.Serializer):
-	email = serializers.EmailField(required=True)
-	password = serializers.CharField(max_length=30)
-
-class UserSignUpSerializer(serializers.Serializer):
-	email = serializers.EmailField(required=True)
-	username = serializers.CharField(max_length=30)
-	password = serializers.CharField(max_length=30)
-
-class UserCreateSerializer(serializers.Serializer):
-	email = serializers.EmailField(required=True)
-	username = serializers.CharField(max_length=30)
-	password = serializers.CharField(max_length=30)
-
-	def create(self, validated_data):
-		instance = User.objects.create(
-			email = validated_data['email'],
-			username = validated_data['username'],
-		)
-		instance.set_password(validated_data['password'])
-		instance.save()
-		return instance
+class CustomRegisterSerializer(RegisterSerializer):
+    def get_cleaned_data(self, request):
+        super(CustomRegisterSerializer, self).get_cleaned_data()
+		# send_verification_mail(request, user, user.email)
+        return {
+            'username': self.validated_data.get('username', ''),
+            'password1': self.validated_data.get('password1', ''),
+            'password2': self.validated_data.get('password2', ''),
+            'email': self.validated_data.get('email', ''),
+        }
