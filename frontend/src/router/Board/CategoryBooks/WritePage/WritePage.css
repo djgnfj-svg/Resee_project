@@ -7,7 +7,7 @@
 }
 
 .Write_content input{
-    width: 100%;
+    width: 1000px;
     height: 30px;
     background-color: rgb(25,25,25);
     resize: none;
@@ -21,10 +21,17 @@
     margin-left: 30rem;
     font-size: 30px;
     font-weight: bold;
+    display: inline-block;
+    margin: 0 auto;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 150px;
+    max-width: 1000px;
+    min-width: 1000px;
 }
 
 .Write_content textarea{
-    width: 100%;
+    width: 1000px;
     height: 800px;
     background-color: rgb(25,25,25);
     resize: none;
@@ -33,9 +40,13 @@
     color: #bababa;
     outline: none;
     text-align: left;
-    margin-top: 4rem;
-    margin-right: 30rem;
-    margin-left: 30rem;
+    padding-top: 5rem;
+    display: inline-block;
+    margin: 0 auto;
+    padding-left: 100px;
+    padding-right: 100px;
+    max-width: 1000px;
+    min-width: 1000px;
 } 
 
 

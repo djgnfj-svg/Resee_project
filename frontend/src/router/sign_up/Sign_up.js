@@ -21,7 +21,6 @@ function Sign_up() {
 	const [passwordLength , setPasswordLength] = useState(false)
 
 	const [Alltrue ,setAllTrue] = useState(false)
-	
 
 	const [input, setInput] = useState({
 		email:"",
@@ -133,7 +132,6 @@ function Sign_up() {
 		<main className="sign_up_main">
 			<form className="form_class">
 				<div className="form_div">
-
 					<label>닉네임</label>
 					{erroruserNickname === false && nameUpdated && nameLength && 
 						<span className='succes_check'>
@@ -151,7 +149,6 @@ function Sign_up() {
 							닉네임에 ^,@,#,% 등의 특수문자를 포함할 수 없습니다.
 						</div>
 					}
-					
 					
 					<label>이메일</label>
 					{errorUserEmail === false && emailUpdated  && emailLength &&
@@ -178,7 +175,6 @@ function Sign_up() {
 							10글자 이상의 영어 , 숫자를 포함한 비밀번호를 입력해주세요
 						</div>
 					}
-
 					<button className="submit_class" onClick={Sign_up_button} disabled={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>
 				<div className="info_div">

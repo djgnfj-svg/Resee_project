@@ -9,9 +9,9 @@ import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
 import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
 import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksReviewPage';
+import isLogin from './components/isLogin';
 
 function App() {
-	let { index } = useParams();
 
 	return (
 		<div className="App">
@@ -20,10 +20,11 @@ function App() {
 					<Route path="/" element={<Home />}/>
 					<Route path="/login" element={<Login />}/>
 					<Route path="/sign_up" element={<Sign_up />}/>
-					<Route path="/board" element={<Board />}/>
-					<Route path="/board/CategoryBooks/:index" element={<CategoryBooks />}/>
-					<Route path="/board/CategoryBooks/:index/test" element={<WritePage />}/>
-					<Route path="/board/CategoryBooks/:index/Review" element={<BooksReviewPage />}/>
+					<Route path="/board" element={<Board />}>
+						<Route path="/board/CategoryBooks/:index" element={<CategoryBooks />} />
+						<Route path="/board/CategoryBooks/:index/test" element={<WritePage />}/>
+						<Route path="/board/CategoryBooks/:index/Review" element={<BooksReviewPage />}/>
+					</Route>
 					<Route path="*" element={<div>testa</div>}/>
 				</Routes>
 		</div>

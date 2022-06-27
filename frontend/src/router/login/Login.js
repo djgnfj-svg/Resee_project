@@ -43,10 +43,10 @@ function Login() {
 		e.preventDefault();
 		axios.post("http://127.0.0.1:8000/api/UserLogin/", input)
 		.then(res =>{
-			if (res.data.Token){
+			if (res.data.access_token){
 				alert("로그인 성공")
 				localStorage.clear()
-				localStorage.setItem('token', res.data.Token)
+				localStorage.setItem('token', res.data.access_token)
 				navigate("/");
 			}
 			}
