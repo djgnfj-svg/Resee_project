@@ -69,9 +69,9 @@ INSTALLED_APPS = [
 
 	'rest_framework',
     'rest_framework.authtoken',
-
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
@@ -167,9 +167,9 @@ USE_TZ = True
 ## DRF 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
+        'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
         # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
-        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
+        # 'rest_framework.permissions.AllowAny', # 누구나 접근 가능
     ),
 	
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -180,10 +180,8 @@ REST_FRAMEWORK = {
     ),
 }
 # 추가적인 JWT_AUTH 설젇
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
@@ -211,14 +209,6 @@ CORS_ORIGIN_WHITELIST = [
 ]
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
-
-# AWS SES
-# EMAIL_BACKEND = 'django_ses.SESBackend'
-# AWS_ACCESS_KEY_ID = 'AKIAW6CR4NEW4T3FJI6U'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_SES_REGION_NAME = 'ap-northeast-2'
-# AWS_SES_REGION_ENDPOINT = 'email.ap-northeast-2.amazonaws.com'
-
 
 # All auth
 SITE_ID = 1

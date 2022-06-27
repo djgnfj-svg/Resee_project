@@ -16,7 +16,7 @@ class ReviewViewSet(viewsets.ViewSet):
 		return_data = []
 		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).first()
 		base_time = first_data.created_at
-		for review in review_list[2:]:
+		for review in review_list:
 			past_days = (review.created_at - base_time).days
 			if past_days == 0 and review.review_count < 1:
 				return_data.append(review)
@@ -41,10 +41,14 @@ class ReviewViewSet(viewsets.ViewSet):
 
 		return Response(review_data, status=status.HTTP_200_OK)
 	def create(self, request, book_id):
-		temp = request.data['Ids']
+		ids = str(request.data['ids'])
 		if request.user.is_anonymous:
 			userid = int(request.session.get("user"))
 		else:
 			userid = getUserId(request.user)
+		ids = ids.split(" ")
+		for i in ids:
+			temp = ReviewPost.objects.get(id = i, user_id = userid)
+			temp.review_count_up()
 
-		
+		return Response({"msg":"test"}, status=status.HTTP_200_OK)
