@@ -11,24 +11,25 @@ function Sign_up() {
 	const [erroruserNickname  , setErroruserNickname] = useState(false);
 	const [errorUserEmail  , setErrorUserEmail] = useState(false);
 	const [errorUserPassword  , setErrorUserPassword] = useState(false);
+	const [errorUserPassword2  , setErrorUserPassword2] = useState(false);
 
 	const [nameUpdated , setNameUpdated] = useState(false)
 	const [emailUpdated , setEmailUpdated] = useState(false)
 	const [passwordUpdated , setPasswordUpdated] = useState(false)
+	const [password2Updated2 , setPassword2Updated] = useState(false)
 
 	const [nameLength , setNameLength] = useState(true)
 	const [emailLength , setEmailLength] = useState(false)
 	const [passwordLength , setPasswordLength] = useState(false)
+	const [password2Length , setPassword2Length] = useState(false)
 
 	const [Alltrue ,setAllTrue] = useState(false)
 
-	const [input, setInput] = useState({
-		email:"",
-		username:"",
-		password:"",
-	});
+	const [email , setEmail] = useState("");
+	const [username , setUserName] = useState("");
+	const [password1 , setPassword] = useState("");
+	const [password2 , setPassword2] = useState("");
 
-	const {username, email, password} = input;	
 
 
 	const BluerUserName = (e) => {
@@ -58,6 +59,15 @@ function Sign_up() {
 		setPasswordUpdated(true);
 	}
 
+	const BluerPassword2 = (e) => {
+		if(e.target.value.length !== password1){
+			setPassword2Length(false)
+		}else{
+			setPassword2Length(true);
+		}
+		setPassword2Updated(true);
+	}
+
 	const onChangeuserName = (e) =>  {
 
 		const usernameRegex = new RegExp("^[a-zA-Z0-9가-힣ㄱ-ㅎ]{1,10}$");
@@ -70,9 +80,7 @@ function Sign_up() {
 			setErroruserNickname(true)
 		}
 
-		setInput({
-			username : e.target.value
-		});
+		setUserName(e.target.name);
 	};
 
 	const onChangeEmail = (e) =>  {
@@ -84,10 +92,7 @@ function Sign_up() {
 		}else{
 			setErrorUserEmail(true)
 		}
-
-		setInput({
-			email : e.target.value
-		});
+		setEmail(e.target.value);
 	};
 
 	const onChangepassword = (e) =>  {
@@ -100,20 +105,34 @@ function Sign_up() {
 		}else{
 			setErrorUserPassword(true)
 		}
+		setPassword(e.target.value);
+	};
 
-		setInput({
-			password : e.target.value
-		});
+	const onChangepassword2 = (e) =>  {
+
+		if(e.target.value === password1 ){
+			setErrorUserPassword2(false)
+			setPassword2Updated(false)
+		}else{
+			setErrorUserPassword2(true)
+		}
+		setPassword2(e.target.value);
 	};
 
 	const Sign_up_button = (e)=>{
+		console.log(email,username,password1 , password2)
 		e.preventDefault();
-		axios.post('http://127.0.0.1:8000/api/UserSignUp/', input)
+		axios.post('http://127.0.0.1:8000/api/accounts/',{
+			email : email,
+			username : username,
+			password1 : password1,
+			password2 : password2
+		})
 		.then(res =>{
-			if (res.data.Token){
-				alert("temp")
+			if (res.data.access_token){
+				alert("회원가입 성공!")
 				localStorage.clear()
-				localStorage.setItem('token', res.data.Token)
+				localStorage.setItem('token', res.data.access_token)
 				navigate("/");
 			}else{
 				localStorage.clear()
@@ -131,6 +150,7 @@ function Sign_up() {
 	return (
 		<main className="sign_up_main">
 			<form className="form_class">
+				<div className='sign_title'>가입하기</div>
 				<div className="form_div">
 					<label>닉네임</label>
 					{erroruserNickname === false && nameUpdated && nameLength && 
@@ -169,13 +189,26 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input name="password" id="pass" onBlur={(e) => BluerPassword(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword} value={password} />
+					<input name="password" id="pass" onBlur={(e) => BluerPassword(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword} value={password1} />
 					{errorUserPassword &&
 						<div className='errorMsg'>
 							10글자 이상의 영어 , 숫자를 포함한 비밀번호를 입력해주세요
 						</div>
 					}
-					<button className="submit_class" onClick={Sign_up_button} disabled={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword === false ? false : true} >회원가입</button>
+					<label>비밀번호 확인</label>
+					{errorUserPassword2 === false && password2Updated2 &&
+						<span className='succes_check'>
+							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+						</span>
+					}
+					<input name="password2" id="pass" onBlur={(e) => BluerPassword2(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword2} value={password2} />
+					{errorUserPassword2 &&
+						<div className='errorMsg'>
+							비밀번호가 다릅니다.
+						</div>
+					}
+					<div className="sign_welcome" onClick={Sign_up_button} hidden={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
+					<button className="submit_class" onClick={Sign_up_button} disabled={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>
 				<div className="info_div">
 					<p>이미회원이라면 <a href="/login">로그인</a></p>

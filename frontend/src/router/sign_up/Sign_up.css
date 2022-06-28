@@ -8,6 +8,13 @@
   background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mountains-1412683.svg/1280px-Mountains-1412683.svg.png) no-repeat center center;
   background-size: cover;
 }
+.sign_title{
+  text-align: left;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 30px;
+  color: #F95700;
+}
 .form_class {
   width: 500px;
   padding: 40px;
@@ -32,6 +39,7 @@
   letter-spacing: 1px;
 }
 .field_class {
+  position: relative;
   width: 100%;
   border-radius: 6px;
   border-style: solid;
@@ -131,4 +139,9 @@ footer > p > a {
   object-fit: cover;
   width: 15px;
   height: 15px;
+}
+.sign_welcome{
+    text-align: center;
+    color: #F95700;
+    font-size: 18px;
 }

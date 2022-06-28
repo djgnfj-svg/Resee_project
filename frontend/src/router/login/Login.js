@@ -41,7 +41,7 @@ function Login() {
 	
 	const Login_button = (e)=>{
 		e.preventDefault();
-		axios.post("http://127.0.0.1:8000/api/UserLogin/", input)
+		axios.post("http://127.0.0.1:8000/api/accounts/login/", input)
 		.then(res =>{
 			if (res.data.access_token){
 				alert("로그인 성공")
