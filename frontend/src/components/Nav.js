@@ -11,16 +11,16 @@ function MyNavbar() {
 	let [auth, setAuth] = useState(false)
 
 	useEffect(() => {
-		if (localStorage.getItem('token') !== null){
+		if (localStorage.getItem('access_token') !== null){
 			setAuth(true);
 		}
-	}, [localStorage.getItem('token')])
+	}, [localStorage.getItem('access_token')])
 
 	const handleLogout = ()=>{
 		
 		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
 				headers:{
-					Authorization : `Token ${localStorage.getItem('token')}`
+					Authorization : `Bearer ${localStorage.getItem('token')}`
 			}
 		}).then(data=>{
 			localStorage.clear();
