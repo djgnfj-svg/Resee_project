@@ -45,7 +45,6 @@ function Login() {
 		.then(res =>{
 			if (res.data.access_token){
 				alert("로그인 성공")
-				localStorage.clear()
 				localStorage.setItem('access_token', res.data.access_token)
 				localStorage.setItem('refresh_token', res.data.refresh_token)
 				navigate("/");

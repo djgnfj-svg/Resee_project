@@ -79,7 +79,7 @@ function Sign_up() {
 		}else{
 			setErroruserNickname(true)
 		}
-		setUserName(e.target.name);
+		setUserName(e.target.value);
 	};
 
 	const onChangeEmail = (e) =>  {
@@ -156,7 +156,7 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)} type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={(e) => onChangeuserName(e)} value={username} maxLength="10" />
+					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)} type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={onChangeuserName} value={username} maxLength="10" />
 					{nameLength===false && 
 					<>
 						<div className='blank_txt'>필수 입력 요소입니다</div>

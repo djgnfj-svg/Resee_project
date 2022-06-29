@@ -38,7 +38,12 @@ function Board() {
                 }
             })
             .then(res => {
-                setBooksData(res.data);
+                console.log(res.data)
+                if(res.data.msg === "books가 없습니다."){
+        
+                }else{
+                    setBooksData(res.data);
+                }
             })
     }
 
@@ -75,7 +80,6 @@ function Board() {
                 </div>
                 <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === 0 || booksData.length === undefined && "hide" || 'write_btn'}>
                     {console.log(booksData.length)}
-                    <button onClick={modalClose}>추가하기</button>
                     {showModal && <Add_modal show={modalClose} />}
                 </div>
             </div>

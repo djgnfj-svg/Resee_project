@@ -39,14 +39,14 @@ function BooksReviewPage() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/review/`, {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            setPostList(res.data)
+            setPostList(res.data);
             setPostList2(true);
-            setPostIds(res.data.ids)
+            setPostIds(res.data.ids);
         }).catch(error => {
             console.log(error);
         })
@@ -78,7 +78,7 @@ function BooksReviewPage() {
                         <button disabled={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
                 </div>
-                <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>완료</button>
+                <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>나가기</button>
             </div>
         </div>
     )
