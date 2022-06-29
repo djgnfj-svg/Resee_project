@@ -8,10 +8,7 @@ from books.models import ReviewPost
 
 class ReviewViewSet(viewsets.ViewSet):
 	def list(self, request, book_id):
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		review_list = ReviewPost.objects.filter(Book_id=book_id)
 		return_data = []
 		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).first()
@@ -42,10 +39,7 @@ class ReviewViewSet(viewsets.ViewSet):
 		return Response(review_data, status=status.HTTP_200_OK)
 	def create(self, request, book_id):
 		ids = str(request.data['ids'])
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		ids = ids.split(" ")
 		for i in ids:
 			temp = ReviewPost.objects.get(id = i, user_id = userid)
