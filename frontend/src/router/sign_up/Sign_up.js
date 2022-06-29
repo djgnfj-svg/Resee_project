@@ -79,7 +79,6 @@ function Sign_up() {
 		}else{
 			setErroruserNickname(true)
 		}
-
 		setUserName(e.target.name);
 	};
 

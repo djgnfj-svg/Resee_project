@@ -5,6 +5,8 @@ import './BooksReviewPage.css'
 import {useNavigate, useParams} from 'react-router-dom'
 
 function BooksReviewPage() {
+
+    const {id} = useParams("");
     
     const [count,setCount] = useState(0);
     const [postList , setPostList] = useState([]);
@@ -23,7 +25,7 @@ function BooksReviewPage() {
     
 
     const getBooksReviewData = () => {
-        axios.get("http://127.0.0.1:8000/api/Books/1/post/",{
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/review/`,{
             headers:{
                 Authorization : `Bearer ${localStorage.getItem('access_token')}`
             }   
