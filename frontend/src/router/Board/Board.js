@@ -45,19 +45,19 @@ function Board() {
     return (
             <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
                 <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
-                    {booksData.length > 0 ? booksData.map((item, index) => (
+                    {booksData.length !== 0 ? booksData.map((item, index) => (
                         <>
                             <div className="board">
                                 <div className="books_img">
-                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate("/board/CategoryBooks/")} />
-                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate("/board/CategoryBooks/")} />
+                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate(`/board/CategoryBooks/${item.id}`)} />
+                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate(`/board/CategoryBooks/${item.id}`)} />
                                 </div>
                                 <div className="books">
-                                    <div className='books_title' onClick={() => navigate(`/board/CategoryBooks/+${index}`)}>{item.title}</div>
+                                    <div className='books_title' onClick={() => navigate(`/board/CategoryBooks/${item.id}`)}> {item.title}</div>
                                     <div className='books_content'>{item.rough_description}</div>
                                     <div className='books_btn'>
-                                        <button className='write_books' onClick={() => navigate("/board/CategoryBooks/Write")}>작성</button>
-                                        <button className='ReSee_books' onClick={() => navigate("/board/CategoryBooks/Review")}>복습</button>
+                                        <button className='write_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Write`)}>작성</button>
+                                        <button className='ReSee_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Review`)}>복습</button>
                                     </div>
                                 </div>
                             </div>

@@ -7,7 +7,7 @@ function WritePage() {
 
     const [title,setTitle] = useState("")
     const [description,setDescription] = useState("")
-    const {index} = useParams();
+    const {id} = useParams();
 
     const navigate = useNavigate("");
 
@@ -22,7 +22,7 @@ function WritePage() {
     }
 
     const handleSubmitPost = () => {
-        axios.post("http://127.0.0.1:8000/api/Books/1/post/",{
+        axios.post(`http://127.0.0.1:8000/api/Books/${id}/post/`,{
             title : title,
             description : description,
         },
@@ -32,7 +32,7 @@ function WritePage() {
             }   
         })
         .then( res =>{
-            navigate("/board/CategoryBooks");
+            navigate(`/board/CategoryBooks/${id}`);
         }
         )
     }

@@ -60,7 +60,7 @@ function BooksReviewPage() {
                         <button disabled={count + 1 === postList.length  ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
             </div>
-                    <button className='finish_btn' hidden={count + 1 === postList.length  ? false : true} onClick={() => navigate("/board/CategoryBooks/")}>완료</button>
+                    <button className='finish_btn' hidden={count + 1 === postList.length  ? false : true} onClick={() => navigate("/board")}>완료</button>
             </div>
         </div>
       )

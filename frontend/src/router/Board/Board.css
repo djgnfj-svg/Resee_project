@@ -3,7 +3,7 @@
     display: inline-block;
     margin: 0px auto;
     position: relative;
-    top: 154px;
+    top: 88px;
 }
 
 
@@ -53,8 +53,13 @@
    
 
 }
+
+.books_img img{
+    width: 200px !important;
+    height: 200px !important;
+}
+
 .books_img .test_a{
-   transform: scale(1.5);
 }
 
 .books_img:hover .test_a {
@@ -62,13 +67,15 @@
     transform: rotate(-30deg) scale(1.5);
     display: none;
 }
+
 .books_img .test_b{
     width: 196.5px; 
     opacity: 0;
     position: absolute;
-    top: -14px;
-    left: -33px;
+    top: 0px;
+    left: 0px;
 }
+
 .books_img:hover .test_b{
     opacity: 1;
     transition: 0.7s;
@@ -82,6 +89,7 @@
     font-weight: bold;
     font-size: 30px;
     color: rgb(178,178,178);
+    margin-top: 20px;
 }
 .books .books_title:hover{
     cursor: pointer;
