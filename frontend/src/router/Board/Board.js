@@ -24,7 +24,7 @@ function Board() {
     }, [showModal === false])
 
     const notLogin = () =>{
-        if(isLogin){
+        if(!isLogin()){
             navigate("/login");
             alert("로그인 후 이용해주세요 ! ");
         }
@@ -34,7 +34,7 @@ function Board() {
         axios.get("http://127.0.0.1:8000/api/Books/",
             {
                 headers: {
-                    Authorization: `Token ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
             .then(res => {
@@ -49,15 +49,15 @@ function Board() {
                         <>
                             <div className="board">
                                 <div className="books_img">
-                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate("/board/CategoryBooks/" + index)} />
-                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate("/board/CategoryBooks/" + index)} />
+                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate("/board/CategoryBooks/")} />
+                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate("/board/CategoryBooks/")} />
                                 </div>
                                 <div className="books">
                                     <div className='books_title' onClick={() => navigate(`/board/CategoryBooks/+${index}`)}>{item.title}</div>
                                     <div className='books_content'>{item.rough_description}</div>
                                     <div className='books_btn'>
-                                        <button className='write_books' onClick={() => navigate("/board/CategoryBooks/" + index + "/test")}>작성</button>
-                                        <button className='ReSee_books' onClick={() => navigate("/board/CategoryBooks/" + index + "/Review")}>복습</button>
+                                        <button className='write_books' onClick={() => navigate("/board/CategoryBooks/Write")}>작성</button>
+                                        <button className='ReSee_books' onClick={() => navigate("/board/CategoryBooks/Review")}>복습</button>
                                     </div>
                                 </div>
                             </div>

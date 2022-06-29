@@ -31,9 +31,14 @@ function Home() {
 
     const getAccessToken = () => {
         if(localStorage.getItem("refresh_token") !== null){
-             axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",localStorage.getItem("refresh_toekn"))
+             axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",{
+                'refresh' : localStorage.getItem("refresh_token")
+            })
             .then(res => {
                 localStorage.setItem('access_token' , res.data.access)
+            })
+            .catch(error => {
+                console.log(error)
             })
         }else{
             localStorage.clear();

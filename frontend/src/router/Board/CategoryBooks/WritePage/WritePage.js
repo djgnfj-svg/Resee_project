@@ -22,29 +22,31 @@ function WritePage() {
     }
 
     const handleSubmitPost = () => {
-        axios.post("http://127.0.0.1:8000/api/Books/"+index + 1+"/post/",{
+        axios.post("http://127.0.0.1:8000/api/Books/1/post/",{
             title : title,
             description : description,
         },
         {
             headers:{
-                Authorization : `Token ${localStorage.getItem('token')}`
+                Authorization : `Bearer ${localStorage.getItem('access_token')}`
             }   
         })
         .then( res =>{
-            navigate("/board/CategoryBooks/0");
+            navigate("/board/CategoryBooks");
         }
         )
     }
 
+
+    // 문자열.replace(정규식, 대체문자)
   return (
     <div className='Write_page'>
         <div className='Write_content'>
-            <input placeholder='제목을 입력해주세요' />
+            <input placeholder='제목을 입력해주세요' value={title} onChange={(e) => setTitle(e.target.value)} />
             <textarea value={description} onChange={handleChangeInput2} placeholder="내용을 입력해주세요" />
         </div>
         <div className='Write_addBtn'>
-            <button onClick={handleSubmitPost}>추가하기</button>
+            <button onClick={() => handleSubmitPost()}>추가하기</button>
         </div>
     </div>
   )

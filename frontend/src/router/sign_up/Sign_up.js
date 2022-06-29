@@ -97,7 +97,7 @@ function Sign_up() {
 
 	const onChangepassword = (e) =>  {
 
-		const passwordRegex = new RegExp("^[A-Za-z0-9]{8,25}$");
+		const passwordRegex = new RegExp("[A-Za-z0-9\d@$!%*#?&]{8,}$");
 
 		if((!e.target.value || (passwordRegex.test(e.target.value)))){
 			setErrorUserPassword(false)
@@ -131,8 +131,7 @@ function Sign_up() {
 		.then(res =>{
 			if (res.data.access_token){
 				alert("회원가입 성공!")
-				localStorage.clear()
-				localStorage.setItem('token', res.data.access_token)
+				localStorage.setItem('access_token', res.data.access_token)
 				navigate("/");
 			}else{
 				localStorage.clear()
@@ -207,8 +206,8 @@ function Sign_up() {
 							비밀번호가 다릅니다.
 						</div>
 					}
-					<div className="sign_welcome" onClick={Sign_up_button} hidden={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
-					<button className="submit_class" onClick={Sign_up_button} disabled={ nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >회원가입</button>
+					<div className="sign_welcome" onClick={Sign_up_button} hidden={ password2Updated2   && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
+					<button className="submit_class" onClick={Sign_up_button} disabled={ password2Updated2  && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>
 				<div className="info_div">
 					<p>이미회원이라면 <a href="/login">로그인</a></p>

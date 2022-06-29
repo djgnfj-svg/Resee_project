@@ -21,10 +21,10 @@ function App() {
 					<Route path="/login" element={<Login />}/>
 					<Route path="/sign_up" element={<Sign_up />}/>
 					<Route path="/board" element={<Board />}>
-						<Route path="/board/CategoryBooks/:index" element={<CategoryBooks />} />
-						<Route path="/board/CategoryBooks/:index/test" element={<WritePage />}/>
-						<Route path="/board/CategoryBooks/:index/Review" element={<BooksReviewPage />}/>
 					</Route>
+						<Route path="/board/CategoryBooks/" element={<CategoryBooks />} />
+						<Route path="/board/CategoryBooks/Review" element={<BooksReviewPage />}/>
+						<Route path="/board/CategoryBooks/Write" element={<WritePage />}/>
 					<Route path="*" element={<div>testa</div>}/>
 				</Routes>
 		</div>

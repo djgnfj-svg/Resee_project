@@ -78,6 +78,11 @@
 button:disabled{
     background-color: gray;
 }
+.finish_btn{
+    position: relative;
+    left: 711px;
+    top: -38px;
+}
 input , textarea { 
     cursor: auto;
 }

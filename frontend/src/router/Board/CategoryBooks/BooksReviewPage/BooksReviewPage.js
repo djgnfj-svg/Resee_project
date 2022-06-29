@@ -25,7 +25,7 @@ function BooksReviewPage() {
     const getBooksReviewData = () => {
         axios.get("http://127.0.0.1:8000/api/Books/1/post/",{
             headers:{
-                Authorization : `Token ${localStorage.getItem('token')}`
+                Authorization : `Bearer ${localStorage.getItem('access_token')}`
             }   
         }).then(res => {
             setPostList(res.data)
@@ -60,6 +60,7 @@ function BooksReviewPage() {
                         <button disabled={count + 1 === postList.length  ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
             </div>
+                    <button className='finish_btn' hidden={count + 1 === postList.length  ? false : true} onClick={() => navigate("/board/CategoryBooks/")}>완료</button>
             </div>
         </div>
       )

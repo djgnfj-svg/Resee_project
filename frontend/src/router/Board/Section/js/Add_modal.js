@@ -21,7 +21,7 @@ function Add_modal({ show }) {
         },
         {
             headers:{
-                Authorization : `Token ${localStorage.getItem('token')}`
+                Authorization : `Bearer ${localStorage.getItem('access_token')}`
             }   
         }
         ).then(res => {

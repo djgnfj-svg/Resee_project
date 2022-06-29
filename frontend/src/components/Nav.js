@@ -20,7 +20,7 @@ function MyNavbar() {
 		
 		axios.get("http://127.0.0.1:8000/api/UserLogout/",{
 				headers:{
-					Authorization : `Bearer ${localStorage.getItem('token')}`
+					Authorization : `Bearer ${localStorage.getItem('access_token')}`
 			}
 		}).then(data=>{
 			localStorage.clear();
@@ -29,6 +29,22 @@ function MyNavbar() {
 			alert("로그아웃 성공")
 		})
 	}
+
+	const goTemplate = () =>{
+		axios.get("http://127.0.0.1:8000/api/Books/",{
+			headers:{
+				Authorization : `Bearer ${localStorage.getItem('access_token')}`
+			}
+		})
+		.then(res => {
+			navigate("/board");
+		}).catch(res =>{
+			alert(localStorage.getItem('access_token'))
+		})
+		
+	}
+
+
 	return (
 		<div>
 			<Navbar style={{backgroundColor:"rgb(207 207 207)"}}
@@ -40,7 +56,7 @@ function MyNavbar() {
 					<Nav className="me-auto">
 					<Nav.Link onClick={()=>navigate('/')}>템플릿</Nav.Link>
 					<Nav.Link onClick={()=>navigate('/sharing')}>공유</Nav.Link>
-					<Nav.Link onClick={()=>navigate('/board')}>게시판</Nav.Link>
+					<Nav.Link onClick={()=>goTemplate()}>게시판</Nav.Link>
 					</Nav>
 					{auth ?
 						<Nav>
