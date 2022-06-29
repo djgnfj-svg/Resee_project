@@ -40,7 +40,7 @@ class ReviewViewSet(viewsets.ViewSet):
 			temp = PostsSerializer(data).data
 			return_data[i] = temp
 			return_data['ids'] += str(temp['id']) +" "
-
+		return_data['ids'] = return_data['ids'].rstrip()
 		return Response(return_data, status=status.HTTP_200_OK)
 	def create(self, request, book_id):
 		ids = str(request.data['ids'])
