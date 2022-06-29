@@ -11,10 +11,7 @@ class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
 	queryset = ReviewPost.objects.filter().order_by("created_at")
 	def list(self, request, book_id):
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
 		if not queryset:
 			return Response({"msg" : "Post가 없습니다."}, status=status.HTTP_200_OK)
@@ -31,20 +28,14 @@ class PostViewSet(viewsets.ModelViewSet):
 			return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_200_OK)
 
 	def retrieve(self, request, book_id, pk, *args, **kwargs):
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		temp = get_object_or_404(ReviewPost, id=pk).user_id
 		if temp != userid:
 			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
 		return super().retrieve(request, *args, **kwargs)
 
 	def destroy(self, request, book_id, pk, *args, **kwargs):
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		temp = get_object_or_404(ReviewPost, id=pk).user_id
 		if temp != userid:
 			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)

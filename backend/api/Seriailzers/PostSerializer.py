@@ -6,19 +6,17 @@ from books.models import ReviewBook, ReviewPost
 
 class PostsSerializer(serializers.ModelSerializer):
 	review_count = serializers.IntegerField(read_only = True, default = 0)
+	created_at = serializers.DateTimeField(format="%Y-%m-%d")
 	class Meta:
 		model = ReviewPost
-		fields = ["id", "title", "description", "review_count"]
+		fields = ["id", "title", "description", "review_count", "created_at"]
 
 class PostsCreateSerializer(serializers.Serializer):
 	title = serializers.CharField(max_length=20)
 	description = serializers.CharField(max_length=100)
 
 	def create(self, request, book_id, validated_data):
-		if request.user.is_anonymous:
-			userid = int(request.session.get("user"))
-		else:
-			userid = getUserId(request.user)
+		userid = getUserId(request.user)
 		instance = ReviewPost.objects.create(
 			title = validated_data["title"],
 			description = validated_data["description"],
