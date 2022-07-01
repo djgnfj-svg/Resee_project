@@ -44,7 +44,7 @@ function CategoryBooks() {
             {postList &&  postList.map((item) => (
               <>
                 <div className='books_title'>
-                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/CategoryBooks/${id}/Review`)}><span style={{color:"#7b9acc`"}}>06.23 <tr /></span>{item.title}</a>
+                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/CategoryBooks/${id}/postReview`)}><span style={{color:"#7b9acc`"}}>06.23 <tr /></span>{item.title}</a>
                 </div>
               </>
             ))}

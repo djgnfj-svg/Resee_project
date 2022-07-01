@@ -1,54 +1,67 @@
 .Write_page{
     position: relative;
+    display: flex;
 }
 
 .Write_title{
     margin-bottom: 50px;
 }
 
-.Write_content input{
-    width: 1000px;
-    height: 30px;
-    background-color: rgb(25,25,25);
-    resize: none;
-    border: none;
-    padding: 1rem 1rem;
-    color: #bababa;
-    outline: none;
-    text-align: left;
-    margin-top: 8rem;
-    margin-right: 30rem;
-    margin-left: 30rem;
-    font-size: 30px;
-    font-weight: bold;
-    display: inline-block;
-    margin: 0 auto;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-top: 150px;
-    max-width: 1000px;
-    min-width: 1000px;
+.Write_content{
+    width: 50%;
+    height: 100vh;
+    border-right: 1px solid white;
 }
 
-.Write_content textarea{
-    width: 1000px;
-    height: 800px;
+/* .Write_content  input{
+    left:125px;
+    position: relative;
     background-color: rgb(25,25,25);
     resize: none;
     border: none;
-    padding: 1rem 1rem;
     color: #bababa;
     outline: none;
     text-align: left;
-    padding-top: 5rem;
+    font-size: 2rem;
+    font-weight: bold;
     display: inline-block;
-    margin: 0 auto;
-    padding-left: 100px;
-    padding-right: 100px;
     max-width: 1000px;
     min-width: 1000px;
-} 
+    z-index: 0;
+} */
 
+.testing{
+    vertical-align: middle;
+}
+
+.Write_content div textarea{
+    width: 48rem;
+    height: 40px;
+    max-height: 1000px;
+    max-width: 1000px;
+    background-color: rgb(25,25,25);
+    border: none;
+    color: #bababa;
+    outline: none;
+    text-align: left;
+    display: inline-block;
+    resize: none;
+    overflow: hidden;
+    padding-top: 5rem;
+    text-align: left;
+    padding-left: 3rem;
+
+} 
+.markdown {
+    width: 50rem;
+    height: 90vh;
+    outline: none;
+    background-color: rgb(25,25,25);
+    color: #bababa;
+    padding-top: 5rem;
+    text-align: left;
+    padding-left: 3rem;
+}
 
 
 

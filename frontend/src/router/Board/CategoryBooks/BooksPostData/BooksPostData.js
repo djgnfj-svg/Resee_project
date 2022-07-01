@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import './BooksReviewPage.css'
 import axios from 'axios'
-import './BooksReviewPage.css'
 import { useNavigate, useParams } from 'react-router-dom'
 
-function BooksReviewPage() {
+function BooksPostData() {
 
     const { id } = useParams("");
 
@@ -34,7 +32,7 @@ function BooksReviewPage() {
             } 
         })
         .then(res => {
-            navigate("/board")
+            navigate("/board");
         })
     }
 
@@ -44,11 +42,11 @@ function BooksReviewPage() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            setPostList(res.data);
-            setPostList2(true);
-            setPostIds(res.data.ids);
+            setPostList(res.data)
+            setPostList2(true)
+            setPostIds(res.data.ids)
         }).catch(error => {
-            console.log(error);
+            console.log(error)
         })
     }
 
@@ -56,25 +54,26 @@ function BooksReviewPage() {
     return (
         <div className='Review_page'>
             <div className='Review_title'>
-                {postList && postList2 === true && <>
+                {postList && postList2 === true &&
+                 <>
                     <input readOnly value={postList[count].title} onChange={handleChangeInput} />
                 </>
                 }
             </div>
             <div className='Review_content'>
-                {postList && postList2 === true && <>
+                {postList && postList2 === true &&
+                 <>
                     <textarea readOnly value={postList[count].description} onChange={handleChangeInput2} />
-                </>}
+                </>
+                }
             </div>
             <div className='Review_addBtn'>
                 <div style={{ display: "flex", flexDirection: "row", width: "200px", position: "relative" }}>
                     <div className='te'>
                         <button disabled={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
                     </div>
-                    {/*count / postList.length */}
                     <span style={{ color: "white", marginTop: "2px" }}>{count + 1 + " / " + (Object.keys(postList).length - 1)}</span>
                     <div className='te' style={{}}>
-                        {/* count === poistlish.length ? 다음 버튼 비활성화 : 다음버튼 활성화 */}
                         <button disabled={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
                 </div>
@@ -84,4 +83,4 @@ function BooksReviewPage() {
     )
 }
 
-export default BooksReviewPage
+export default BooksPostData

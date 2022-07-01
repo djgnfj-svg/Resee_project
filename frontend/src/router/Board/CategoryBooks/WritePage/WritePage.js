@@ -1,24 +1,37 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom/client';
 import './WritePage.css'
 import {useNavigate, useParams} from 'react-router-dom'
+import InputComponent from '../../../../components/InputComponent'
+import ReactMarkdown from 'react-markdown'
 
 function WritePage() {
 
-    const [title,setTitle] = useState("")
-    const [description,setDescription] = useState("")
     const {id} = useParams();
-
     const navigate = useNavigate("");
+    const textRef = React.createRef();
+    const markdown = `Just a link: https://reactjs.com.`
+    
+    const [title,setTitle] = useState("")
+    const [testing , setTesting] = useState([[{text : ""}]])
+    const [descriptions, setDescriptions] = useState({
+        description: "",
+    })
+    const {description} = descriptions
 
-    const handleChangeInput = (e) => {setTitle(e.target.value)}
     const handleChangeInput2 = (e) => {
-        setDescription(e.target.value)
+        setDescriptions({
+            description : e.target.value
+        })
+        console.log("test22")
     }
 
-    const handleKeyup = (e) =>{
-        setTitle(e.target.value.split("##",1))
-        
+
+    const handleResizeInput = () => {
+        const obj = textRef.current
+        obj.style.height = "auto";
+        obj.style.height = obj.scrollHeight + 'px';
     }
 
     const handleSubmitPost = () => {
@@ -37,17 +50,18 @@ function WritePage() {
         )
     }
 
-
-    // 문자열.replace(정규식, 대체문자)
   return (
     <div className='Write_page'>
-        <div className='Write_content'>
-            <input placeholder='제목을 입력해주세요' value={title} onChange={(e) => setTitle(e.target.value)} />
-            <textarea value={description} onChange={handleChangeInput2} placeholder="내용을 입력해주세요" />
+        <div className='Write_content' id='Write'>
+            <div className='testing'>
+                <textarea ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+            </div>
         </div>
-        <div className='Write_addBtn'>
+            <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
+            </ReactMarkdown>
+        {/* <div className='Write_addBtn'>
             <button onClick={() => handleSubmitPost()}>추가하기</button>
-        </div>
+        </div> */}
     </div>
   )
 }

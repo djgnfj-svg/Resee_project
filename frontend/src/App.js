@@ -9,6 +9,7 @@ import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
 import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
 import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksReviewPage';
+import BooksPostData from './router/Board/CategoryBooks/BooksPostData/BooksPostData.js';
 import isLogin from './components/isLogin';
 
 function App() {
@@ -24,8 +25,10 @@ function App() {
 					</Route>
 						<Route path="/board/CategoryBooks/:id" element={<CategoryBooks />} />
 						<Route path="/board/CategoryBooks/:id/Review" element={<BooksReviewPage />}/>
+						<Route path="/board/CategoryBooks/:id/postReview" element={<BooksPostData />}/>
 						<Route path="/board/CategoryBooks/:id/Write" element={<WritePage />}/>
 					<Route path="*" element={<div>testa</div>}/>
+					
 				</Routes>
 		</div>
 	);
