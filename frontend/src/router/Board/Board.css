@@ -135,8 +135,8 @@
 
 .write_btn{
     position: relative;
-    top: -30px;
-    left: 365px;
+    top: 30px;
+    left:20px;
 }
 
 .write_btn_one{

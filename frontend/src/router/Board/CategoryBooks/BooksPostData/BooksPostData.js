@@ -1,86 +1,88 @@
-import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom/client';
+import '../WritePage/WritePage.css'
+import {useNavigate, useParams} from 'react-router-dom'
+import InputComponent from '../../../../components/InputComponent'
+import ReactMarkdown from 'react-markdown'
 
 function BooksPostData() {
 
-    const { id } = useParams("");
-
-    const [count, setCount] = useState(0);
-    const [postList, setPostList] = useState([]);
-    const [postList2, setPostList2] = useState(false);
-    const [postIds ,setPostIds] = useState("");
-
+    const {id} = useParams();
     const navigate = useNavigate("");
-
-    const handleChangeInput = (e) => { }
-    const handleChangeInput2 = (e) => { }
+    const textRef = React.createRef();
+    const markdown = `Just a link: https://reactjs.com.`
 
     useEffect(() => {
-        getBooksReviewData();
+        getPostData()
+    },[])
+    
+    const [title,setTitle] = useState("")
+    const [testing , setTesting] = useState([[{text : ""}]])
+    const [descriptions, setDescriptions] = useState({
+        description: "",
+    })
+    const {description} = descriptions
 
-    }, [setPostList2])
+    const handleChangeInput = (e) => {setTitle(e.target.value)}
 
-    const handleFinishBtn = (e) => {
-        axios.post(`http://127.0.0.1:8000/api/Books/${id}/review/`,
-        {
-            ids : postIds
-        },
-        {
-            headers:{
+    const handleChangeInput2 = (e) => {
+        setDescriptions({
+            description : e.target.value
+        })
+        console.log("test22")
+    }
+
+
+    const handleResizeInput = () => {
+        const obj = textRef.current
+        obj.style.height = "auto";
+        obj.style.height = obj.scrollHeight + 'px';
+    }
+
+    const handleEnterInput = (e) => {
+        // const str = e.target.value;
+        // const last = str.charAt(str.length - 1);
+        // const result = last.split(last)[1]
+        // if(e.key === "Enter"){
+        //     result
+        // }    
+    }
+
+    const getPostData = () => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`,
+            {
+                headers:{
                 Authorization : `Bearer ${localStorage.getItem('access_token')}`
-            } 
+            }   
         })
-        .then(res => {
-            navigate("/board");
-        })
-    }
-
-    const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('access_token')}`
-            }
-        }).then(res => {
-            setPostList(res.data)
-            setPostList2(true)
-            setPostIds(res.data.ids)
-        }).catch(error => {
-            console.log(error)
-        })
+        .then( res =>{
+            setTitle(res.data.title)
+            setDescriptions(res.data.description)
+        }
+        )
     }
 
 
-    return (
-        <div className='Review_page'>
-            <div className='Review_title'>
-                {postList && postList2 === true &&
-                 <>
-                    <input readOnly value={postList[count].title} onChange={handleChangeInput} />
-                </>
-                }
-            </div>
-            <div className='Review_content'>
-                {postList && postList2 === true &&
-                 <>
-                    <textarea readOnly value={postList[count].description} onChange={handleChangeInput2} />
-                </>
-                }
-            </div>
-            <div className='Review_addBtn'>
-                <div style={{ display: "flex", flexDirection: "row", width: "200px", position: "relative" }}>
-                    <div className='te'>
-                        <button disabled={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
-                    </div>
-                    <span style={{ color: "white", marginTop: "2px" }}>{count + 1 + " / " + (Object.keys(postList).length - 1)}</span>
-                    <div className='te' style={{}}>
-                        <button disabled={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
-                    </div>
-                </div>
-                <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>나가기</button>
+  return (
+    <div>
+        <div style={{marginTop:"30px"}}>
+            <input className='Write_title' placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+        </div>
+    <div className='Write_page'>
+        <div className='Write_content' id='Write'>
+            <div className='testing'>
+                <textarea autoFocus onKeyPress={(e) => handleEnterInput(e)} ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
-    )
+            <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
+            </ReactMarkdown>
+    </div>
+        <div className='Write_addBtn'>
+            <button onClick={(e) => handleSubmitPost(e)}>수정하기</button> 
+        </div>
+    </div>
+  )
 }
 
 export default BooksPostData

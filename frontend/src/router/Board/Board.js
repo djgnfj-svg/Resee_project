@@ -73,13 +73,13 @@ function Board() {
                             <div className='No_data'>
                                 <img src={`${process.env.PUBLIC_URL}/img/No_Data.png`} />
                                 <div>음? 데이터가 없어요 추가해주실래요?</div>
-                                <button onClick={modalClose}>추가하기</button>
                             </div>
                         </>
                     }
                 </div>
-                <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || booksData.length === 0 || booksData.length === undefined && "hide" || 'write_btn'}>
+                <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || ((booksData.length === 0 || booksData.length) === undefined && "hide") || 'write_btn'}>
                     {console.log(booksData.length)}
+                    <button onClick={modalClose}>추가하기</button>
                     {showModal && <Add_modal show={modalClose} />}
                 </div>
             </div>

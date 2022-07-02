@@ -3,6 +3,8 @@ import './BooksReviewPage.css'
 import axios from 'axios'
 import './BooksReviewPage.css'
 import { useNavigate, useParams } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+
 
 function BooksReviewPage() {
 
@@ -57,13 +59,13 @@ function BooksReviewPage() {
         <div className='Review_page'>
             <div className='Review_title'>
                 {postList && postList2 === true && <>
-                    <input readOnly value={postList[count].title} onChange={handleChangeInput} />
+                    <ReactMarkdown className='markdown_title' children={postList[count].title} />
                 </>
                 }
             </div>
             <div className='Review_content'>
                 {postList && postList2 === true && <>
-                    <textarea readOnly value={postList[count].description} onChange={handleChangeInput2} />
+                    <ReactMarkdown className='markdown_content' children={postList[count].description}  />
                 </>}
             </div>
             <div className='Review_addBtn'>
