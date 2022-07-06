@@ -41,10 +41,11 @@ function CategoryBooks() {
         <img src={`${process.env.PUBLIC_URL}/img/revels.png`} />
         <div className='wrapper_category'>
           <div className='category_List'>
-            {postList &&  postList.map((item) => (
+            {postList &&  postList.map((item,index) => (
               <>
                 <div className='books_title'>
-                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/CategoryBooks/${id}/postReview`)}><span style={{color:"#7b9acc`"}}>06.23 <tr /></span>{item.title}</a>
+                  <div style={{textAlign:"right" , fontSize:"13px"}}>{item.created_at}</div>
+                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/CategoryBooks/${id}/postReview/${item.id}`)}><span style={{color:"#7b9acc`"}}>{item.title}</span></a>
                 </div>
               </>
             ))}
@@ -56,7 +57,7 @@ function CategoryBooks() {
         </div>
           </div>
           <div className='add_category'>
-            <button onClick={() => navigate(`/board/CategoryBooks/${id}/Write`)}>추가하기</button>
+            <button onClick={() => navigate(`/board/CategoryBooks/${id}/Write`)} disabled={postList.length === 12 ? true : false} >추가하기</button>
             </div>
     </div>
     </>

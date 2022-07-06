@@ -123,6 +123,11 @@
     color: white;
     margin-right: 10px;
 }
+.books .books_btn .Remove_books{
+    background-color: #e62e3d;
+    color: white;
+    margin-right: 10px;
+}
 .books .books_btn .write_books{
     background-color: #cda935;
     color: white;

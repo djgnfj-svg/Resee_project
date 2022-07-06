@@ -50,7 +50,9 @@ function Login() {
 				navigate("/");
 			}
 			}
-		)
+		).catch(res =>{
+			alert("존재하지않는 이메일 이거나 비밀번호가 틀립니다.");
+		})
 		console.log(input)
 	};
 

@@ -137,6 +137,7 @@ function Sign_up() {
 			}
 		})
 		.catch(error => {
+			alert(error)
 			if (!error.response) {
 				this.errorStatus = 'Error: Network Error';
 			} else {

@@ -11,6 +11,7 @@ import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
 import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksReviewPage';
 import BooksPostData from './router/Board/CategoryBooks/BooksPostData/BooksPostData.js';
 import isLogin from './components/isLogin';
+import BooksChangeData from './router/Board/CategoryBooks/BooksChangeData/BooksChangeData';
 
 function App() {
 
@@ -25,7 +26,8 @@ function App() {
 					</Route>
 						<Route path="/board/CategoryBooks/:id" element={<CategoryBooks />} />
 						<Route path="/board/CategoryBooks/:id/Review" element={<BooksReviewPage />}/>
-						<Route path="/board/CategoryBooks/:id/postReview" element={<BooksPostData />}/>
+						<Route path="/board/CategoryBooks/:id/postReview/:postId" element={<BooksPostData />}/>
+						<Route path="/board/CategoryBooks/:id/changeReview/:postId" element={<BooksChangeData />}/>
 						<Route path="/board/CategoryBooks/:id/Write" element={<WritePage />}/>
 					<Route path="*" element={<div>testa</div>}/>
 					

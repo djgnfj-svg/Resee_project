@@ -1,88 +1,128 @@
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom/client';
-import '../WritePage/WritePage.css'
-import {useNavigate, useParams} from 'react-router-dom'
-import InputComponent from '../../../../components/InputComponent'
+import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import './BooksPostData.css'
+
 
 function BooksPostData() {
 
-    const {id} = useParams();
+    const { id } = useParams("");
+    const { postId } = useParams("");
+
+    const [postList, setPostList] = useState([]);
+    const [postList2, setPostList2] = useState(false);
+
+    const [navigateData, setNavigateData] = useState("")
+    const [naviBoolean, setNaviBoolean] = useState(false)
+
+    const [test, setTest] = useState(false)
+
+
     const navigate = useNavigate("");
-    const textRef = React.createRef();
-    const markdown = `Just a link: https://reactjs.com.`
+
+    const handleChangeInput = (e) => { }
+    const handleChangeInput2 = (e) => { }
 
     useEffect(() => {
-        getPostData()
-    },[])
-    
-    const [title,setTitle] = useState("")
-    const [testing , setTesting] = useState([[{text : ""}]])
-    const [descriptions, setDescriptions] = useState({
-        description: "",
-    })
-    const {description} = descriptions
+        getBooksReviewData()
+    }, [])
 
-    const handleChangeInput = (e) => {setTitle(e.target.value)}
+    useEffect(() => {
+        getBooksReviewData();
+        getBooksData();
+    }, [naviBoolean])
 
-    const handleChangeInput2 = (e) => {
-        setDescriptions({
-            description : e.target.value
+
+    const getBooksReviewData = () => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(res => {
+            setPostList(res.data)
+            setNaviBoolean(false)
+            setPostList2(true)
+        }).catch(error => {
+            console.log(error);
         })
-        console.log("test22")
     }
 
-
-    const handleResizeInput = () => {
-        const obj = textRef.current
-        obj.style.height = "auto";
-        obj.style.height = obj.scrollHeight + 'px';
-    }
-
-    const handleEnterInput = (e) => {
-        // const str = e.target.value;
-        // const last = str.charAt(str.length - 1);
-        // const result = last.split(last)[1]
-        // if(e.key === "Enter"){
-        //     result
-        // }    
-    }
-
-    const getPostData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`,
-            {
-                headers:{
-                Authorization : `Bearer ${localStorage.getItem('access_token')}`
-            }   
+    const getBooksData = () => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(res => {
+            console.log(res.data)
+            if (res.data.msg === "Post가 없습니다.") {
+            } else {
+                setNavigateData(res.data)
+            }
+        }).catch(error => {
+            console.log(error);
         })
-        .then( res =>{
-            setTitle(res.data.title)
-            setDescriptions(res.data.description)
+    }
+    const goBooksData = (itemId) => {
+        navigate(`/board/CategoryBooks/${id}/postReview/${itemId}`);
+        setNaviBoolean(true)
+    }
+
+    // const handleClickNavigate = () => {
+    //     if(test === false) {
+    //         setTest(true)
+    //     }else{
+    //         setTest(false)
+    //     }
+    // }
+    const handleRemoveBtn = () => {
+        if (window.confirm("정말 삭제하시겟 습니까?") === true) {
+
         }
-        )
     }
 
 
-  return (
-    <div>
-        <div style={{marginTop:"30px"}}>
-            <input className='Write_title' placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
-        </div>
-    <div className='Write_page'>
-        <div className='Write_content' id='Write'>
-            <div className='testing'>
-                <textarea autoFocus onKeyPress={(e) => handleEnterInput(e)} ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+    return (
+        <div className='Review_page'>
+            <div className='Review_title'>
+                {postList && postList2 === true && <>
+                    <ReactMarkdown className='markdown_title' children={postList.title} />
+                </>
+                }
+            </div>
+            <div className='Review_content'>
+                {postList && postList2 === true && <>
+                    <ReactMarkdown className='markdown_content' children={postList.description} />
+                </>}
+            </div>
+
+            <div>
+                <div style={{position:"absolute" ,top:"-50px"}}>
+                <div className={test === true ? "CloseBtn" : "Navigations_var"}  >
+                    {/* <div >
+                            <img style={{width:"30px" , backgroundColor:"rgb(78,78,78)"}} src={`${process.env.PUBLIC_URL}/img/Menu.png`} onClick={() => handleClickNavigate()} />
+                        </div> */}
+                    {navigateData && navigateData.map((item, index) => (
+                        <>
+                            <div className={item.title === postList.title ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                        </>
+                    ))}
+                    {navigateData && navigateData === null && (
+                        <>
+                        </>
+                    )}
+                </div>
+                    <div className='remove_Btn' >
+                        <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>
+                        <button style={{ backgroundColor: "#e62e3d", color: "white" }} onClick={() => handleRemoveBtn()}>삭제하기</button>
+                    </div>
+                    <div className='prev_btn'>
+                        <img /><button onClick={() => navigate(`/board/CategoryBooks/${id}`)}>이전 페이지</button>
+                    </div>
+                </div>
             </div>
         </div>
-            <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
-            </ReactMarkdown>
-    </div>
-        <div className='Write_addBtn'>
-            <button onClick={(e) => handleSubmitPost(e)}>수정하기</button> 
-        </div>
-    </div>
-  )
+    )
 }
 
 export default BooksPostData

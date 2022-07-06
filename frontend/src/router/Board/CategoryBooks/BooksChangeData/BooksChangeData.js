@@ -1,33 +1,34 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client';
-import './WritePage.css'
 import {useNavigate, useParams} from 'react-router-dom'
 import InputComponent from '../../../../components/InputComponent'
 import ReactMarkdown from 'react-markdown'
 
-function WritePage() {
+function BooksChangeData() {
 
     const {id} = useParams();
+    const {postId} = useParams();
+
     const navigate = useNavigate("");
     const textRef = React.createRef();
-    const markdown = `Just a link: https://reactjs.com.`
     
     const [title,setTitle] = useState("")
     const [testing , setTesting] = useState([[{text : ""}]])
-    const [descriptions, setDescriptions] = useState({
-        description: "",
-    })
-    const {description} = descriptions
+    const [description, setDescription] = useState("")
+    const [postList , setPostList] = useState("");
+
+
 
     const handleChangeInput = (e) => {setTitle(e.target.value)}
 
     const handleChangeInput2 = (e) => {
-        setDescriptions({
-            description : e.target.value
-        })
-        console.log("test22")
+        setDescription(e.target.value)
     }
+
+    useEffect(() => {
+        getBooksReviewData()
+    },[])
 
 
     const handleResizeInput = () => {
@@ -36,13 +37,18 @@ function WritePage() {
         obj.style.height = obj.scrollHeight + 'px';
     }
 
-    const handleEnterInput = (e) => {
-        // const str = e.target.value;
-        // const last = str.charAt(str.length - 1);
-        // const result = last.split(last)[1]
-        // if(e.key === "Enter"){
-        //     result
-        // }    
+    const getBooksReviewData = () => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(res => {
+            setPostList(res.data)
+            setTitle(res.data.title)
+            setDescription(res.data.description)
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     const handleSubmitPost = () => {
@@ -70,17 +76,17 @@ function WritePage() {
     <div className='Write_page'>
         <div className='Write_content' id='Write'>
             <div className='testing'>
-                <textarea autoFocus onKeyPress={(e) => handleEnterInput(e)} ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+                <textarea autoFocus  ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
             <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
             </ReactMarkdown>
     </div>
         <div className='Write_addBtn'>
-            <button onClick={(e) => handleSubmitPost(e)}>추가하기</button> 
+            <button onClick={(e) => handleSubmitPost(e)}>수정 완료</button> 
         </div>
     </div>
   )
 }
 
-export default WritePage
+export default BooksChangeData

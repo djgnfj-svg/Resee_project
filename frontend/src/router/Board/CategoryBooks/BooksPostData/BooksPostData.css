@@ -1,0 +1,65 @@
+.Navigations_var{
+    background-color: rgb(78,78,78);
+    text-align: left;
+    border-bottom-right-radius: 1rem;
+    margin-bottom: 30px;
+    width: 190px;
+}
+.Navigations_var img , .CloseBtn img{
+    width: 20px;
+}
+.Navigations_var div , .CloseBtn div{
+    border-bottom: 1px solid black;
+    padding: 0.3rem;
+    font-size: 13px;
+    color: #9b9b9b;
+    border: none;
+}
+.Navigations_var .selected , .CloseBtn .selected{
+    background-color: #ffffff0E;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+}
+.Menu_var img{
+    width: 10px;
+    object-fit: cover;
+}
+
+.CloseBtn{
+    transition: 1s;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    text-align: left;
+    background-color: rgb(78,78,78);
+    height: 0px;
+}
+.CloseBtn .selected , .CloseBtn .unSelected{
+    display: none;
+}
+.prev_btn{
+    top: 380px;
+    left: 10px;
+    margin-top: 10px;
+}
+.prev_btn button{
+    border: none;
+    background-color: rgb(207 255 221);
+    border-radius: 0.3rem;
+    width: 169px;
+}
+.remove_Btn{
+    top: 340px;
+    left: 10px;
+}
+.remove_Btn button{
+    border: none;
+    background-color: rgb(207 255 221);
+    border-radius: 0.3rem;
+    background-color: #5c72ab;
+    color: white;
+    padding: 0.2rem 0.2rem;
+    font-size: 14px;
+    width: 80px;
+}

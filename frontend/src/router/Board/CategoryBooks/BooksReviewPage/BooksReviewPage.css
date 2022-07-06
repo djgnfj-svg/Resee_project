@@ -93,6 +93,7 @@ button:disabled{
     position: relative;
     left: 711px;
     top: -38px;
+    width: 120px;
 }
 input , textarea { 
     cursor: auto;

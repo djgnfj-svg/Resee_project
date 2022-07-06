@@ -69,7 +69,7 @@ function BooksReviewPage() {
                 </>}
             </div>
             <div className='Review_addBtn'>
-                <div style={{ display: "flex", flexDirection: "row", width: "200px", position: "relative" }}>
+                <div style={{ display: "flex", flexDirection: "row", width: "220px", position: "relative" }}>
                     <div className='te'>
                         <button disabled={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
                     </div>

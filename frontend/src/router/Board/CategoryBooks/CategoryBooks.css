@@ -20,7 +20,7 @@
     background-color: #5c72ab;
     color: #DCE2F0;
     padding: 0.3rem;
-    width: 80px;
+    width: 90px;
     border: none;
     font-size: 12px;
     text-align: center;
@@ -42,16 +42,18 @@
 .wrapper_category .category_List{
     display: flex;
     width: 680px;
-    height: 463px;
+    height: 500px;
     flex-direction: column;
     flex-wrap: wrap;
+    position: relative;
+    top: -14px;
 }
 
 .wrapper_category .category_List .books_title{
     color: #50586C;
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 31px;
     text-align: left;
     width: 221px;
 }

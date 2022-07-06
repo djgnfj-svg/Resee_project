@@ -47,6 +47,25 @@ function Board() {
             })
     }
 
+    const handleRemoveBooks = (e) => {
+        let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
+        if(removeBooks === e){
+            // axios.post("링크" ,
+            //     {
+            //         headers: {
+            //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            //         }
+            //     },
+            //     {
+
+            //     }
+            //     )
+            //     .then(res => {
+
+            //     })
+        }
+    }
+
     return (
             <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
                 <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
@@ -63,6 +82,7 @@ function Board() {
                                     <div className='books_btn'>
                                         <button className='write_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Write`)}>작성</button>
                                         <button className='ReSee_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Review`)}>복습</button>
+                                        <button className='Remove_books' onClick={() => handleRemoveBooks(item.title)}>삭제하기</button>
                                     </div>
                                 </div>
                             </div>
