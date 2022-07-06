@@ -16,6 +16,18 @@ function CategoryBooks() {
   }, [])
   
 
+  const getAccessToken = () => {
+    axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+            {
+                refresh:localStorage.getItem('refresh_token')
+            }
+        ).then(res => {
+            localStorage.setItem('access_token', "lostark")
+            localStorage.setItem('access_token',res.data.access)
+            getCategoryList();
+        })
+}
+
   const getCategoryList = () => {
     axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`,
     {
@@ -30,7 +42,9 @@ function CategoryBooks() {
       }else{
         setPostList(res.data)
       }
-    })
+    }).catch(error => {
+      getAccessToken();
+  })
   }
 
   return (

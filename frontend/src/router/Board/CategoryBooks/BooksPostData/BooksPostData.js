@@ -32,7 +32,19 @@ function BooksPostData() {
         getBooksReviewData();
         getBooksData();
     }, [naviBoolean])
-
+   
+    const getAccessToken = () => {
+        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+                {
+                    refresh:localStorage.getItem('refresh_token')
+                }
+            ).then(res => {
+                localStorage.setItem('access_token', "lostark")
+                localStorage.setItem('access_token',res.data.access)
+                getBooksReviewData();
+                getBooksData();
+            })
+    }
 
     const getBooksReviewData = () => {
         axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
@@ -44,7 +56,7 @@ function BooksPostData() {
             setNaviBoolean(false)
             setPostList2(true)
         }).catch(error => {
-            console.log(error);
+            getAccessToken()
         })
     }
 
@@ -58,14 +70,19 @@ function BooksPostData() {
             if (res.data.msg === "Post가 없습니다.") {
             } else {
                 setNavigateData(res.data)
+                setNaviBoolean(false)
             }
         }).catch(error => {
-            console.log(error);
+            getAccessToken()
+            console.log("hellow");
         })
     }
+
     const goBooksData = (itemId) => {
         navigate(`/board/CategoryBooks/${id}/postReview/${itemId}`);
         setNaviBoolean(true)
+        getAccessToken();
+
     }
 
     // const handleClickNavigate = () => {

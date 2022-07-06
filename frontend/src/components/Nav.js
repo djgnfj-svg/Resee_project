@@ -39,17 +39,21 @@ function MyNavbar() {
 			.then(res => {
 				navigate("/board");
 			}).catch(res => {
-				axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+				if(localStorage.getItem('refresh') !== null){
+
+					axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
 					{
 						refresh: localStorage.getItem('refresh_token')
 					}
-				).then(res => {
-					localStorage.setItem('access_token',"");
-					localStorage.setItem('access_token',res.data.access)
-					alert("레츠고")
-					navigate("/board");
+					).then(res => {
+						localStorage.setItem('access_token', "");
+						localStorage.setItem('access_token', res.data.access)
+						navigate("/board");
+					})
+				}else{
+					navigate("/board")
+				}
 				})
-			})
 
 	}
 

@@ -30,6 +30,19 @@ function Board() {
         }
     }
 
+    const getAccessToken = () => {
+        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+                {
+                    refresh:localStorage.getItem('refresh_token')
+                }
+            ).then(res => {
+                localStorage.setItem('access_token', "lostark")
+                localStorage.setItem('access_token',res.data.access)
+                getBooksData();
+            })
+    }
+
+
     const getBooksData = () => {
         axios.get("http://127.0.0.1:8000/api/Books/",
             {
@@ -44,7 +57,9 @@ function Board() {
                 }else{
                     setBooksData(res.data);
                 }
-            })
+            }).catch(error => {
+                getAccessToken()
+            })  
     }
 
     const handleRemoveBooks = (title,id) => {
@@ -60,6 +75,8 @@ function Board() {
                 )
                 .then(res => {
                     navigate("/board");
+                }).catch(error => {
+                    console.log(error)
                 })
         }
     }

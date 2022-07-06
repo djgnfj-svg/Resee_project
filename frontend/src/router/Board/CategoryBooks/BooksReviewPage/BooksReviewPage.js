@@ -25,6 +25,18 @@ function BooksReviewPage() {
 
     }, [setPostList2])
 
+    const getAccessToken = () => {
+        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+                {
+                    refresh:localStorage.getItem('refresh_token')
+                }
+            ).then(res => {
+                localStorage.setItem('access_token', "lostark")
+                localStorage.setItem('access_token',res.data.access)
+                getBooksReviewData()
+            })
+    }
+
     const handleFinishBtn = (e) => {
         axios.post(`http://127.0.0.1:8000/api/Books/${id}/review/`,
         {
@@ -50,7 +62,7 @@ function BooksReviewPage() {
             setPostList2(true);
             setPostIds(res.data.ids)
         }).catch(error => {
-            console.log(error);
+            getAccessToken()
         })
     }
 

@@ -30,6 +30,16 @@ function BooksChangeData() {
         getBooksReviewData()
     },[])
 
+    const getAccessToken = () => {
+        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+                {
+                    refresh:localStorage.getItem('refresh_token')
+                }
+            ).then(res => {
+                localStorage.setItem('access_token', "lostark")
+                localStorage.setItem('access_token',res.data.access)
+            })
+    }
 
     const handleResizeInput = () => {
         const obj = textRef.current
@@ -47,7 +57,7 @@ function BooksChangeData() {
             setTitle(res.data.title)
             setDescription(res.data.description)
         }).catch(error => {
-            console.log(error);
+            getAccessToken();
         })
     }
 
@@ -64,7 +74,9 @@ function BooksChangeData() {
         .then( res =>{
             navigate(`/board/CategoryBooks/${id}`);
         }
-        )
+        ).catch(error => {
+            getAccessToken()
+        })
     }
 
 
