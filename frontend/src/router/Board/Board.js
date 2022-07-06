@@ -47,22 +47,20 @@ function Board() {
             })
     }
 
-    const handleRemoveBooks = (e) => {
+    const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
-        if(removeBooks === e){
-            // axios.post("링크" ,
-            //     {
-            //         headers: {
-            //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
-            //         }
-            //     },
-            //     {
-
-            //     }
-            //     )
-            //     .then(res => {
-
-            //     })
+        console.log(title , id )
+        if(removeBooks === title){
+            axios.delete("http://127.0.0.1:8000/api/Books/"+id ,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                },
+                )
+                .then(res => {
+                    navigate("/board");
+                })
         }
     }
 
@@ -82,7 +80,7 @@ function Board() {
                                     <div className='books_btn'>
                                         <button className='write_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Write`)}>작성</button>
                                         <button className='ReSee_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Review`)}>복습</button>
-                                        <button className='Remove_books' onClick={() => handleRemoveBooks(item.title)}>삭제하기</button>
+                                        <button className='Remove_books' onClick={() => handleRemoveBooks(item.title,item.id)}>삭제하기</button>
                                     </div>
                                 </div>
                             </div>

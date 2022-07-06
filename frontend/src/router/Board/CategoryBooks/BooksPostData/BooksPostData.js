@@ -75,9 +75,20 @@ function BooksPostData() {
     //         setTest(false)
     //     }
     // }
-    const handleRemoveBtn = () => {
-        if (window.confirm("정말 삭제하시겟 습니까?") === true) {
-
+    const handleRemoveBtn = (e) => {
+        if (window.confirm("정말 삭제하시겠습니까?") === true) {
+            axios.delete(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+            .then(res => {
+                if(navigateData === null){
+                    navigate(`/board/CategoryBooks/${id}`)
+                }else{
+                    navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
+                }
+            })
         }
     }
 

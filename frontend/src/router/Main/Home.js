@@ -11,40 +11,31 @@ function Home() {
     }, [])
     
 
-    // const getAccessToken = () => {
-    //     if(localStorage.getItem('access_token') === null && localStorage.getItem('refresh_token') !== null){
-    //         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/" ,localStorage.getItem('refresh_token')
-    //         .then(res => {
-    //             localStorage.setItem('access_token',res.data.access)
-    //         }))
-    //     }
-    // 
     const navigate = useNavigate("");
 
 
 
         // 홈페이지
-        // refresh 있으면 axios post access_token 을 요청
-        // refesh토큰이 만료가 안됐다면 그거값 보내
-        // 성공시 (
-            // 온 access토큰으로 로그인
-            // 실패시(
-                //localstorage.clear()}
+        //access_token 만료시 refresh토큰 사용해 access token 재발급
+        //access_toekn 만료됐다
 
     const getAccessToken = () => {
-        if(localStorage.getItem("refresh_token") !== null){
-             axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",{
-                'refresh' : localStorage.getItem("refresh_token")
-            })
-            .then(res => {
-                localStorage.setItem('access_token' , res.data.access)
+        axios.get("http://127.0.0.1:8000/api/Books/",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
             })
             .catch(error => {
-                console.log(error)
+                axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+                    {
+                        refresh:localStorage.getItem('refresh_token')
+                    }
+                ).then(res => {
+                    localStorage.setItem('access_token', "lostark")
+                    localStorage.setItem('access_token',res.data.access)
+                })
             })
-        }else{
-            localStorage.clear();
-        }
     }
 
     const goSignUp = () => {

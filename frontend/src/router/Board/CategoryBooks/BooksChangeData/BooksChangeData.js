@@ -52,7 +52,7 @@ function BooksChangeData() {
     }
 
     const handleSubmitPost = () => {
-        axios.post(`http://127.0.0.1:8000/api/Books/${id}/post/`,{
+        axios.put(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
             title : title,
             description : description,
         },
