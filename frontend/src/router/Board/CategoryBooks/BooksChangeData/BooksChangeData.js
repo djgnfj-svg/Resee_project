@@ -14,7 +14,6 @@ function BooksChangeData() {
     const textRef = React.createRef();
     
     const [title,setTitle] = useState("")
-    const [testing , setTesting] = useState([[{text : ""}]])
     const [description, setDescription] = useState("")
     const [postList , setPostList] = useState("");
 
@@ -38,6 +37,7 @@ function BooksChangeData() {
             ).then(res => {
                 localStorage.setItem('access_token', "lostark")
                 localStorage.setItem('access_token',res.data.access)
+                getBooksReviewData()
             })
     }
 
@@ -56,6 +56,7 @@ function BooksChangeData() {
             setPostList(res.data)
             setTitle(res.data.title)
             setDescription(res.data.description)
+            console.log(res.data)
         }).catch(error => {
             getAccessToken();
         })
@@ -86,7 +87,7 @@ function BooksChangeData() {
             <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
         </div>
     <div className='Write_page'>
-        <div className='Write_content' id='Write'>
+        <div className='Write_content' id='Write'style={{paddingLeft:"30rem"}} >
             <div className='testing'>
                 <textarea autoFocus  ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>

@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom'
 function Sign_up() {
 
 	const navigate = useNavigate("");
+
 	const [erroruserNickname  , setErroruserNickname] = useState(false);
 	const [errorUserEmail  , setErrorUserEmail] = useState(false);
 	const [errorUserPassword  , setErrorUserPassword] = useState(false);
@@ -22,8 +23,6 @@ function Sign_up() {
 	const [emailLength , setEmailLength] = useState(false)
 	const [passwordLength , setPasswordLength] = useState(false)
 	const [password2Length , setPassword2Length] = useState(false)
-
-	const [Alltrue ,setAllTrue] = useState(false)
 
 	const [email , setEmail] = useState("");
 	const [username , setUserName] = useState("");
@@ -152,6 +151,7 @@ function Sign_up() {
 			<form className="form_class">
 				<div className='sign_title'>가입하기</div>
 				<div className="form_div">
+
 					<label>닉네임</label>
 					{erroruserNickname === false && nameUpdated && nameLength && 
 						<span className='succes_check'>
@@ -169,7 +169,7 @@ function Sign_up() {
 							닉네임에 ^,@,#,% 등의 특수문자를 포함할 수 없습니다.
 						</div>
 					}
-					
+
 					<label>이메일</label>
 					{errorUserEmail === false && emailUpdated  && emailLength &&
 						<span className='succes_check'>
@@ -195,6 +195,7 @@ function Sign_up() {
 							10글자 이상의 영어 , 숫자를 포함한 비밀번호를 입력해주세요
 						</div>
 					}
+
 					<label>비밀번호 확인</label>
 					{errorUserPassword2 === false && password2Updated2 &&
 						<span className='succes_check'>
@@ -207,6 +208,7 @@ function Sign_up() {
 							비밀번호가 다릅니다.
 						</div>
 					}
+					
 					<div className="sign_welcome" onClick={Sign_up_button} hidden={ password2Updated2   && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
 					<button className="submit_class" onClick={Sign_up_button} disabled={ password2Updated2  && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>

@@ -59,8 +59,8 @@ function BooksReviewPage() {
             }
         }).then(res => {
             setPostList(res.data)
-            setPostList2(true);
             setPostIds(res.data.ids)
+            setPostList2(true);
         }).catch(error => {
             getAccessToken()
         })

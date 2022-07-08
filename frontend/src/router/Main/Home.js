@@ -40,7 +40,7 @@ function Home() {
 
     const goSignUp = () => {
         if(!isLogin === true){
-        navigate('/sign_up')
+            navigate('/sign_up')
         }else{
             alert(" 이미 로그인 중이에요 !")
     }
@@ -48,10 +48,28 @@ function Home() {
 
     return (
         <div className="hero-image">
-            <div className="hero-text" style={{color:"white"}}>
-                <h1>뭔가 머리에 안남는다면</h1>
-                <p>일단 다시봐보는건 어떨까?</p>
+            <div className="hero-text" style={{color:"black" , top:"21%",position:"relative"}}>
+                <h1>Write & ReSee</h1>
+                <h3 style={{fontSize:"20px"}}>Wan't you Remember?</h3>
+                <h3 style={{fontSize:"20px"}}>Write and See again With ReSee</h3>
                 <button className='hero-button' ><a onClick={() => goSignUp()} style={{ textDecoration: 'none', color: "white" }}>회원가입</a></button>
+            </div>
+            <div className='hero-Go_velog'>
+                <div className='velog_content'>
+                    <div className='velog_img'></div>
+                    <div>여긴 글자에용</div>
+                    <button>Ok</button>
+                </div>
+                <div className='velog_content'>
+                    <div className='velog_img'></div>
+                    <div>여긴 글자에용</div>
+                    <button>Ok</button>
+                </div>
+                <div className='velog_content'>
+                    <div className='velog_img'></div>
+                    <div>여긴 글자에용</div>
+                    <button>Ok</button>
+                </div>
             </div>
         </div>
     )

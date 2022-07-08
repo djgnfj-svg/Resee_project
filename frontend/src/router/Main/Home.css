@@ -1,4 +1,33 @@
 .hero-image{
-    background-image: url('./pexBack.jpg');
     height: 94vh;
+    background-color: #bbbbbb;
+}
+.hero-Go_velog{
+    display: flex;
+    width: 1000px;
+    height: 50%;
+    top: 15%;
+    margin: auto;
+    position: relative;
+}
+.velog_content{
+    width: 300px;
+    height: 300px;
+    background-color: aqua;
+    margin-right: 10rem;
+    margin: auto;
+}
+.velog_content .velog_img {
+    width: 300px;
+    height: 180px;
+    background-color: beige;
+}
+.velog_content button{
+    border: none;
+    font-size: 18px;
+    background-color: aqua;
+    color: rgb(67, 67, 67);
+    font-weight: bold;
+    margin-left: 234px;
+    margin-top: 59px;;
 }
