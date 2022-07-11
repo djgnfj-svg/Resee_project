@@ -17,6 +17,7 @@ function Sign_up() {
 	const [nameUpdated , setNameUpdated] = useState(false)
 	const [emailUpdated , setEmailUpdated] = useState(false)
 	const [passwordUpdated , setPasswordUpdated] = useState(false)
+	const [passwordErrorInId,setPasswordErrorInId] = useState(false)
 	const [password2Updated2 , setPassword2Updated] = useState(false)
 
 	const [nameLength , setNameLength] = useState(true)
@@ -95,11 +96,17 @@ function Sign_up() {
 
 	const onChangepassword = (e) =>  {
 
-		const passwordRegex = new RegExp("[A-Za-z0-9\d@$!%*#?&]{8,}$");
+		const passwordRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$")
+		const easyPasswordRegex = new RegExp("(\\w)\\1\\1");
+		const appTest = email.split("@")[0];
+		console.log(e.target.value.search(appTest))
 
 		if((!e.target.value || (passwordRegex.test(e.target.value)))){
 			setErrorUserPassword(false)
 			setPasswordUpdated(false)
+
+		}else if(e.target.value.search(appTest) !== -1){
+			setPasswordErrorInId(true)
 		}else{
 			setErrorUserPassword(true)
 		}
@@ -138,6 +145,7 @@ function Sign_up() {
 		})
 		.catch(error => {
 			console.log(error.response.data)
+			alert(error.response.data.email)
 			if (!error.response) {
 				this.errorStatus = 'Error: Network Error';
 			} else {
@@ -192,7 +200,12 @@ function Sign_up() {
 					<input name="password" id="pass" onBlur={(e) => BluerPassword(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword} value={password1} />
 					{errorUserPassword &&
 						<div className='errorMsg'>
-							10글자 이상의 영어 , 숫자를 포함한 비밀번호를 입력해주세요
+							8글자 이상의 영어 , 숫자 및 특수문자(!,@,#,$,%,^,*,+,=,- )를 포함한 비밀번호를 입력해주세요
+						</div>
+					}
+					{passwordErrorInId &&
+						<div className='errorMsg'>
+							비밀번호에 이메일을 포함할 수 없습니다.
 						</div>
 					}
 

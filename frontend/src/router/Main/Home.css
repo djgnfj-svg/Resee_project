@@ -2,6 +2,10 @@
     height: 94vh;
     background-color: #bbbbbb;
 }
+.hero-button{
+    background-color: #222222;
+    margin-top: 20px;
+}
 .hero-Go_velog{
     display: flex;
     width: 1000px;
