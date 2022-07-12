@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from accounts.models import User
@@ -25,3 +26,12 @@ class PostsCreateSerializer(serializers.Serializer):
 		)
 		instance.save()
 		return instance
+
+
+	def update(self, pk, validated_data):
+		instance = get_object_or_404(ReviewPost, id=pk)
+		instance.title=validated_data["title"]
+		instance.description=validated_data["description"]
+		instance.save()
+		return instance
+	
