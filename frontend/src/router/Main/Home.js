@@ -13,8 +13,6 @@ function Home() {
 
     const navigate = useNavigate("");
 
-
-
         // 홈페이지
         //access_token 만료시 refresh토큰 사용해 access token 재발급
         //access_toekn 만료됐다

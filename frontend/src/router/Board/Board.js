@@ -64,7 +64,6 @@ function Board() {
 
     const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
-        console.log(title , id )
         if(removeBooks === title){
             axios.delete("http://127.0.0.1:8000/api/Books/"+id ,
                 {
@@ -78,7 +77,26 @@ function Board() {
                 }).catch(error => {
                     console.log(error)
                 })
+        }else{
+            alert("올바른 책 이름이 아닌거같아요 !")
         }
+    }
+
+    const getBooksReviewData = (id) => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/review/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(res => {
+            if(Object.keys(res.data).length === 0){
+                alert("복습을 다 하셨거나 안에 내용이 없어요 !")
+            }else {
+                navigate(`/board/CategoryBooks/${id}/Review`)
+            }
+        }).catch(error => {
+            getAccessToken()
+            alert("복습할 책이 없어요 !")
+        })
     }
 
     return (
@@ -96,7 +114,7 @@ function Board() {
                                     <div className='books_content'>{item.rough_description}</div>
                                     <div className='books_btn'>
                                         <button className='write_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Write`)}>작성</button>
-                                        <button className='ReSee_books' onClick={() => navigate(`/board/CategoryBooks/${item.id}/Review`)}>복습</button>
+                                        <button className='ReSee_books' onClick={() => getBooksReviewData(item.id)}>복습</button>
                                         <button className='Remove_books' onClick={() => handleRemoveBooks(item.title,item.id)}>삭제하기</button>
                                     </div>
                                 </div>
@@ -113,7 +131,6 @@ function Board() {
                     }
                 </div>
                 <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || ((booksData.length === 0 || booksData.length) === undefined && "hide") || 'write_btn'}>
-                    {console.log(booksData.length)}
                     <button onClick={modalClose}>추가하기</button>
                     {showModal && <Add_modal show={modalClose} />}
                 </div>

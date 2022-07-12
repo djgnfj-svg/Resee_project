@@ -70,10 +70,10 @@ function WritePage() {
     <div className='Write_page'>
         <div className='Write_content' id='Write'>
             <div className='testing'>
-                <textarea autoFocus onKeyPress={(e) => handleEnterInput(e)} ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+                <textarea autoFocus ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
-            <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
+            <ReactMarkdown children={description} components={{img: ({node, ...props}) => <img style={{maxWidth: '100%'}}{...props} alt=""/>}}  className="markdown" placeholder="입력해주세요" >
             </ReactMarkdown>
     </div>
         <div className='Write_addBtn'>

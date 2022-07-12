@@ -83,13 +83,14 @@ function BooksReviewPage() {
             <div className='Review_addBtn'>
                 <div style={{ display: "flex", flexDirection: "row", width: "220px", position: "relative" }}>
                     <div className='te'>
-                        <button disabled={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
+                        <button hidden={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
+                        <div hidden={count + 1 === 1 ? false : true}></div>
                     </div>
                     {/*count / postList.length */}
                     <span style={{ color: "white", marginTop: "2px" }}>{count + 1 + " / " + (Object.keys(postList).length - 1)}</span>
                     <div className='te' style={{}}>
                         {/* count === poistlish.length ? 다음 버튼 비활성화 : 다음버튼 활성화 */}
-                        <button disabled={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
+                        <button hidden={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
                 </div>
                 <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>완료</button>

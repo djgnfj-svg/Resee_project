@@ -46,15 +46,13 @@ function MyNavbar() {
 						refresh: localStorage.getItem('refresh_token')
 					}
 					).then(res => {
-						localStorage.setItem('access_token', "");
 						localStorage.setItem('access_token', res.data.access)
 						navigate("/board");
 					})
 				}else{
 					navigate("/board")
 				}
-				})
-
+			});
 	}
 
 
