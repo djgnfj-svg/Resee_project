@@ -5,13 +5,14 @@ import './WritePage.css'
 import {useNavigate, useParams} from 'react-router-dom'
 import InputComponent from '../../../../components/InputComponent'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 
 function WritePage() {
 
     const {id} = useParams();
     const navigate = useNavigate("");
     const textRef = React.createRef();
-    const markdown = `Just a link: https://reactjs.com.`
     
     const [title,setTitle] = useState("")
     const [testing , setTesting] = useState([[{text : ""}]])
@@ -70,10 +71,10 @@ function WritePage() {
     <div className='Write_page'>
         <div className='Write_content' id='Write'>
             <div className='testing'>
-                <textarea autoFocus ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+                <textarea autoFocus  onKeyDown={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
-            <ReactMarkdown children={description} components={{img: ({node, ...props}) => <img style={{maxWidth: '100%'}}{...props} alt=""/>}}  className="markdown" placeholder="입력해주세요" >
+            <ReactMarkdown ref={textRef} remarkPlugins={[remarkGfm]} children={description} components={{img: ({node, ...props}) => <img style={{maxWidth: '100%'}}{...props} alt=""/>}}  className="markdown" placeholder="입력해주세요" >
             </ReactMarkdown>
     </div>
         <div className='Write_addBtn'>

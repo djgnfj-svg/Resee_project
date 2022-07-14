@@ -45,6 +45,7 @@ function BooksChangeData() {
         const obj = textRef.current
         obj.style.height = "auto";
         obj.style.height = obj.scrollHeight + 'px';
+        alert("aaa")
     }
 
     const getBooksReviewData = () => {
@@ -72,7 +73,7 @@ function BooksChangeData() {
             }   
         })
         .then( res =>{
-            navigate(`/board/CategoryBooks/${id}`);
+            navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
         }
         ).catch(error => {
             getAccessToken()
@@ -86,12 +87,12 @@ function BooksChangeData() {
             <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
         </div>
     <div className='Write_page'>
-        <div className='Write_content' id='Write'style={{paddingLeft:"30rem"}} >
+        <div className='Write_content' id='Write'style={{paddingLeft:"1rem", marginLeft:"20rem"}} >
             <div className='testing'>
-                <textarea autoFocus  ref={textRef} onKeyDown={handleResizeInput} onKeyUp={handleResizeInput} value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
+                <textarea autoFocus ref={textRef}  value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
-            <ReactMarkdown children={description} className="markdown" placeholder="입력해주세요" >
+            <ReactMarkdown ref={textRef} children={description} className="markdown" placeholder="입력해주세요" >
             </ReactMarkdown>
     </div>
         <div className='Write_addBtn'>
