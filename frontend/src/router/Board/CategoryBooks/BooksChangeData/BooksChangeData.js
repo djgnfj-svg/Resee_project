@@ -56,7 +56,6 @@ function BooksChangeData() {
             setPostList(res.data)
             setTitle(res.data.title)
             setDescription(res.data.description)
-            console.log(res.data)
         }).catch(error => {
             getAccessToken();
         })

@@ -11,10 +11,9 @@ function BooksPostData() {
     const { postId } = useParams("");
 
     const [postList, setPostList] = useState([]);
-    const [postList2, setPostList2] = useState(false);
 
     const [navigateData, setNavigateData] = useState("")
-    const [naviBoolean, setNaviBoolean] = useState(false)
+    const [navigateId , setNavigateId] = useState("");
 
     const [test, setTest] = useState(false)
 
@@ -24,14 +23,11 @@ function BooksPostData() {
     const handleChangeInput = (e) => { }
     const handleChangeInput2 = (e) => { }
 
-    useEffect(() => {
-        getBooksReviewData()
-    }, [])
 
     useEffect(() => {
         getBooksReviewData();
         getBooksData();
-    }, [naviBoolean])
+    }, [postId])
    
     const getAccessToken = () => {
         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
@@ -46,31 +42,18 @@ function BooksPostData() {
             })
     }
 
-    const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('access_token')}`
-            }
-        }).then(res => {
-            setPostList(res.data)
-            setNaviBoolean(false)
-            setPostList2(true)
-        }).catch(error => {
-            getAccessToken()
-        })
-    }
-
     const getBooksData = () => {
         axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            console.log(res.data)
+            console.log(res.data[0].id)
             if (res.data.msg === "Post가 없습니다.") {
+
             } else {
                 setNavigateData(res.data)
-                setNaviBoolean(false)
+                setNavigateId(res.data[0].id);
             }
         }).catch(error => {
             getAccessToken()
@@ -78,20 +61,23 @@ function BooksPostData() {
         })
     }
 
-    const goBooksData = (itemId) => {
-        navigate(`/board/CategoryBooks/${id}/postReview/${itemId}`);
-        setNaviBoolean(true)
-        getAccessToken();
-
+    const getBooksReviewData = () => {
+        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(res => {
+            setPostList(res.data)
+            console.log("aaa")
+        }).catch(error => {
+            getAccessToken()
+        })
     }
 
-    // const handleClickNavigate = () => {
-    //     if(test === false) {
-    //         setTest(true)
-    //     }else{
-    //         setTest(false)
-    //     }
-    // }
+    const goBooksData = (itemId) => {
+        navigate(`/board/CategoryBooks/${id}/postReview/${itemId}`);
+    }
+
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
             axios.delete(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
@@ -103,7 +89,8 @@ function BooksPostData() {
                 if(navigateData === null){
                     navigate(`/board/CategoryBooks/${id}`)
                 }else{
-                    navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
+                    navigate(`/board/CategoryBooks/${id}/postReview/${navigateId}`);
+                    getBooksData();
                 }
             })
         }
@@ -113,13 +100,13 @@ function BooksPostData() {
     return (
         <div className='Review_page'>
             <div className='Review_title'>
-                {postList && postList2 === true && <>
+                {postList && <>
                     <ReactMarkdown className='markdown_title' children={postList.title} />
                 </>
                 }
             </div>
             <div className='Review_content'>
-                {postList && postList2 === true && <>
+                {postList && <>
                     <ReactMarkdown className='markdown_content' children={postList.description} />
                 </>}
             </div>
@@ -132,7 +119,7 @@ function BooksPostData() {
                         </div> */}
                     {navigateData && navigateData.map((item, index) => (
                         <>
-                            <div className={item.title === postList.title ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                            <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
                         </>
                     ))}
                     {navigateData && navigateData === null && (

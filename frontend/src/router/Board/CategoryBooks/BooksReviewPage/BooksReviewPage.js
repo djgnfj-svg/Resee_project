@@ -11,8 +11,7 @@ function BooksReviewPage() {
     const { id } = useParams("");
 
     const [count, setCount] = useState(0);
-    const [postList, setPostList] = useState([]);
-    const [postList2, setPostList2] = useState(false);
+    const [postList, setPostList] = useState("");
     const [postIds ,setPostIds] = useState("");
 
     const navigate = useNavigate("");
@@ -23,7 +22,7 @@ function BooksReviewPage() {
     useEffect(() => {
         getBooksReviewData();
 
-    }, [setPostList2])
+    }, [])
 
     const getAccessToken = () => {
         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
@@ -60,7 +59,6 @@ function BooksReviewPage() {
         }).then(res => {
             setPostList(res.data)
             setPostIds(res.data.ids)
-            setPostList2(true);
         }).catch(error => {
             getAccessToken()
         })
@@ -70,13 +68,13 @@ function BooksReviewPage() {
     return (
         <div className='Review_page'>
             <div className='Review_title'>
-                {postList && postList2 === true && <>
+                {postList && <>
                     <ReactMarkdown className='markdown_title' children={postList[count].title} />
                 </>
                 }
             </div>
             <div className='Review_content'>
-                {postList && postList2 === true && <>
+                {postList && <>
                     <ReactMarkdown className='markdown_content' children={postList[count].description}  />
                 </>}
             </div>

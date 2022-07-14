@@ -11,6 +11,8 @@ function Board() {
 
     const [showModal, setShowModal] = useState(false);
     const [booksData, setBooksData] = useState([]);
+    const [delBoolean , setDelBoolean] = useState(false)
+
     const modalClose = () => {
         setShowModal(!showModal)
     }
@@ -21,7 +23,7 @@ function Board() {
 
     useEffect(() => {
         getBooksData();
-    }, [showModal === false])
+    }, [showModal === false] || delBoolean === true)
 
     const notLogin = () =>{
         if(!isLogin()){
@@ -64,20 +66,24 @@ function Board() {
 
     const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
+        console.log(id)
         if(removeBooks === title){
-            axios.delete("http://127.0.0.1:8000/api/Books/"+id ,
+            axios.delete(`http://127.0.0.1:8000/api/Books/${id}/` ,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                    }
+                    },
                 },
                 )
                 .then(res => {
                     navigate("/board");
+                    getBooksData();
                 }).catch(error => {
                     console.log(error)
                 })
-        }else{
+        }else if(removeBooks === null){
+            //취소 클릭 시 아무행동 없음
+        }else if(removeBooks !== title){
             alert("올바른 책 이름이 아닌거같아요 !")
         }
     }
@@ -88,7 +94,8 @@ function Board() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            if(Object.keys(res.data).length === 0){
+            console.log(Object.keys(res.data).length)
+            if(Object.keys(res.data).length === 1){
                 alert("복습을 다 하셨거나 안에 내용이 없어요 !")
             }else {
                 navigate(`/board/CategoryBooks/${id}/Review`)
