@@ -72,6 +72,11 @@ function CategoryBooks() {
           </div>
           <div className='add_category'>
             <button onClick={() => navigate(`/board/CategoryBooks/${id}/Write`)} disabled={postList.length === 12 ? true : false} >추가하기</button>
+            {postList.length === 12 && 
+            <>
+              <div>책은 최대 12개 까지만 생성 가능합니다.</div>
+              <div style={{color:"#c7c7c7" , fontSize:"14px" }}>추가 생성을 원한다면 ? <a href='#' style={{marginLeft:"5px" , color:"white" ,fontSize:"14.5px" ,  textDecoration:"underline" ,}}>Go Premium</a></div>
+            </>}
             </div>
     </div>
     </>
