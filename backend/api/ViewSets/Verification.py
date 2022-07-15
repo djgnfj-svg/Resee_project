@@ -1,9 +1,22 @@
+import email
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
-from accounts.models import UserVerification
+from accounts.models import UserVerification, User
+
+class EmailcheckView(viewsets.ViewSet):
+	def create(self, request):
+		print(request.data)
+		try :
+			user = User.objects.get(email=request.data['email'])
+		except User.DoesNotExist:
+			return Response({"msg" : "가입가능"}, status=status.HTTP_200_OK)
+		return Response({"msg" : "이미 있는유저"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+
 class VerificationView(viewsets.ViewSet):
 	def list(self, request):
 		key = request.GET.get('key','')

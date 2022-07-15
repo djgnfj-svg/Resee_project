@@ -14,7 +14,7 @@ class PostsSerializer(serializers.ModelSerializer):
 
 class PostsCreateSerializer(serializers.Serializer):
 	title = serializers.CharField(max_length=20)
-	description = serializers.CharField(max_length=500)
+	description = serializers.CharField(max_length=1000)
 
 	def create(self, request, book_id, validated_data):
 		userid = getUserId(request.user)
