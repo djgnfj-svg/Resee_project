@@ -110,7 +110,7 @@ function BooksPostData() {
                     <ReactMarkdown className='markdown_content' children={postList.description} />
                 </>}
             </div>
-
+                    
             <div>
                 <div style={{position:"absolute" ,top:"-50px"}}>
                 <div className={test === true ? "CloseBtn" : "Navigations_var"}  >
