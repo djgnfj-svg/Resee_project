@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import {useNavigate, useParams} from 'react-router-dom'
 import InputComponent from '../../../../components/InputComponent'
 import ReactMarkdown from 'react-markdown'
+import maxLength from '../../../../components/description_maxLength';
 
 function BooksChangeData() {
 
@@ -63,23 +64,28 @@ function BooksChangeData() {
     }
 
     const handleSubmitPost = () => {
-        axios.put(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
-            title : title,
-            description : description,
-        },
-        {
-            headers:{
-                Authorization : `Bearer ${localStorage.getItem('access_token')}`
-            }   
-        })
-        .then( res =>{
-            navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
-        }
-        ).catch(error => {
-            getAccessToken()
-        })
-    }
+        if(description.length > maxLength() ){
+            alert(maxLength()+"글자 미만으로 입력해주세요")
+        }else{
 
+            axios.put(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
+                title : title,
+                description : description,
+            },
+            {
+                headers:{
+                    Authorization : `Bearer ${localStorage.getItem('access_token')}`
+                }   
+            })
+            .then( res =>{
+                navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
+            }
+            ).catch(error => {
+                getAccessToken()
+            })
+        }
+        }
+        
 
   return (
     <div>
@@ -87,15 +93,15 @@ function BooksChangeData() {
             <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
         </div>
     <div className='Write_page'>
-        <div className='Write_content' id='Write'style={{paddingLeft:"1rem", marginLeft:"20rem"}} >
+        <div className='Write_content' id='Write'style={{paddingLeft:"1rem", marginLeft:"10rem"}} >
             <div className='testing'>
                 <textarea autoFocus ref={textRef}  value={description} onChange={handleChangeInput2}  placeholder="내용을 입력해주세요" />
             </div>
         </div>
-            <ReactMarkdown ref={textRef} children={description} className="markdown" placeholder="입력해주세요" >
+            <ReactMarkdown style ref={textRef} children={description} className="markdown" placeholder="입력해주세요" >
             </ReactMarkdown>
     </div>
-        <div className='Write_addBtn'>
+        <div className='Write_addBtn' style={{marginTop:"0px"}}>
             <button onClick={(e) => handleSubmitPost(e)}>수정 완료</button> 
         </div>
     </div>
