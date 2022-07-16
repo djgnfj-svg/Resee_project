@@ -22,14 +22,13 @@ function CategoryBooks() {
                 refresh:localStorage.getItem('refresh_token')
             }
         ).then(res => {
-            localStorage.setItem('access_token', "lostark")
             localStorage.setItem('access_token',res.data.access)
             getCategoryList();
         })
 }
 
   const getCategoryList = () => {
-    axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`,
+    axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`,
     {
       headers:{
         Authorization : `Bearer ${localStorage.getItem('access_token')}`
@@ -59,7 +58,7 @@ function CategoryBooks() {
               <>
                 <div className='books_title'>
                   <div style={{textAlign:"right" , fontSize:"13px"}}>{item.created_at}</div>
-                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/CategoryBooks/${id}/postReview/${item.id}`)}><span style={{color:"#7b9acc`"}}>{item.title}</span></a>
+                  <a style={{cursor:"pointer"}} onClick={() =>navigate(`/board/categoryBooks/${id}/postreview/${item.id}`)}><span style={{color:"#7b9acc`"}}>{item.title}</span></a>
                 </div>
               </>
             ))}
@@ -71,7 +70,7 @@ function CategoryBooks() {
         </div>
           </div>
           <div className='add_category'>
-            <button onClick={() => navigate(`/board/CategoryBooks/${id}/Write`)} disabled={postList.length === 12 ? true : false} >추가하기</button>
+            <button onClick={() => navigate(`/board/categorybooks/${id}/write`)} disabled={postList.length === 12 ? true : false} >추가하기</button>
             {postList.length === 12 && 
             <>
               <div>책은 최대 12개 까지만 생성 가능합니다.</div>

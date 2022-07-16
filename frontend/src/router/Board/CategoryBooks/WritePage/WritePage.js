@@ -27,36 +27,6 @@ function WritePage() {
     })
     const { description } = descriptions
 
-    const sanitizer = DOMPurify.sanitize;
-
-    // useEffect(() => {
-    //     if (textRef.current) {
-    //       textRef.current.getInstance().removeHook("addImageBlobHook");
-    //       textRef.current
-    //         .getInstance()
-    //         .addHook("addImageBlobHook", (blob, callback) => {
-    //           (async () => {
-    //             let formData = new FormData();
-    //             formData.append("file", blob);
-    
-    //             axios.defaults.withCredentials = true;
-    //             const { data: url } = await axios.post(
-    //               `${backUrl}image.do`,
-    //               formData,
-    //               {
-    //                 header: { "content-type": "multipart/formdata" },
-    //               }
-    //             );
-    //             callback(url, "alt text");
-    //           })();
-    
-    //           return false;
-    //         });
-    //     }
-    
-    //     return () => {};
-    //   }, [textRef]);
-
     const handleChangeInput = (e) => { setTitle(e.target.value) }
 
     const handleChangeInput2 = (e) => {
@@ -70,11 +40,11 @@ function WritePage() {
                 refresh: localStorage.getItem('refresh_token')
             }
         ).then(res => {
-            localStorage.setItem('access_token', "lostark")
             localStorage.setItem('access_token', res.data.access)
             handleSubmitPost();
         })
     }
+
     const uploadImage = async (blob) => {
         const formData = new FormData();
         formData.append('image',blob);
@@ -85,14 +55,13 @@ function WritePage() {
         return url
     }
 
-
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
             alert(maxLength() + "글자 미만으로 입력해주세요")
         }else if(title === ""){
             alert("제목을 입력하지 않으셨어요 !")
         }else {
-            axios.post(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
+            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, {
                 title: title,
                 description: description,
             },
@@ -102,7 +71,7 @@ function WritePage() {
                     }
                 })
                 .then(res => {
-                    navigate(`/board/CategoryBooks/${id}`);
+                    navigate(`/board/categorybooks/${id}`);
                 }
                 ).catch(error => {
                     getAccessToken();

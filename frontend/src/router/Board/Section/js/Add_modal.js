@@ -14,25 +14,34 @@ function Add_modal({ show }) {
     const change = (e) => { setTitle(e.target.value) }
     
     const handleSubmit = () =>{
-        axios.post("http://127.0.0.1:8000/api/Books/",
-        {
+        if(title.length  < 2 ){
+          alert("제목을 2글자 이상 입력해주세요 !");
+        }else if(description.length < 5){
+          alert("설명을 5글자 이내로 써주세요"); 
+        }else{
+          axios.post("http://127.0.0.1:8000/api/books/",
+          {
             title : title,
             rough_description : description,
-        },
-        {
+          },
+          {
             headers:{
-                Authorization : `Bearer ${localStorage.getItem('access_token')}`
+              Authorization : `Bearer ${localStorage.getItem('access_token')}`
             }   
+          }).then(res => {
+            if(res.data.msg){
+              alert("공백이 제목이 될 수 없어요 !")
+            }else{
+              show();
+            }
+          }).catch(error => {
+            console.log(error)
+          })
         }
-        ).then(res => {
-            console.log(res);
-            show();
         }
-        )
-    }
-
-
-    return (
+        
+        
+        return (
         <>
           <Modal show={show} onHide={show} centered style={{borderRadius:"0.3rem"}}>
             <Modal.Header closeButton style={{backgroundColor:"#31313c" , borderBottom:"1px solid #515163"}}>

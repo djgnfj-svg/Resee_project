@@ -37,7 +37,7 @@ function BooksReviewPage() {
     }
 
     const handleFinishBtn = (e) => {
-        axios.post(`http://127.0.0.1:8000/api/Books/${id}/review/`,
+        axios.post(`http://127.0.0.1:8000/api/books/${id}/review/`,
         {
             ids : postIds
         },
@@ -52,7 +52,7 @@ function BooksReviewPage() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/review/`, {
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/review/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }

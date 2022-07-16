@@ -24,9 +24,6 @@ function BooksChangeData() {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [postList, setPostList] = useState("");
-
-
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
 
@@ -44,19 +41,17 @@ function BooksChangeData() {
                 refresh: localStorage.getItem('refresh_token')
             }
         ).then(res => {
-            localStorage.setItem('access_token', "lostark")
             localStorage.setItem('access_token', res.data.access)
             getBooksReviewData()
         })
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            setPostList(res.data)
             setTitle(res.data.title)
             setDescription(res.data.description)
         }).catch(error => {
@@ -67,7 +62,7 @@ function BooksChangeData() {
     const handleReplaceBack = () => {
         const exit =  window.confirm("지금 나가시면 수정하신 정보를 잃어버려요 !")
         if(exit === true){
-            navigate(`/board/CategoryBooks/${id}/postReview/${postId}`)
+            navigate(`/board/categorybooks/${id}/postreview/${postId}`)
         }else if(exit === false){
 
         }
@@ -76,11 +71,10 @@ function BooksChangeData() {
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
             alert(maxLength() + "글자 미만으로 입력해주세요");
-
         } else if (title === "") {
             alert("제목을 입력해주세요!")
         } else {
-            axios.put(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
                 title: title,
                 description: description,
             },
@@ -90,7 +84,7 @@ function BooksChangeData() {
                     }
                 })
                 .then(res => {
-                    navigate(`/board/CategoryBooks/${id}/postReview/${postId}`);
+                    navigate(`/board/categorybooks/${id}/postreview/${postId}`);
                 }
                 ).catch(error => {
                     getAccessToken()

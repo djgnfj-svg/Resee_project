@@ -24,11 +24,11 @@ function App() {
 					<Route path="/sign_up" element={<Sign_up />}/>
 						<Route path="/board" element={<Board />}>
 					</Route>
-						<Route path="/board/CategoryBooks/:id" element={<CategoryBooks />} />
-						<Route path="/board/CategoryBooks/:id/Review" element={<BooksReviewPage />}/>
-						<Route path="/board/CategoryBooks/:id/postReview/:postId" element={<BooksPostData />}/>
-						<Route path="/board/CategoryBooks/:id/changeReview/:postId" element={<BooksChangeData />}/>
-						<Route path="/board/CategoryBooks/:id/Write" element={<WritePage />}/>
+						<Route path="/board/categoryBooks/:id" element={<CategoryBooks />} />
+						<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />}/>
+						<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />}/>
+						<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />}/>
+						<Route path="/board/categoryBooks/:id/write" element={<WritePage />}/>
 					<Route path="*" element={<div>testa</div>}/>
 					
 				</Routes>

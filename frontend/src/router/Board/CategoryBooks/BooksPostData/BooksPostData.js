@@ -17,12 +17,7 @@ function BooksPostData() {
 
     const [test, setTest] = useState(false)
 
-
     const navigate = useNavigate("");
-
-    const handleChangeInput = (e) => { }
-    const handleChangeInput2 = (e) => { }
-
 
     useEffect(() => {
         getBooksReviewData();
@@ -43,7 +38,7 @@ function BooksPostData() {
     }
 
     const getBooksData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/`, {
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -57,39 +52,37 @@ function BooksPostData() {
             }
         }).catch(error => {
             getAccessToken()
-            console.log("hellow");
         })
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`, {
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
             setPostList(res.data)
-            console.log("aaa")
         }).catch(error => {
             getAccessToken()
         })
     }
 
     const goBooksData = (itemId) => {
-        navigate(`/board/CategoryBooks/${id}/postReview/${itemId}`);
+        navigate(`/board/categorybooks/${id}/postreview/${itemId}`);
     }
 
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            axios.delete(`http://127.0.0.1:8000/api/Books/${id}/post/${postId}/`,{
+            axios.delete(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
             .then(res => {
                 if(navigateData === null){
-                    navigate(`/board/CategoryBooks/${id}`)
+                    navigate(`/board/categorybooks/${id}`)
                 }else{
-                    navigate(`/board/CategoryBooks/${id}/postReview/${navigateId}`);
+                    navigate(`/board/categorybooks/${id}/postreview/${navigateId}`);
                     getBooksData();
                 }
             })

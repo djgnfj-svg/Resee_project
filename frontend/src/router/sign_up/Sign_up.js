@@ -23,31 +23,36 @@ function Sign_up() {
 	const [nameLength , setNameLength] = useState(true)
 	const [emailLength , setEmailLength] = useState(false)
 	const [passwordLength , setPasswordLength] = useState(false)
-	const [password2Length , setPassword2Length] = useState(false)
 
 	const [email , setEmail] = useState("");
 	const [username , setUserName] = useState("");
 	const [password1 , setPassword] = useState("");
 	const [password2 , setPassword2] = useState("");
 
-
+	const [overlapEmail , setOverLapEmail] = useState("")
 
 	const BluerUserName = (e) => {
 		if(e.target.value.length < 1){
 			setNameLength(false)
 		}else{
 			setNameLength(true);
+			setNameUpdated(true);
 		}
-		setNameUpdated(true);
 	}
 
 	const BluerEmail = (e) => {
-		if(e.target.value.length < 1){
-			setEmailLength(false)
-		}else{
-			setEmailLength(true);
-		}
-		setEmailUpdated(true);
+		axios.post('http://127.0.0.1:8000/api/emailcheck/',{
+			email : email,
+		}).then(res => {
+			if(e.target.value.length < 1){
+				setEmailLength(false)
+			}else{
+				setEmailLength(true);
+				setEmailUpdated(true);
+			}
+	}).catch(error => {
+		setOverLapEmail(error.response.data.msg)
+	})
 	}
 
 	const BluerPassword = (e) => {
@@ -55,17 +60,18 @@ function Sign_up() {
 			setPasswordLength(false)
 		}else{
 			setPasswordLength(true);
+			setPasswordUpdated(true);
 		}
-		setPasswordUpdated(true);
 	}
 
 	const BluerPassword2 = (e) => {
-		if(e.target.value.length !== password1){
-			setPassword2Length(false)
+		if(e.target.value === password1){
+			setPassword2Updated(true);
+			setErrorUserPassword2(false)
 		}else{
-			setPassword2Length(true);
+			setPassword2Updated(false);
+			setErrorUserPassword2(true)
 		}
-		setPassword2Updated(true);
 	}
 
 	const onChangeuserName = (e) =>  {
@@ -91,6 +97,7 @@ function Sign_up() {
 		}else{
 			setErrorUserEmail(true)
 		}
+		setOverLapEmail("");
 		setEmail(e.target.value);
 	};
 
@@ -179,7 +186,7 @@ function Sign_up() {
 					}
 
 					<label>이메일</label>
-					{errorUserEmail === false && emailUpdated  && emailLength &&
+					{errorUserEmail === false && emailUpdated  && emailLength && overlapEmail === "" &&
 						<span className='succes_check'>
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
@@ -188,6 +195,11 @@ function Sign_up() {
 					{errorUserEmail &&
 						<div className='errorMsg'>
 							올바른 이메일 형식이 아닙니다.
+						</div>
+					}
+					{overlapEmail !== "" &&
+						<div className='errorMsg'>
+							이미 존재하는 이메일 입니다.
 						</div>
 					}
 
@@ -222,7 +234,7 @@ function Sign_up() {
 						</div>
 					}
 					
-					<div className="sign_welcome" onClick={Sign_up_button} hidden={ password2Updated2   && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
+					<div className="sign_welcome" hidden={ password2Updated2   && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >가입을 환영해요 : )</div>
 					<button className="submit_class" onClick={Sign_up_button} disabled={ password2Updated2  && nameLength && emailLength && passwordLength && erroruserNickname === false && errorUserEmail === false && errorUserPassword2 === false && errorUserPassword === false ? false : true} >회원가입</button>
 				</div>
 				<div className="info_div">
