@@ -5,10 +5,11 @@ from django.utils import timezone
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from rest_framework.permissions import AllowAny
 from accounts.models import UserVerification, User
 
 class EmailcheckView(viewsets.ViewSet):
+	permission_classes  = [AllowAny]
 	def create(self, request):
 		print(request.data)
 		try :
