@@ -19,8 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from accounts.urls import login_patterns
-
-from api.urls import router
+from api.urls import router 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +27,8 @@ urlpatterns = [
     path('api/oauth/', include(login_patterns)),
     path('api/accounts/', include('dj_rest_auth.urls')),
     path('api/accounts/', include('dj_rest_auth.registration.urls')),
-    re_path('.*', TemplateView.as_view(template_name='index.html')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += [
+    re_path('.*', TemplateView.as_view(template_name='index.html')),
+]

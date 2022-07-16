@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from accounts.models import User
 from api.Utils.getUser import getUserId
+from books.models import ReviewPostImgs
 from books.models import ReviewBook, ReviewPost
 
 class PostsSerializer(serializers.ModelSerializer):
@@ -11,6 +12,37 @@ class PostsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ReviewPost
 		fields = ["id", "title", "description", "review_count", "created_at"]
+
+class PostImageSerializer(serializers.ModelSerializer):
+	image = serializers.ImageField(use_url=True)
+	class Meta :
+		model = ReviewPostImgs
+		fields = '__all__'
+	
+	# def create(self, request, validated_data, post_id):
+	# 	print(validated_data)
+	# 	instance = ReviewPostImgs.objects.create(
+	# 		title = validated_data['title'],
+	# 		image = validated_data['image'],
+	# 		post = ReviewPost.objects.get(id=post_id),
+	# 	)
+	# 	instance.save()
+	# 	return instance
+
+
+# class PostImageCreateSerializer(serializers.Serializer):
+# 	title = serializers.CharField(max_length=20)
+# 	image = serializers.ImageField(use_url=True)
+
+# 	def create(self, request, validated_data, post_id):
+# 		print(validated_data)
+# 		instance = ReviewPostImgs.objects.create(
+# 			title = validated_data['title'],
+# 			image = validated_data['image'],
+# 			post = ReviewPost.objects.get(id=post_id),
+# 		)
+# 		instance.save()
+# 		return instance
 
 class PostsCreateSerializer(serializers.Serializer):
 	title = serializers.CharField(max_length=20)

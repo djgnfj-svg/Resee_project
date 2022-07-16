@@ -1,15 +1,27 @@
 from django.shortcuts import get_object_or_404
+
 from rest_framework import viewsets, status, exceptions
 from rest_framework.response import Response
-
+from rest_framework.permissions import AllowAny
 
 from api.Utils.getUser import getUserId
 from api.Seriailzers.PostSerializer import PostsSerializer, PostsCreateSerializer
+from api.Seriailzers.PostSerializer import PostImageSerializer
+from books.models import ReviewPostImgs
 from books.models import ReviewPost
+
+class PostImgViewSet(viewsets.ModelViewSet):
+	serializer_class = PostImageSerializer
+	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
+	permission_classes  = [AllowAny]
+
+	def list(self, request, book_id, post_id,):
+		return Response()
 
 class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
 	queryset = ReviewPost.objects.filter().order_by("created_at")
+
 	def list(self, request, book_id):
 		userid = getUserId(request.user)
 		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
