@@ -39,8 +39,7 @@ function MyNavbar() {
 			.then(res => {
 				navigate("/board");
 			}).catch(res => {
-				if(localStorage.getItem('refresh') !== null){
-
+				if(localStorage.getItem('refresh_token') !== null){
 					axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
 					{
 						refresh: localStorage.getItem('refresh_token')
