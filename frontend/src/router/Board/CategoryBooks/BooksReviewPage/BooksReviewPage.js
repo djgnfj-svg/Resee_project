@@ -4,6 +4,7 @@ import axios from 'axios'
 import './BooksReviewPage.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import { Viewer } from '@toast-ui/react-editor';
 
 
 function BooksReviewPage() {
@@ -75,7 +76,8 @@ function BooksReviewPage() {
             </div>
             <div className='Review_content'>
                 {postList && <>
-                    <ReactMarkdown className='markdown_content' children={postList[count].description}  />
+                    <Viewer initialValue={postList[count].description} />
+
                 </>}
             </div>
             <div className='Review_addBtn'>

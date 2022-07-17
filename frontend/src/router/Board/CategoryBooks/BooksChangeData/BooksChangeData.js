@@ -1,9 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom'
 
-import ReactMarkdown from 'react-markdown'
 import maxLength from '../../../../components/description_maxLength';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -11,8 +9,6 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import markdownIt from "markdown-it";
-import DOMPurify from "dompurify";
 
 function BooksChangeData() {
 
@@ -99,16 +95,16 @@ function BooksChangeData() {
                 <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
             </div>
             <div className='Write_page'>
+                
                 {description && <>
                     <Editor 
-                        onFocus={true}
                         ref={textRef}
                         initialValue={description}
                         previewStyle="vertical"
                         height="800px"
                         initialEditType="markdown"
                         useCommandShortcut={true}
-                        onChange={handleChangeInput2}
+                        toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
                         plugins={[
                             [
                                 colorSyntax,
@@ -117,7 +113,27 @@ function BooksChangeData() {
                                     preset: ['#1F2E3D', '#4c5864', '#ED7675']
                                 }
                             ]
-                        ]}
+                        ]} 
+                        hooks={{
+                            addImageBlobHook : async (blob, callback) => {
+                                const formData = {
+                                    image : blob,
+                                    title : "aa",
+                                    post : 1,
+                                }
+                                await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
+                                {
+                                    headers: {
+                                        "Content-Type": "multipart/form-data",
+                                    },
+                                }).then(res => {
+                                    callback(res.data.image, '이미지');
+                                    console.log(res.data.image)
+                                }).catch(error => {
+                                    console.log(error)
+                                })
+                            },
+                          }}
                     />
                 </>}
             </div>

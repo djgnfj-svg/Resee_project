@@ -20,7 +20,7 @@
 
 .markdown_content {
     width: 100rem;
-    height: 65vh;
+    height: 100%;
     outline: none;
     background-color: rgb(25,25,25);
     color: #c4c4c4;
@@ -28,6 +28,11 @@
     text-align: left;
     padding-left: 25rem;
     font-size: 20px;
+    padding-bottom: 6rem;
+}
+.markdown_content p{
+    width: 100%;
+    transform: scale(0.7);
 }
 
 .markdown_title {
@@ -48,6 +53,7 @@
     margin-top: 20px;
     display: inline-block;
     width: 200px;
+    margin-bottom: 3rem;
 }
 
 .Review_addBtn button{
