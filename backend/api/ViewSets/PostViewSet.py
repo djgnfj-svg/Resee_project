@@ -15,8 +15,20 @@ class PostImgViewSet(viewsets.ModelViewSet):
 	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
 	permission_classes  = [AllowAny]
 
-	def list(self, request, book_id, post_id,):
-		return Response()
+	def list(self, request, post_id,):
+		queryset = ReviewPostImgs.objects.filter(post_id = post_id).order_by("created_at")
+		print(post_id)
+		if not queryset:
+			return Response({"msg" : "Post가 없습니다."}, status=status.HTTP_200_OK)
+		serializer = PostImageSerializer(queryset, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	def create(self, request, post_id, *args, **kwargs):
+		serializer = PostImageSerializer(data=request.data, context={'request' : request})
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_200_OK)
+		return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
 class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer

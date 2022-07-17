@@ -19,30 +19,16 @@ class PostImageSerializer(serializers.ModelSerializer):
 		model = ReviewPostImgs
 		fields = '__all__'
 	
-	# def create(self, request, validated_data, post_id):
-	# 	print(validated_data)
-	# 	instance = ReviewPostImgs.objects.create(
-	# 		title = validated_data['title'],
-	# 		image = validated_data['image'],
-	# 		post = ReviewPost.objects.get(id=post_id),
-	# 	)
-	# 	instance.save()
-	# 	return instance
+	def create(self, validated_data):
+		img_data = self.context['request'].FILES
 
+		for img in img_data.getlist('image'):
+			instance= ReviewPostImgs.objects.create(
+				title = validated_data["title"], 
+				image=img,
+				post = ReviewPost.objects.get(id=validated_data['post'].id))
+		return instance
 
-# class PostImageCreateSerializer(serializers.Serializer):
-# 	title = serializers.CharField(max_length=20)
-# 	image = serializers.ImageField(use_url=True)
-
-# 	def create(self, request, validated_data, post_id):
-# 		print(validated_data)
-# 		instance = ReviewPostImgs.objects.create(
-# 			title = validated_data['title'],
-# 			image = validated_data['image'],
-# 			post = ReviewPost.objects.get(id=post_id),
-# 		)
-# 		instance.save()
-# 		return instance
 
 class PostsCreateSerializer(serializers.Serializer):
 	title = serializers.CharField(max_length=20)
