@@ -25,6 +25,7 @@ function WritePage() {
     const [descriptions, setDescriptions] = useState({
         description: "",
     })
+    const [imageURL , setImageURL] = useState("");
     const { description } = descriptions
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
@@ -46,13 +47,19 @@ function WritePage() {
     }
 
     const uploadImage = async (blob) => {
-        const formData = new FormData();
-        formData.append('image',blob);
-
-        const url = await axios.post('url',{
-            body : formData
+        const formData = new FormData()
+        formData.append('file',blob)
+        console.log(formData)
+        const url = await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,{
+            file:blob,
+            title: "aa",
+            post_id: 1
+        }).then(res => {
+            setImageURL(res.data.url)
+            console.log(res.data)
+        }).catch(error => {
+            console.log(error)
         })
-        return url
     }
 
     const handleSubmitPost = () => {
@@ -107,7 +114,7 @@ function WritePage() {
                     hooks={{
                         addImageBlobHook: async (blob, callback) => {
                           
-                          console.log(blob);  // File {name: '카레유.png', ... }
+                        //   console.log(blob);  // File {name: '카레유.png', ... }
               
                           // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
                           // const imgUrl = await .... 서버 전송 / 경로 수신 코드 ...
