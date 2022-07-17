@@ -17,7 +17,7 @@ class PostImgViewSet(viewsets.ModelViewSet):
 
 	def list(self, request, post_id,):
 		queryset = ReviewPostImgs.objects.filter(post_id = post_id).order_by("created_at")
-		print(post_id)
+		test = ReviewPostImgs.objects.filter(post_id = post_id).first()
 		if not queryset:
 			return Response({"msg" : "Post가 없습니다."}, status=status.HTTP_200_OK)
 		serializer = PostImageSerializer(queryset, many=True)

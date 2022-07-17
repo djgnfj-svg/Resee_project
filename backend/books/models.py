@@ -28,7 +28,7 @@ class ReviewPost(models.Model):
 class ReviewPostImgs(models.Model):
 	title = models.CharField(max_length=20, null=True)
 	post = models.ForeignKey(ReviewPost, on_delete=models.CASCADE)
-	image = models.ImageField(blank=True, upload_to='%Y/%m/%d', null=True)
+	image = models.ImageField(blank=True, upload_to='images', null=True)
 
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
