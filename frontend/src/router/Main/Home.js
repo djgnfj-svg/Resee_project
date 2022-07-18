@@ -30,7 +30,6 @@ function Home() {
                         refresh:localStorage.getItem('refresh_token')
                     }
                 ).then(res => {
-                    localStorage.setItem('access_token', "lostark")
                     localStorage.setItem('access_token',res.data.access)
                 })
             })
@@ -50,7 +49,7 @@ function Home() {
                 <h1>Write & ReSee</h1>
                 <h3 style={{fontSize:"20px"}}>Wan't you Remember?</h3>
                 <h3 style={{fontSize:"20px"}}>Write and See again With ReSee</h3>
-                <button className='hero-button' ><a onClick={() => goSignUp()} style={{ textDecoration: 'none', color: "white" }}>회원가입</a></button>
+                <button className='hero-button' ><a onClick={() => goSignUp()} style={{ textDecoration: 'none', color: "white" }}>가입하기</a></button>
             </div>
             <div className='hero-Go_velog'>
                 <div className='velog_content'>

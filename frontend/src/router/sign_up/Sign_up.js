@@ -41,6 +41,7 @@ function Sign_up() {
 	}
 
 	const BluerEmail = (e) => {
+		{console.log(overlapEmail)}
 		axios.post('http://127.0.0.1:8000/api/emailcheck/',{
 			email : email,
 		}).then(res => {
@@ -50,8 +51,9 @@ function Sign_up() {
 				setEmailLength(true);
 				setEmailUpdated(true);
 			}
-	}).catch(error => {
-		setOverLapEmail(error.response.data.msg)
+		}).catch(error => {
+			setOverLapEmail(error.response.data.msg)
+			console.log(error)
 	})
 	}
 
@@ -77,7 +79,7 @@ function Sign_up() {
 	const onChangeuserName = (e) =>  {
 
 		const usernameRegex = new RegExp("^[a-zA-Z0-9가-힣ㄱ-ㅎ]{1,10}$");
-
+		
 		if((!e.target.value || (usernameRegex.test(e.target.value)))){
 			setErroruserNickname(false)
 			setNameUpdated(false)
@@ -90,7 +92,7 @@ function Sign_up() {
 
 	const onChangeEmail = (e) =>  {
 		const emailRegex = new RegExp("^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
-
+		
 		if((!e.target.value || (emailRegex.test(e.target.value)))){
 			setErrorUserEmail(false)
 			setEmailUpdated(false)
@@ -114,6 +116,7 @@ function Sign_up() {
 
 		}else if(e.target.value.search(appTest) !== -1){
 			setPasswordErrorInId(true)
+			console.log(appTest)
 		}else{
 			setErrorUserPassword(true)
 		}

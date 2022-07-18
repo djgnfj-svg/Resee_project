@@ -89,6 +89,7 @@ function BooksPostData() {
                 }
             })
         }
+        // 포스트 삭제 시 관련 이미지룰 db에서 지워줘야 한다
     }
 
 
@@ -103,6 +104,7 @@ function BooksPostData() {
             <div className='Review_content'> 
                 {postList &&
                 <> 
+                {console.log(postList.description)}
                     <Viewer 
                         initialValue={postList.description}
                     />

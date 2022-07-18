@@ -15,6 +15,7 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 function WritePage() {
 
     const { id } = useParams();
+    const {postid} = useParams()
     const navigate = useNavigate("");
     const textRef = React.createRef();
 
@@ -22,7 +23,9 @@ function WritePage() {
     const [descriptions, setDescriptions] = useState({
         description: "",
     })
-    const [imageURL , setImageURL] = useState("");
+    const [imageIds , setImageIds] = useState([
+        
+    ]);
     const { description } = descriptions
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
@@ -68,7 +71,7 @@ function WritePage() {
         }else if(title === ""){
             alert("제목을 입력하지 않으셨어요 !")
         }else {
-            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, {
+            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postid}/`, {
                 title: title,
                 description: description,
             },
@@ -114,19 +117,23 @@ function WritePage() {
                     ]}
                     hooks={{
                         addImageBlobHook: async (blob, callback) => {
+                            console.log(imageIds)
                             const formData = {
                                 image : blob,
                                 title : "aa",
-                                post : 1,
+                                post : 3,//{postid}
                             }
                             await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
                             {
                                 headers: {
                                     "Content-Type": "multipart/form-data",
-                                  },
+                                },
                             }).then(res => {
                                 callback(res.data.image, '이미지');
-                                console.log(res.data.image)
+                                
+                                const arr = imageIds.concat(res.data.id)
+                                setImageIds(...imageIds , arr)
+                                
                             }).catch(error => {
                                 console.log(error)
                             })

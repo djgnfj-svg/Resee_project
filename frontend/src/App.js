@@ -28,7 +28,7 @@ function App() {
 						<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />}/>
 						<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />}/>
 						<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />}/>
-						<Route path="/board/categoryBooks/:id/write" element={<WritePage />}/>
+						<Route path="/board/categoryBooks/:id/write/:postid" element={<WritePage />}/>
 					<Route path="*" element={<div>testa</div>}/>
 					
 				</Routes>

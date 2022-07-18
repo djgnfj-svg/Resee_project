@@ -53,7 +53,6 @@ function Board() {
                 }
             })
             .then(res => {
-                console.log(res.data)
                 if(res.data.msg === "books가 없습니다."){
         
                 }else{
@@ -63,6 +62,29 @@ function Board() {
                 getAccessToken()
             })  
     }
+
+    const AddPostBook = (id) => {
+        console.log(localStorage.getItem('access_token'))
+        const formData = new FormData();
+        formData.append('title',"")
+        formData.append('description',"")
+        axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`,
+        formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+        .then(res =>{
+            console.log(res)
+            navigate(`/board/categorybooks/${id}/write/${res.data.id}`)
+        }).catch(error => {
+            console.log(error)
+        })
+
+    }
+
+    
 
     const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
@@ -121,7 +143,7 @@ function Board() {
                                     <div className='books_title' onClick={() => navigate(`/board/categorybooks/${item.id}`)}> {item.title}</div>
                                     <div className='books_content'>{item.rough_description}</div>
                                     <div className='books_btn'>
-                                        <button className='write_books' onClick={() => navigate(`/board/categorybooks/${item.id}/write`)}>작성</button>
+                                        <button className='write_books' onClick={() => AddPostBook(item.id)}>작성</button>
                                         <button className='ReSee_books' onClick={() => getBooksReviewData(item.id)}>복습</button>
                                         <button className='Remove_books' onClick={() => handleRemoveBooks(item.title,item.id)}>삭제하기</button>
                                     </div>

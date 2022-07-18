@@ -81,6 +81,7 @@ function BooksChangeData() {
                 })
                 .then(res => {
                     navigate(`/board/categorybooks/${id}/postreview/${postId}`);
+                    console.log(description)
                 }
                 ).catch(error => {
                     getAccessToken()
@@ -104,6 +105,7 @@ function BooksChangeData() {
                         height="800px"
                         initialEditType="markdown"
                         useCommandShortcut={true}
+                        onChange={handleChangeInput2}
                         toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
                         plugins={[
                             [
@@ -119,7 +121,7 @@ function BooksChangeData() {
                                 const formData = {
                                     image : blob,
                                     title : "aa",
-                                    post : 1,
+                                    post : 3,
                                 }
                                 await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
                                 {
