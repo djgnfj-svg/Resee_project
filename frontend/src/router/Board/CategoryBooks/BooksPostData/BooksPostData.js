@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import './BooksPostData.css'
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/react-editor';
 
 
 function BooksPostData() {
@@ -10,7 +12,7 @@ function BooksPostData() {
     const { id } = useParams("");
     const { postId } = useParams("");
 
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState("");
 
     const [navigateData, setNavigateData] = useState("")
     const [navigateId , setNavigateId] = useState("");
@@ -98,18 +100,19 @@ function BooksPostData() {
                 </>
                 }
             </div>
-            <div className='Review_content'>
-                {postList && <>
-                    <ReactMarkdown className='markdown_content' children={postList.description} />
-                </>}
+            <div className='Review_content'> 
+                {postList &&
+                <> 
+                    <Viewer 
+                        initialValue={postList.description}
+                    />
+                </>
+                }
             </div>
                     
             <div>
                 <div style={{position:"absolute" ,top:"-50px"}}>
                 <div className={test === true ? "CloseBtn" : "Navigations_var"}  >
-                    {/* <div >
-                            <img style={{width:"30px" , backgroundColor:"rgb(78,78,78)"}} src={`${process.env.PUBLIC_URL}/img/Menu.png`} onClick={() => handleClickNavigate()} />
-                        </div> */}
                     {navigateData && navigateData.map((item, index) => (
                         <>
                             <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>

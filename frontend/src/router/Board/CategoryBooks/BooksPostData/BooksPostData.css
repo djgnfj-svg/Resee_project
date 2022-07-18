@@ -24,6 +24,22 @@
     width: 10px;
     object-fit: cover;
 }
+.Review_content{
+    margin-left: 27rem;
+    padding-bottom: 5rem;
+}
+.Review_content div p{
+    color: white;
+    font-size: 21px;
+    text-align: left;
+}
+.Review_content p img{
+    color: white;
+    font-size: 21px;
+    text-align: left;
+    max-width: 1000px;
+    object-fit: cover;
+}
 
 .CloseBtn{
     transition: 1s;

@@ -1,10 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom';
 import './WritePage.css'
 import { useNavigate, useParams } from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+
 import maxLength from '../../../../components/description_maxLength';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -12,8 +10,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import markdownIt from "markdown-it";
-import DOMPurify from "dompurify";
+
 
 function WritePage() {
 
@@ -25,6 +22,7 @@ function WritePage() {
     const [descriptions, setDescriptions] = useState({
         description: "",
     })
+    const [imageURL , setImageURL] = useState("");
     const { description } = descriptions
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
@@ -45,15 +43,24 @@ function WritePage() {
         })
     }
 
-    const uploadImage = async (blob) => {
-        const formData = new FormData();
-        formData.append('image',blob);
-
-        const url = await axios.post('url',{
-            body : formData
-        })
-        return url
-    }
+    // const uploadImage = async (blob) => {
+    //     const formData = {
+    //         image : blob,
+    //         title : "aa",
+    //         post : 1,
+    //     }
+    //     await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
+    //     {
+    //         headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //     }).then(res => {
+    //         setImageURL(res.data.image)
+    //         console.log(res.data.image)
+    //     }).catch(error => {
+    //         console.log(error)
+    //     })
+    // }
 
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
@@ -87,6 +94,7 @@ function WritePage() {
             </div>
             <div className='Write_page'>
                 <Editor
+                    onFocus={true}
                     ref={textRef}
                     initialValue=""
                     previewStyle="vertical"
@@ -106,15 +114,22 @@ function WritePage() {
                     ]}
                     hooks={{
                         addImageBlobHook: async (blob, callback) => {
-                          
-                          console.log(blob);  // File {name: '카레유.png', ... }
-              
-                          // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
-                          // const imgUrl = await .... 서버 전송 / 경로 수신 코드 ...
-                          const imgUrl = uploadImage(blob)
-              
-                          // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
-                          callback(imgUrl, '카레유');
+                            const formData = {
+                                image : blob,
+                                title : "aa",
+                                post : 1,
+                            }
+                            await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
+                            {
+                                headers: {
+                                    "Content-Type": "multipart/form-data",
+                                  },
+                            }).then(res => {
+                                callback(res.data.image, '이미지');
+                                console.log(res.data.image)
+                            }).catch(error => {
+                                console.log(error)
+                            })
                         }
                       }}
                 />
