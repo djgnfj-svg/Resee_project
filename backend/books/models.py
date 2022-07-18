@@ -12,7 +12,7 @@ class ReviewBook(models.Model):
 	# book_cover = models.ImageField(null=True)
 
 class ReviewPost(models.Model):
-	title = models.CharField(max_length=20, null=False)
+	title = models.CharField(max_length=20, null=True)
 	description = models.TextField(null=True)
 	review_count =models.IntegerField(default=0, null=False)
 

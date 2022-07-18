@@ -29,6 +29,9 @@ class PostImgViewSet(viewsets.ModelViewSet):
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_200_OK)
 		return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+	
+	def destroy(self, request, *args, **kwargs):
+		return super().destroy(request, *args, **kwargs)
 
 class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
