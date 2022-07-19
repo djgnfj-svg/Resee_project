@@ -20,9 +20,7 @@ function Home() {
 
     const getAccessToken = () => {
         if(!!isLogin()){
-
-        }
-        axios.get("http://127.0.0.1:8000/api/Books/",
+            axios.get("http://127.0.0.1:8000/api/books/",
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -30,15 +28,17 @@ function Home() {
             })
             .catch(error => {
                 axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-                    {
-                        refresh:localStorage.getItem('refresh_token')
-                    }
+                {
+                    refresh:localStorage.getItem('refresh_token')
+                }
                 ).then(res => {
                     localStorage.setItem('access_token',res.data.access)
+                    console.log("Aaa")
                 })
             })
+        }
     }
-
+        
     const goSignUp = () => {
         if(!isLogin() === true){
             navigate('/sign_up')

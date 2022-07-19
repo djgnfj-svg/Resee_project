@@ -26,11 +26,9 @@ function Board() {
     }, [showModal === false] || delBoolean === true)
 
     const notLogin = () =>{
-        if(!isLogin()){
+        if(!isLogin() || localStorage.getItem('access_token') === null){
             navigate("/login");
             alert("로그인 후 이용해주세요 ! ");
-        }else if(!!isLogin){
-            console.log(!isLogin)
         }
     }
 
@@ -40,7 +38,6 @@ function Board() {
                     refresh:localStorage.getItem('refresh_token')
                 }
             ).then(res => {
-                localStorage.setItem('access_token', "lostark")
                 localStorage.setItem('access_token',res.data.access)
                 getBooksData();
             })
@@ -66,7 +63,18 @@ function Board() {
     }
 
     const AddPostBook = (id) => {
-        navigate(`/board/categorybooks/${id}/write/`)
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`,
+        {
+        headers:{
+        Authorization : `Bearer ${localStorage.getItem('access_token')}`
+        }
+        })
+        .then(res =>{
+            if(res.data.length <= 12){
+               alert("12개 까지만 만들 수 있어요 ! 프리미엄 고?")
+               navigate(`/board/categorybooks/${id}/write/`)
+            }
+        }) 
     }
 
     

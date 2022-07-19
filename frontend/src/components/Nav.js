@@ -16,6 +16,7 @@ function MyNavbar() {
 			setAuth(true);
 		}
 	}, [localStorage.getItem('access_token')])
+
 	useEffect(() => {
 		if(!isLogin()) {
 			setAuth(false)
@@ -23,7 +24,8 @@ function MyNavbar() {
 	},[])
 
 	const handleLogout = () => {
-
+		localStorage.clear();
+		navigate("/");
 		axios.get("http://127.0.0.1:8000/api/UserLogout/", {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -40,7 +42,7 @@ function MyNavbar() {
 	}
 
 	const goTemplate = () => {
-		axios.get("http://127.0.0.1:8000/api/Books/", {
+		axios.get("http://127.0.0.1:8000/api/books/", {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
 			}

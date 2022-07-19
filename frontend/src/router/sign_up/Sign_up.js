@@ -66,15 +66,6 @@ function Sign_up() {
 		}
 	}
 
-	const BluerPassword2 = (e) => {
-		if(e.target.value === password1){
-			setPassword2Updated(true);
-			setErrorUserPassword2(false)
-		}else{
-			setPassword2Updated(false);
-			setErrorUserPassword2(true)
-		}
-	}
 
 	const onChangeuserName = (e) =>  {
 
@@ -232,7 +223,7 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input name="password2" id="pass" onBlur={(e) => BluerPassword2(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword2} value={password2} />
+					<input name="password2" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword2} value={password2} />
 					{errorUserPassword2 &&
 						<div className='errorMsg'>
 							비밀번호가 다릅니다.
