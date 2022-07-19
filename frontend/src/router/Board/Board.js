@@ -64,24 +64,7 @@ function Board() {
     }
 
     const AddPostBook = (id) => {
-        console.log(localStorage.getItem('access_token'))
-        const formData = new FormData();
-        formData.append('title',"")
-        formData.append('description',"")
-        axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`,
-        formData,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                }
-            })
-        .then(res =>{
-            console.log(res)
-            navigate(`/board/categorybooks/${id}/write/${res.data.id}`)
-        }).catch(error => {
-            console.log(error)
-        })
-
+        navigate(`/board/categorybooks/${id}/write/`)
     }
 
     

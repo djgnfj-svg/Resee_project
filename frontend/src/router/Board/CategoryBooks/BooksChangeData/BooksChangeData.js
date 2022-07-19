@@ -92,7 +92,7 @@ function BooksChangeData() {
 
     return (
         <div>
-            <div style={{ marginTop: "30px" }}>
+            <div style={{ marginTop: "30px" , textAlign:'left' }}>
                 <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
             </div>
             <div className='Write_page'>
@@ -139,7 +139,7 @@ function BooksChangeData() {
                     />
                 </>}
             </div>
-            <div className='Write_addBtn' style={{ marginTop: "20px",marginRight:"100px" }}>
+            <div className='Write_addBtn' style={{ marginTop: "20px" }}>
                 <button style={{marginRight:"20px" , backgroundColor:"#E62e3d"}} onClick={(e) => handleReplaceBack()}>취소</button>
                 <button onClick={(e) => handleSubmitPost(e)}>수정 완료</button>
             </div>
