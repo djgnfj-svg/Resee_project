@@ -33,7 +33,6 @@ function Home() {
                 }
                 ).then(res => {
                     localStorage.setItem('access_token',res.data.access)
-                    console.log("Aaa")
                 })
             })
         }

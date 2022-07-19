@@ -42,27 +42,32 @@ function MyNavbar() {
 	}
 
 	const goTemplate = () => {
-		axios.get("http://127.0.0.1:8000/api/books/", {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('access_token')}`
-			}
-		})
-			.then(res => {
-				navigate("/board");
-			}).catch(res => {
-				if(localStorage.getItem('refresh_token') !== null){
-					axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-					{
-						refresh: localStorage.getItem('refresh_token')
-					}
-					).then(res => {
-						localStorage.setItem('access_token', res.data.access)
-						navigate("/board");
-					})
-				}else{
-					navigate("/board")
+		if(isLogin()){
+
+			axios.get("http://127.0.0.1:8000/api/books/", {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('access_token')}`
 				}
-			});
+			})
+				.then(res => {
+					navigate("/board");
+				}).catch(res => {
+					if(localStorage.getItem('refresh_token') !== null){
+						axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
+						{
+							refresh: localStorage.getItem('refresh_token')
+						}
+						).then(res => {
+							localStorage.setItem('access_token', res.data.access)
+							navigate("/board");
+						})
+					}else{
+						navigate("/board")
+					}
+				});
+		}else{
+			navigate("/board")
+		}
 	}
 
 

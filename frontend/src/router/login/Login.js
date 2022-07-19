@@ -59,10 +59,10 @@ function Login() {
 
 	return (
 		<>
-		<main class="login_main">
+		<main className="login_main">
 			<form class="form_class" style={{backgroundColor:"white"}}>
 			{/* <CSRFToken /> */}
-				<div class="form_div">
+				<div className="form_div">
 					<div className="social_login">
 						<div className="social_google">
 							<img src={`${process.env.PUBLIC_URL}/img/btn_google.png`} />
@@ -84,7 +84,7 @@ function Login() {
 					<input name="password" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChange} value={password} />
 					<button className="submit_class" style={{backgroundColor:"2a9f5c"}} onClick={(e) => Login_button(e)}>로그인</button>
 				</div>
-				<div class="info_div">
+				<div className="info_div">
 					<p>ReSee가 처음이신가요?</p>
 					<a href="/sign_up">가입하기</a>
 				</div>

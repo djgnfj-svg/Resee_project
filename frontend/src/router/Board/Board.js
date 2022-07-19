@@ -45,7 +45,10 @@ function Board() {
 
 
     const getBooksData = () => {
-        axios.get("http://127.0.0.1:8000/api/books/",
+        if(!isLogin() || localStorage.getItem('access_token') === null){
+            navigate("/login")
+        }else{
+            axios.get("http://127.0.0.1:8000/api/books/",
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -53,13 +56,14 @@ function Board() {
             })
             .then(res => {
                 if(res.data.msg === "books가 없습니다."){
-        
+                    
                 }else{
                     setBooksData(res.data);
                 }
             }).catch(error => {
                 getAccessToken()
             })  
+        }
     }
 
     const AddPostBook = (id) => {
