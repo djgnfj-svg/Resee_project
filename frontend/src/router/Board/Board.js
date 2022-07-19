@@ -29,6 +29,8 @@ function Board() {
         if(!isLogin()){
             navigate("/login");
             alert("로그인 후 이용해주세요 ! ");
+        }else if(!!isLogin){
+            console.log(!isLogin)
         }
     }
 
@@ -114,7 +116,7 @@ function Board() {
     return (
             <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
                 <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
-                    {console.log(booksData)}
+                    
                     {booksData && booksData.length !== 0 ? booksData.map((item, index) => (
                         <>
                             <div className="board">

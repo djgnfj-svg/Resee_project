@@ -8,6 +8,7 @@ function Home() {
 
     useEffect(() => {
         getAccessToken();
+        
     }, [])
     
 
@@ -18,6 +19,9 @@ function Home() {
         //access_toekn 만료됐다
 
     const getAccessToken = () => {
+        if(!!isLogin()){
+
+        }
         axios.get("http://127.0.0.1:8000/api/Books/",
             {
                 headers: {
@@ -36,7 +40,7 @@ function Home() {
     }
 
     const goSignUp = () => {
-        if(!isLogin === true){
+        if(!isLogin() === true){
             navigate('/sign_up')
         }else{
             alert(" 이미 로그인 중이에요 !")

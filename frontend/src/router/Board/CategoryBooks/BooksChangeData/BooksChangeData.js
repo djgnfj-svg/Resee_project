@@ -71,11 +71,12 @@ function BooksChangeData() {
         } else if (title === "") {
             alert("제목을 입력해주세요!")
         } else {
-            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
+            const formData = {
                 title: title,
                 description: description,
                 image_ids:ids
-            },
+            }
+            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,formData ,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`

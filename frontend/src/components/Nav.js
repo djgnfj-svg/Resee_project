@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Navbar, Container, Nav, } from 'react-bootstrap';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
+import isLogin from './isLogin';
 
 
 
@@ -15,6 +16,11 @@ function MyNavbar() {
 			setAuth(true);
 		}
 	}, [localStorage.getItem('access_token')])
+	useEffect(() => {
+		if(!isLogin()) {
+			setAuth(false)
+		}
+	},[])
 
 	const handleLogout = () => {
 
@@ -27,6 +33,9 @@ function MyNavbar() {
 			navigate("/");
 			setAuth(false);
 			alert("로그아웃 성공")
+		}).catch(error => {
+			localStorage.clear()
+			navigate("/");
 		})
 	}
 

@@ -123,13 +123,15 @@ function Sign_up() {
 		setPassword(e.target.value);
 	};
 
-	const onChangepassword2 = (e) =>  {
-
+	const onChangepassword2 = (e) =>  {	
 		if(e.target.value === password1 ){
 			setErrorUserPassword2(false)
-			setPassword2Updated(false)
+			setPassword2Updated(true);
+		
 		}else{
 			setErrorUserPassword2(true)
+			setPassword2Updated(false);
+			
 		}
 		setPassword2(e.target.value);
 	};

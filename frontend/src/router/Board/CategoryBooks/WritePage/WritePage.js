@@ -45,11 +45,14 @@ function WritePage() {
                         image : blob,
                         title : "aa",
                         }
-                       await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
+                       await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,{
+                        image : blob,
+                        title : "aa",
+                        } ,
                          {
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('access_token')}` ,
                             "Content-Type": "multipart/form-data",
+                            Authorization: `Bearer ${localStorage.getItem('access_token')}` ,
                         },
                     }).then(res => {
                             setIds(ids.concat(res.data.id))
@@ -108,12 +111,12 @@ function WritePage() {
         }else if(title === ""){
             alert("제목을 입력하지 않으셨어요 !")
         }else {
-
-            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, {
+            const formData = {
                 title: title,
                 description: description,
                 image_ids : ids
-            },
+            }
+            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`,formData,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
