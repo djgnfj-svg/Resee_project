@@ -20,6 +20,7 @@ function BooksChangeData() {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
+    const [ids ,setIds] = useState([])
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
 
@@ -73,6 +74,7 @@ function BooksChangeData() {
             axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
                 title: title,
                 description: description,
+                image_ids:ids
             },
                 {
                     headers: {
@@ -121,16 +123,16 @@ function BooksChangeData() {
                                 const formData = {
                                     image : blob,
                                     title : "aa",
-                                    post : 3,
                                 }
                                 await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
                                 {
                                     headers: {
                                         "Content-Type": "multipart/form-data",
+                                        Authorization: `Bearer ${localStorage.getItem('access_token')}`
                                     },
                                 }).then(res => {
                                     callback(res.data.image, '이미지');
-                                    console.log(res.data.image)
+                                    setIds(ids.concat(res.data.id))
                                 }).catch(error => {
                                     console.log(error)
                                 })

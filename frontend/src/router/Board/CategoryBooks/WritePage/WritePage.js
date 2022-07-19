@@ -44,7 +44,6 @@ function WritePage() {
                        const formData = {
                         image : blob,
                         title : "aa",
-                        post : 14,//{postid}
                         }
                        await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
                          {
@@ -109,10 +108,11 @@ function WritePage() {
         }else if(title === ""){
             alert("제목을 입력하지 않으셨어요 !")
         }else {
+
             axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, {
                 title: title,
                 description: description,
-                ids : ids
+                image_ids : ids
             },
                 {
                     headers: {
