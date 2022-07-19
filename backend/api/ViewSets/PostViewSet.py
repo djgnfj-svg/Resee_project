@@ -24,10 +24,11 @@ class PostImgViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, post_id, *args, **kwargs):
 		serializer = PostImageSerializer(data=request.data, context={'request' : request})
+		print(request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_200_OK)
-		return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+		return Response({"msg" : serializer.errors}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
 
 

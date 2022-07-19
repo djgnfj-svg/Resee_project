@@ -18,8 +18,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 		for img in img_data.getlist('image'):
 			instance= ReviewPostImgs.objects.create(
 				title = validated_data["title"], 
-				image=img,
-				post = ReviewPost.objects.get(id=validated_data['post'].id))
+				image=img,)
 		return instance
 
 class PostsSerializer(serializers.ModelSerializer):
@@ -32,7 +31,8 @@ class PostsSerializer(serializers.ModelSerializer):
 class PostsCreateSerializer(serializers.Serializer):
 	title = serializers.CharField(max_length=20)
 	description = serializers.CharField(max_length=1000)
-	image_ids = serializers.CharField(max_length=100, allow_null = True)
+	image_ids = serializers.ListField(max_length=100, allow_null = True)
+
 	def create(self, request, book_id, validated_data):
 		userid = getUserId(request.user)
 		instance = ReviewPost.objects.create(
@@ -42,8 +42,9 @@ class PostsCreateSerializer(serializers.Serializer):
 				Book = ReviewBook.objects.get(id = book_id)
 			)
 		if validated_data["image_ids"]:
-			img_ids = str(validated_data['image_ids']).split(" ")
-			for i in img_ids:
+			# img_ids = str(validated_data['image_ids']).split(" ")
+			for i in validated_data['image_ids']:
+				print("test")
 				temp = ReviewPostImgs.objects.get(id=i)
 				temp.post = ReviewPost.objects.get(id=instance.id)
 				temp.save()
