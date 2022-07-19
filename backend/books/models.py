@@ -12,8 +12,8 @@ class ReviewBook(models.Model):
 	# book_cover = models.ImageField(null=True)
 
 class ReviewPost(models.Model):
-	title = models.CharField(max_length=20, null=True)
-	description = models.TextField(null=True)
+	title = models.CharField(max_length=20, null=False)
+	description = models.TextField(null=False)
 	review_count =models.IntegerField(default=0, null=False)
 
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
