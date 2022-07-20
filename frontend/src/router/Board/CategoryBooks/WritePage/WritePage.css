@@ -40,7 +40,15 @@
 
 .toastui-editor-dark.toastui-editor-defaultUI {
     width: 100%;
-    transition: 0.3s;
+    animation : opic 3s ;
+}
+@keyframes opic{
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 .markdown {
     width: 500px;
