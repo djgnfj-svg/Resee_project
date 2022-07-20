@@ -8,6 +8,7 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 function BooksChangeData() {
@@ -22,7 +23,9 @@ function BooksChangeData() {
     const [description, setDescription] = useState("")
     const [ids ,setIds] = useState([])
 
-    const handleChangeInput = (e) => { setTitle(e.target.value) }
+    const handleChangeInput = (e) => { 
+        setTitle(e.target.value)
+     }
 
     const handleChangeInput2 = (e) => {
         setDescription(textRef.current.getInstance().getMarkdown())
@@ -76,7 +79,12 @@ function BooksChangeData() {
                 description: description,
                 image_ids:ids
             }
-            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,formData ,
+            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,
+            {
+                title: title,
+                description: description,
+                image_ids:ids
+            } ,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -96,20 +104,20 @@ function BooksChangeData() {
     return (
         <div>
             <div style={{ marginTop: "30px" , textAlign:'left' }}>
-                <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                <input className='Write_title' maxLength="9" autoFocus={true} placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
             </div>
             <div className='Write_page'>
-                
-                {description && <>
+                {description  === true || title.length >= 2 &&<>
                     <Editor 
                         ref={textRef}
                         initialValue={description}
                         previewStyle="vertical"
                         height="800px"
+                        autofocus={false}
                         initialEditType="markdown"
-                        useCommandShortcut={true}
                         onChange={handleChangeInput2}
                         toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
+                        theme = 'dark'
                         plugins={[
                             [
                                 colorSyntax,

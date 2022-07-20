@@ -74,9 +74,11 @@ function Board() {
         }
         })
         .then(res =>{
-            if(res.data.length <= 12){
+            if(res.data.length >= 12){
                alert("12개 까지만 만들 수 있어요 ! 프리미엄 고?")
-               navigate(`/board/categorybooks/${id}/write/`)
+            }else{
+                navigate(`/board/categorybooks/${id}/write/`)
+
             }
         }) 
     }

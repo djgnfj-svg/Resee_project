@@ -21,11 +21,12 @@ function MyNavbar() {
 		if(!isLogin()) {
 			setAuth(false)
 			console.log("문제는 너네")
+			console.log(!isLogin())
 		}
 	},[])
 
 	const handleLogout = () => {
-		axios.get("http://127.0.0.1:8000/api/userlogout/", {
+		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
 			}
@@ -35,8 +36,7 @@ function MyNavbar() {
 			setAuth(false);
 			alert("로그아웃 성공")
 		}).catch(error => {
-			localStorage.clear()
-			navigate("/");
+			
 		})
 	}
 
