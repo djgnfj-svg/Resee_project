@@ -19,6 +19,7 @@ function Home() {
         //access_toekn 만료됐다
 
     const getAccessToken = () => {
+        console.log(!!isLogin())
         if(!!isLogin()){
             axios.get("http://127.0.0.1:8000/api/books/",
             {

@@ -20,13 +20,12 @@ function MyNavbar() {
 	useEffect(() => {
 		if(!isLogin()) {
 			setAuth(false)
+			console.log("문제는 너네")
 		}
 	},[])
 
 	const handleLogout = () => {
-		localStorage.clear();
-		navigate("/");
-		axios.get("http://127.0.0.1:8000/api/UserLogout/", {
+		axios.get("http://127.0.0.1:8000/api/userlogout/", {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
 			}
