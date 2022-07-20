@@ -31,7 +31,6 @@ class PostImgViewSet(viewsets.ModelViewSet):
 		return Response({"msg" : serializer.errors}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
 
-
 class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
 	queryset = ReviewPost.objects.filter().order_by("created_at")
@@ -46,7 +45,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, book_id,):
 		serializer = PostsSerializer(data=request.data)
-		print(request.data)
 		if serializer.is_valid():
 			rtn = serializer.create(request, book_id, serializer.data)
 			if rtn:

@@ -29,9 +29,11 @@ class PostsSerializer(serializers.ModelSerializer):
 	image_ids = serializers.ListField(max_length=100, allow_null = True)
 	review_count = serializers.IntegerField(read_only = True, default = 0)
 
+	created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
+
 	class Meta:
 		model = ReviewPost
-		fields = ["id", "title", "description", "review_count", 'image_ids']
+		fields = ["id", "title", "description", "review_count", 'image_ids', 'created_at']
 
 	def create(self, request, book_id, validated_data):
 		userid = getUserId(request.user)
