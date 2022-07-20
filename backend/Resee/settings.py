@@ -195,7 +195,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_USE_JWT = True
-JWT_AUTH_REFRESH_COOKIE = 'Authorization'
+JWT_AUTH_COOKIE  = 'access_token'
+JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
