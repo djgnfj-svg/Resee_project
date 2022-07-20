@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import maxLength from '../../../../components/description_maxLength';
+import maxLength, { maxTitleLength } from '../../../../components/MaxLength';
 
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -23,6 +23,31 @@ function BooksChangeData() {
     const [description, setDescription] = useState("")
     const [ids ,setIds] = useState([])
 
+    const [scroll, setScroll] = useState(false);
+
+    useEffect(() => {
+        getBooksReviewData()
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+        window.removeEventListener('scroll', handleScroll); //clean up
+        };
+    }, []);
+
+    const handleScroll = () => {
+        // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
+        if(window.scrollY >= 33){
+            setScroll(true);
+            console.log(scroll)
+        }else{
+        // 스크롤이 50px 미만일경우 false를 넣어줌
+            setScroll(false);
+            console.log("실패")
+        }
+    }
+
     const handleChangeInput = (e) => { 
         setTitle(e.target.value)
      }
@@ -31,9 +56,6 @@ function BooksChangeData() {
         setDescription(textRef.current.getInstance().getMarkdown())
     }
 
-    useEffect(() => {
-        getBooksReviewData()
-    }, [])
 
     const getAccessToken = () => {
         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
@@ -68,11 +90,18 @@ function BooksChangeData() {
         }
     }
 
+    const handleInputEnter = (e) => {
+        if(e.key === "Enter"){
+            textRef.current.getInstance().focus()
+            window.scrollTo({top : 100,behavior:'smooth'})
+        }
+    }
+
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
             alert(maxLength() + "글자 미만으로 입력해주세요");
         } else if (title === "") {
-            alert("제목을 입력해주세요!")
+            alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
             const formData = {
                 title: title,
@@ -103,10 +132,22 @@ function BooksChangeData() {
 
     return (
         <div>
-            <div style={{ marginTop: "30px" , textAlign:'left' }}>
-                <input className='Write_title' maxLength="9" autoFocus={true} placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
-            </div>
-            <div className='Write_page'>
+            {scroll === false ?
+            <>
+                <div className="title_box">
+                    <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                    <div className='title_span'>
+                        <span>제목 입력 후 엔터를 입력해보세요 !</span>
+                    </div>
+                </div>
+            </>
+                
+            :
+                <div className='Write_pageScroll'>
+                    
+                </div>
+            }
+            <div className={scroll ? 'Write_pageScroll' : 'Write_page'} >
                 {description  === true || title.length >= 2 &&<>
                     <Editor 
                         ref={textRef}
@@ -150,9 +191,9 @@ function BooksChangeData() {
                     />
                 </>}
             </div>
-            <div className='Write_addBtn' style={{ marginTop: "20px" }}>
-                <button style={{marginRight:"20px" , backgroundColor:"#E62e3d"}} onClick={(e) => handleReplaceBack()}>취소</button>
-                <button onClick={(e) => handleSubmitPost(e)}>수정 완료</button>
+            <div className='Write_addBtn' style={{ position:"absolute" , marginRight:"20px"}}>
+                <button style={{marginRight:"20px" , border:"1px solid red"}} onClick={(e) => handleReplaceBack()}>취소</button>
+                <button style={{}} onClick={(e) => handleSubmitPost(e)}>수정 완료</button>
             </div>
         </div>
     )

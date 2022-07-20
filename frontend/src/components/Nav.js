@@ -27,6 +27,7 @@ function MyNavbar() {
 
 	const handleLogout = () => {
 		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {
+			refresh : localStorage.getItem('refresh_token'),
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
 			}

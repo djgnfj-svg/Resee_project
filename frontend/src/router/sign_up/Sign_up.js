@@ -50,6 +50,7 @@ function Sign_up() {
 			}else{
 				setEmailLength(true);
 				setEmailUpdated(true);
+				
 			}
 		}).catch(error => {
 			setOverLapEmail(error.response.data.msg)
@@ -63,6 +64,13 @@ function Sign_up() {
 		}else{
 			setPasswordLength(true);
 			setPasswordUpdated(true);
+		}
+		bluerPaasword2()
+	}
+
+	const bluerPaasword2 = (e) =>{
+		if(password2 !== password1){
+			setErrorUserPassword2(true)
 		}
 	}
 
@@ -97,19 +105,26 @@ function Sign_up() {
 	const onChangepassword = (e) =>  {
 
 		const passwordRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$")
-		const easyPasswordRegex = new RegExp("(\\w)\\1\\1");
 		const appTest = email.split("@")[0];
-		console.log(e.target.value.search(appTest))
 
 		if((!e.target.value || (passwordRegex.test(e.target.value)))){
 			setErrorUserPassword(false)
 			setPasswordUpdated(false)
-
-		}else if(e.target.value.search(appTest) !== -1){
+			setPasswordErrorInId(false)
+		}else if(e.target.value.search(appTest) !== -1 && appTest.length >= 1){
 			setPasswordErrorInId(true)
 			console.log(appTest)
 		}else{
 			setErrorUserPassword(true)
+		}
+
+		if(e.target.value !== password2) {
+			setErrorUserPassword2(false)
+			setPassword2Updated(true);
+		
+		}else{
+			setErrorUserPassword2(true)
+			setPassword2Updated(false);
 		}
 		setPassword(e.target.value);
 	};
@@ -128,7 +143,6 @@ function Sign_up() {
 	};
 
 	const Sign_up_button = (e)=>{
-		console.log(email,username,password1 , password2)
 		e.preventDefault();
 		axios.post('http://127.0.0.1:8000/api/accounts/',{
 			email : email,

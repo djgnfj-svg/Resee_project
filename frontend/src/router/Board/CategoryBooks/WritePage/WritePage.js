@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './WritePage.css'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import maxLength from '../../../../components/description_maxLength';
+import maxLength, { maxTitleLength } from '../../../../components/MaxLength';
 
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -21,14 +21,21 @@ function WritePage() {
     const textRef = React.createRef();
     const [ids, setIds] = useState([])
 
+    const [scroll, setScroll] = useState(false);
+
     const [title, setTitle] = useState("")
     const [descriptions, setDescriptions] = useState({
         description: "",
     })
-    const [imageIds, setImageIds] = useState([
-
-    ]);
     const { description } = descriptions
+
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+        window.removeEventListener('scroll', handleScroll); //clean up
+        };
+    }, []);
 
     useEffect(() => {
         if (textRef.current) {
@@ -68,14 +75,32 @@ function WritePage() {
         return () => { };
     }, [textRef]);
 
+    const handleScroll = () => {
+        // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
+        if(window.scrollY >= 33){
+            setScroll(true);
+            console.log(scroll)
+        }else{
+        // 스크롤이 50px 미만일경우 false를 넣어줌
+            setScroll(false);
+            console.log("실패")
+        }
+    }
 
     const handleChangeInput = (e) => { setTitle(e.target.value) }
-
     const handleChangeInput2 = (e) => {
         setDescriptions({
             description: textRef.current.getInstance().getMarkdown()
         })
     }
+
+    const handleInputEnter = (e) => {
+        if(e.key === "Enter"){
+            textRef.current.getInstance().focus()
+            window.scrollTo({top : 100,behavior:'smooth'})
+        }
+    }
+
     const getAccessToken = () => {
         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
             {
@@ -87,30 +112,12 @@ function WritePage() {
         })
     }
 
-    // const uploadImage = async (blob) => {
-    //     const formData = {
-    //         image : blob,
-    //         title : "aa",
-    //         post : 1,
-    //     }
-    //     await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
-    //     {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //           },
-    //     }).then(res => {
-    //         setImageURL(res.data.image)
-    //         console.log(res.data.image)
-    //     }).catch(error => {
-    //         console.log(error)
-    //     })
-    // }
 
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
             alert(maxLength() + "글자 미만으로 입력해주세요")
-        } else if (title === "") {
-            alert("제목을 입력하지 않으셨어요 !")
+        } else if (title < maxTitleLength()) {
+            alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
             const formData = {
                 title: title,
@@ -135,14 +142,24 @@ function WritePage() {
 
     return (
         <div>
-            <div style={{ marginTop: "30px", textAlign: "left" }}>
-                <input className='Write_title' maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
-            </div>
+            {scroll === false ?
+            <>
+                <div className="title_box">
+                    <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                </div>
+                <div className='title_span'>
+                        <span>제목 입력 후 엔터를 입력해보세요 !</span>
+                </div>
+            </>
+            :
+                <div className='Write_pageScroll'>
+                    
+                </div>
+            }
             {title.length >= 2 &&
                 <>
-                    <div className='Write_page'>
-                        <Editor
-                            onFocus={true}
+                    <div className={scroll ? 'Write_pageScroll' : 'Write_page'} >
+                        <Editor     
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
