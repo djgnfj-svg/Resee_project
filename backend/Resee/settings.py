@@ -177,22 +177,26 @@ REST_FRAMEWORK = {
 	
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication', 
-        # 'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'api.Seriailzers.UserSerialzer.CustomRegisterSerializer',
 }
-# 추가적인 JWT_AUTH 설젇
+# 추가적인 JWT_AUTH 설
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 REST_USE_JWT = True
+JWT_AUTH_REFRESH_COOKIE = 'Authorization'
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),

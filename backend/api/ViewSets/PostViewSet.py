@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 from api.Utils.getUser import getUserId
-from api.Seriailzers.PostSerializer import PostsSerializer, PostsCreateSerializer
+from api.Seriailzers.PostSerializer import PostsSerializer
 from api.Seriailzers.PostSerializer import PostImageSerializer
 from books.models import ReviewPostImgs
 from books.models import ReviewPost
@@ -14,7 +14,7 @@ class PostImgViewSet(viewsets.ModelViewSet):
 	serializer_class = PostImageSerializer
 	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
 
-	def list(self, request, post_id,):
+	def list(self, request, post_id):
 		queryset = ReviewPostImgs.objects.filter(post_id = post_id).order_by("created_at")
 		test = ReviewPostImgs.objects.filter(post_id = post_id).first()
 		if not queryset:
@@ -22,7 +22,7 @@ class PostImgViewSet(viewsets.ModelViewSet):
 		serializer = PostImageSerializer(queryset, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
-	def create(self, request, post_id, *args, **kwargs):
+	def create(self, request, post_id):
 		serializer = PostImageSerializer(data=request.data, context={'request' : request})
 		print(request.data)
 		if serializer.is_valid():
@@ -36,55 +36,22 @@ class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
 	queryset = ReviewPost.objects.filter().order_by("created_at")
 
-	def list(self, request, book_id):
-		userid = getUserId(request.user)
-		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
-		if not queryset:
-			return Response({"msg" : "Post가 없습니다."}, status=status.HTTP_200_OK)
-		serializer = PostsSerializer(queryset, many=True)
-		return Response(serializer.data, status=status.HTTP_200_OK)
-
 	def create(self, request, book_id,):
-		serializer = PostsCreateSerializer(data=request.data)
+		serializer = PostsSerializer(data=request.data)
+		print(request.data)
 		if serializer.is_valid():
 			rtn = serializer.create(request, book_id, serializer.data)
 			if rtn:
 				return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
 		else :
-			print(request.data)
-			print(serializer.is_valid())
-			return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+			return Response({"msg" : serializer.errors}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
-	def retrieve(self, request, book_id, pk, *args, **kwargs):
-		userid = getUserId(request.user)
-		temp = get_object_or_404(ReviewPost, id=pk).user_id
-		if temp != userid:
-			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
-		return super().retrieve(request, *args, **kwargs)
+	def update(self, request, book_id, pk,*args, **kwargs):
+		serializer = PostsSerializer(data=request.data)
 
-	def destroy(self, request, book_id, pk, *args, **kwargs):
-		userid = getUserId(request.user)
-		temp = get_object_or_404(ReviewPost, id=pk).user_id
-		if temp != userid:
-			raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
-		return super().destroy(request, *args, **kwargs)
-	
-	def update(self, request, book_id, pk, *args, **kwargs):
-
-		img_list = str(request.data['image_ids']).split(" ")
-		print(img_list)
-		instances = ReviewPostImgs.objects.filter(pk__in=img_list)
-		print(instances)
-		return Response()
-
-		# userid = getUserId(request.user)
-		# serchid = get_object_or_404(ReviewPost, id=pk).user_id
-		# if serchid != userid:
-		# 	raise exceptions.PermissionDenied({"msg" : "권한없음"}, code=status.HTTP_403_FORBIDDEN)
-
-		# serializer = PostsCreateSerializer(data=request.data)
-		# if serializer.is_valid():
-		# 	rtn = serializer.update(pk, serializer.data)
-		# 	if rtn:
-		# 		return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
-		# return Response({"msg" : "데이터 잘못됨"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+		if serializer.is_valid():
+			rtn = serializer.update(ReviewPost.objects.get(id=pk),serializer.data)
+			if rtn:
+				return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
+		else :
+			return Response({"msg" : serializer.errors}, status=status.HTTP_402_PAYMENT_REQUIRED)
