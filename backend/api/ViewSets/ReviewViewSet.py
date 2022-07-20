@@ -13,7 +13,10 @@ class ReviewViewSet(viewsets.ViewSet):
 		review_data = []
 
 		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).first()
+		if first_data == None:
+			raise exceptions.NotFound({"msg" : "써야있지.."}, code=401)
 		base_time = first_data.created_at
+			
 
 		for review in review_list:
 			past_days = (review.created_at - base_time).days

@@ -36,6 +36,14 @@ class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
 	queryset = ReviewPost.objects.filter().order_by("created_at")
 
+	def list(self, request, book_id):
+		userid = getUserId(request.user)
+		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
+		if not queryset:
+			return Response({"msg" : "Post가 없습니다."}, status=status.HTTP_200_OK)
+		serializer = PostsSerializer(queryset, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
 	def create(self, request, book_id,):
 		serializer = PostsSerializer(data=request.data)
 		print(request.data)
