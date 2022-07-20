@@ -16,7 +16,9 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_FRONTEND_URL = "http://127.0.0.1:8000"
+# 추후 구글 로그인시 체인지
+# BASE_FRONTEND_URL = "http://127.0.0.1:8000"
+
 SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 STATE = 'random_string'
 
@@ -25,7 +27,7 @@ STATE = 'random_string'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-secret_file = os.path.join(BASE_DIR, 'secrets.json')  # secrets.json 파일 위치를 명시
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
@@ -218,6 +220,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
+
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 

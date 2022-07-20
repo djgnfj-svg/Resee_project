@@ -14,7 +14,7 @@ class ReviewViewSet(viewsets.ViewSet):
 
 		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).first()
 		if first_data == None:
-			raise exceptions.NotFound({"msg" : "써야있지.."}, code=401)
+			raise exceptions.NotFound({"msg" : "아무것도 작성하지 않아서 복습할 수 없습니다."}, code=401)
 		base_time = first_data.created_at
 			
 
@@ -45,10 +45,13 @@ class ReviewViewSet(viewsets.ViewSet):
 			return_data['ids'] += str(temp['id']) +" "
 		return_data['ids'] = return_data['ids'].rstrip()
 		return Response(return_data, status=status.HTTP_200_OK)
+
 	def create(self, request, book_id):
+		print(type(request.data['ids']))
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)
 		ids = ids.split(" ")
+		#list형태로 오면 update함수로 한큐에 가능할듯하다
 		for i in ids:
 			temp = ReviewPost.objects.get(id = i, user_id = userid)
 			temp.review_count_up()

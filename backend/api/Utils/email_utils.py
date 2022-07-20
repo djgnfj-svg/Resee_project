@@ -8,8 +8,6 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from rest_framework.reverse import reverse
-
 from accounts.models import UserVerification
 
 def create_email_key(user_id):
@@ -19,7 +17,6 @@ def create_email_key(user_id):
 	hash_key = sha_data.hexdigest()
 	
 	return random_key[::2] + hash_key[::2]
-
 
 
 def send_verification_mail(request, user, receiver):

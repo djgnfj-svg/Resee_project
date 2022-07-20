@@ -19,6 +19,7 @@ class EmailcheckView(viewsets.ViewSet):
 		return Response({"msg" : "이미 있는유저"}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
 class VerificationView(viewsets.ViewSet):
+	#dj-auth-rest에 있음 나중에 읽고 추가하기
 	def list(self, request):
 		key = request.GET.get('key','')
 		if key == None:

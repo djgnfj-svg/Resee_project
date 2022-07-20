@@ -1,7 +1,9 @@
 from rest_framework import serializers
 
-from accounts.models import User
 from api.Utils.getUser import getUserId
+
+from accounts.models import User
+
 from books.models import ReviewBook
 
 class BooksSerializer(serializers.ModelSerializer):
