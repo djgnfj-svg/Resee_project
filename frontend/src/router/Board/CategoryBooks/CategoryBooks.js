@@ -34,15 +34,15 @@ function CategoryBooks() {
       
   })
   }
-
+  
   return (
     <>
     <div style={{margin:"0 auto" , display:"inline-block"}}>
-
         <div className='category'>
         <img src={`${process.env.PUBLIC_URL}/img/revels.png`} />
         <div className='wrapper_category'>
           <div className='category_List'>
+        <div className='closeBooks'><button className='closeBooksBtn' onClick={() => navigate("/board")}>책 닫기</button></div>
             {postList &&  postList.map((item,index) => (
               <>
                 <div className='books_title'>
