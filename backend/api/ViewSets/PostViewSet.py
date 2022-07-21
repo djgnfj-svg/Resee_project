@@ -14,7 +14,7 @@ class PostImgViewSet(viewsets.ModelViewSet):
 	def list(self, request, post_id):
 		queryset = ReviewPostImgs.objects.filter(post_id = post_id).order_by("created_at")
 		if not queryset:
-			return Response(error_msg(1), status=status.HTTP_200_OK)
+			return Response(error_msg(1), status=status.HTTP_404_NOT_FOUND)
 		serializer = PostImageSerializer(queryset, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -34,7 +34,7 @@ class PostViewSet(viewsets.ModelViewSet):
 		userid = getUserId(request.user)
 		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
 		if not queryset:
-			return Response(error_msg(1), status=status.HTTP_200_OK)
+			return Response(error_msg(1), status=status.HTTP_404_NOT_FOUND)
 		serializer = PostsSerializer(queryset, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
