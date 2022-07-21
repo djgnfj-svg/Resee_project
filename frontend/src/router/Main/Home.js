@@ -5,40 +5,9 @@ import './Home.css'
 import isLogin from '../../components/isLogin';
 
 function Home() {   
-
-    useEffect(() => {
-        getAccessToken();
-        
-    }, [])
     
-
     const navigate = useNavigate("");
-
-        // 홈페이지
-        //access_token 만료시 refresh토큰 사용해 access token 재발급
-        //access_toekn 만료됐다
-
-    const getAccessToken = () => {
-        console.log(!!isLogin())
-        if(!!isLogin()){
-            axios.get("http://127.0.0.1:8000/api/books/",
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                }
-            })
-            .catch(error => {
-                axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-                {
-                    refresh:localStorage.getItem('refresh_token')
-                }
-                ).then(res => {
-                    localStorage.setItem('access_token',res.data.access)
-                })
-            })
-        }
-    }
-        
+    
     const goSignUp = () => {
         if(!isLogin() === true){
             navigate('/sign_up')

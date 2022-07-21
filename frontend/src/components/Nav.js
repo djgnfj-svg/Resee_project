@@ -12,18 +12,17 @@ function MyNavbar() {
 	let [auth, setAuth] = useState(false)
 
 	useEffect(() => {
-		if (localStorage.getItem('access_token') !== null) {
-			setAuth(true);
-		}
-	}, [localStorage.getItem('access_token')])
-
-	useEffect(() => {
 		if(!isLogin()) {
 			setAuth(false)
-			console.log("문제는 너네")
-			console.log(!isLogin())
+		}else if(!!isLogin()){
+			setAuth(true)
 		}
-	},[])
+	},[!isLogin()])
+	
+
+	// useEffect(()=>{
+	// 	let 타이머 = setTimeout(()=>{ alert("aaa") }, 2000);
+	//  }, []);
 
 	const handleLogout = () => {
 		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {
@@ -31,45 +30,15 @@ function MyNavbar() {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
 			}
-		}).then(data => {
+		}).then(res => {
 			localStorage.clear();
-			navigate("/");
 			setAuth(false);
 			alert("로그아웃 성공")
+			navigate("/");
 		}).catch(error => {
-			
+			alert("당신 무슨 짓을 한거야 !!!")
 		})
 	}
-
-	const goTemplate = () => {
-		if(isLogin()){
-
-			axios.get("http://127.0.0.1:8000/api/books/", {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('access_token')}`
-				}
-			})
-				.then(res => {
-					navigate("/board");
-				}).catch(res => {
-					if(localStorage.getItem('refresh_token') !== null){
-						axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-						{
-							refresh: localStorage.getItem('refresh_token')
-						}
-						).then(res => {
-							localStorage.setItem('access_token', res.data.access)
-							navigate("/board");
-						})
-					}else{
-						navigate("/board")
-					}
-				});
-		}else{
-			navigate("/board")
-		}
-	}
-
 
 	return (
 		<div>
@@ -80,7 +49,7 @@ function MyNavbar() {
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto">
-							<Nav.Link onClick={() => goTemplate()}>게시판</Nav.Link>
+							<Nav.Link onClick={() => navigate("/board")}>게시판</Nav.Link>
 						</Nav>
 						{auth ?
 							<Nav>

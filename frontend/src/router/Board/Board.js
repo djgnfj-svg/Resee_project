@@ -18,36 +18,23 @@ function Board() {
     }
 
     useEffect(() => {
-        notLogin();
+        notFoundUser();
     },[])
 
     useEffect(() => {
-        getBooksData();
+        if(!!isLogin()){
+            getBooksData();
+        }
     }, [showModal === false] || delBoolean === true)
 
-    const notLogin = () =>{
-        if(!isLogin() || localStorage.getItem('access_token') === null){
+    const notFoundUser = () =>{
+        if(!isLogin()){
             navigate("/login");
-            alert("로그인 후 이용해주세요 ! ");
+            alert("로그인 후 이용해주세요 !");
         }
     }
 
-    const getAccessToken = () => {
-        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-                {
-                    refresh:localStorage.getItem('refresh_token')
-                }
-            ).then(res => {
-                localStorage.setItem('access_token',res.data.access)
-                getBooksData();
-            })
-    }
-
-
     const getBooksData = () => {
-        if(!isLogin() || localStorage.getItem('access_token') === null){
-            navigate("/login")
-        }else{
             axios.get("http://127.0.0.1:8000/api/books/",
             {
                 headers: {
@@ -61,18 +48,27 @@ function Board() {
                     setBooksData(res.data);
                 }
             }).catch(error => {
-                getAccessToken()
+                console.log(error)
             })  
         }
-    }
-
-    const AddPostBook = (id) => {
-        
-                navigate(`/board/categorybooks/${id}/write/`)
-
-    }
-
     
+    const AddPostBook = (id) => {
+        navigate(`/board/categorybooks/${id}/write/`)
+    }
+
+    const GoCategoryBooks = (id) => {
+        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+            .then(res => {
+                navigate(`/board/categorybooks/${id}`)
+            }).catch(error => {
+                console.log(error)
+            })
+    }
 
     const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
@@ -84,8 +80,7 @@ function Board() {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
                     },
                 },
-                )
-                .then(res => {
+                ).then(res => {
                     navigate("/board");
                     getBooksData();
                 }).catch(error => {
@@ -104,14 +99,12 @@ function Board() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            console.log(Object.keys(res.data).length)
             if(Object.keys(res.data).length === 1){
                 alert("복습을 다 하셨거나 안에 내용이 없어요 !")
             }else {
                 navigate(`/board/categorybooks/${id}/review`)
             }
         }).catch(error => {
-            getAccessToken()
             alert("복습할 책이 없어요 !")
         })
     }
@@ -124,8 +117,8 @@ function Board() {
                         <>
                             <div className="board">
                                 <div className="books_img">
-                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => navigate(`/board/categorybooks/${item.id}`)} />
-                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => navigate(`/board/categorybooks/${item.id}`)} />
+                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => GoCategoryBooks(item.id)} />
+                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => GoCategoryBooks(item.id)} />
                                 </div>
                                 <div className="books">
                                     <div className='books_title' onClick={() => navigate(`/board/categorybooks/${item.id}`)}> {item.title}</div>

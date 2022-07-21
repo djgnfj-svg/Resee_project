@@ -3,43 +3,41 @@
 }
 
 
-
 .Write_pageScroll{
+    margin-bottom: 15px;
+}
+
+.title_pageScroll{
     animation: scollUp 5s;
     position: relative;
-    margin-top: 35px;
-
+    margin-bottom: 10px;
 }
 
 .title_box{
     margin-top: 35px;
     text-align: left;
     animation: scrollDown 1s;
-    margin-bottom: 35px;
+    
 }
 
 @keyframes scrollDown {
     from {
         height: 0px;
     }to{
-        height: 90px;
+        height: 65px;
     }
 }
 
 @keyframes scrollUp {
     from {
+        margin-bottom: 0px;
     }to{
-        margin-top: 35px;
+        margin-bottom: 100px;
     }
 }
 
-.Write_content{
-    width: 50%;
-    height: 70vh;
-}
-
 .Write_title{
-    width: 400px;
+    width: 35%;
     position: relative;
     background-color: rgb(25,25,25);
     resize: none;
@@ -53,11 +51,18 @@
     padding-left: 2.5rem;
     max-width: 1000px;
     z-index: 0;
-    border-bottom: 5px solid rgb(93, 208, 85);
+    border-bottom: 5px solid rgb(151, 53, 200);
     text-align: left;
     opacity: 0.9;
     margin-bottom: 10px;
     
+}
+
+.title_span{
+    position: relative;
+    text-align: left;
+    margin-top: 7px;
+    margin-bottom: 40px;
 }
 
 .title_span span{
@@ -82,27 +87,7 @@
         opacity: 1;
     }
 }
-.markdown {
-    width: 500px;
-    height: 75vh;
-    outline: none;
-    background-color: rgb(25,25,25);
-    color: #bababa;
-    padding-top: 5rem;
-    text-align: left;
-    padding-left: 3rem;
-    margin-bottom: 5rem;
-    overflow-y: auto;
-    padding: 3rem;
-}
 
-
-
-.toastui-editor-defaultUI{
-    width: 1700px;
-    background-color: white;
-    text-align: left;
-}
 
 
 
@@ -110,7 +95,7 @@
     text-align: right;
     margin-top: 20px;
     position: absolute;
-    top: 71.5px;
+    top: 51.5px;
     right: -29px;
     height: 50px;
     display: inline-block;
@@ -133,6 +118,9 @@
     font-weight: bold;
 }
 
+.toastui-editor-defaultUI .ProseMirror , .toastui-editor-md-container .toastui-editor-md-preview {
+    text-align: left;
+}
 
 
 .te button{

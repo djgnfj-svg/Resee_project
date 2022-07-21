@@ -38,7 +38,7 @@ function BooksChangeData() {
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 33){
+        if(window.scrollY >= 50){
             setScroll(true);
             console.log(scroll)
         }else{
@@ -56,18 +56,6 @@ function BooksChangeData() {
         setDescription(textRef.current.getInstance().getMarkdown())
     }
 
-
-    const getAccessToken = () => {
-        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-            {
-                refresh: localStorage.getItem('refresh_token')
-            }
-        ).then(res => {
-            localStorage.setItem('access_token', res.data.access)
-            getBooksReviewData()
-        })
-    }
-
     const getBooksReviewData = () => {
         axios.get(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
             headers: {
@@ -77,7 +65,7 @@ function BooksChangeData() {
             setTitle(res.data.title)
             setDescription(res.data.description)
         }).catch(error => {
-            getAccessToken();
+            
         })
     }
 
@@ -124,7 +112,7 @@ function BooksChangeData() {
                     console.log(description)
                 }
                 ).catch(error => {
-                    getAccessToken()
+                    
                 })
         }
     }
@@ -136,14 +124,14 @@ function BooksChangeData() {
             <>
                 <div className="title_box">
                     <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
-                    <div className='title_span'>
-                        <span>제목 입력 후 엔터를 입력해보세요 !</span>
-                    </div>
                 </div>
+                    <div className='title_span'>
+                        <span> </span>
+                    </div>
             </>
                 
             :
-                <div className='Write_pageScroll'>
+                <div className='title_pageScroll'>
                     
                 </div>
             }

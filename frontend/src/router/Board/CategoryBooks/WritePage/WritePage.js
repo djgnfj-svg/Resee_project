@@ -77,13 +77,11 @@ function WritePage() {
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 33){
+        if(window.scrollY >= 50){
             setScroll(true);
-            console.log(scroll)
         }else{
         // 스크롤이 50px 미만일경우 false를 넣어줌
             setScroll(false);
-            console.log("실패")
         }
     }
 
@@ -97,20 +95,10 @@ function WritePage() {
     const handleInputEnter = (e) => {
         if(e.key === "Enter"){
             textRef.current.getInstance().focus()
-            window.scrollTo({top : 100,behavior:'smooth'})
+            window.scrollTo({top : 145,behavior:'smooth'})
         }
     }
 
-    const getAccessToken = () => {
-        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-            {
-                refresh: localStorage.getItem('refresh_token')
-            }
-        ).then(res => {
-            localStorage.setItem('access_token', res.data.access)
-            handleSubmitPost();
-        })
-    }
 
 
     const handleSubmitPost = () => {
@@ -134,7 +122,7 @@ function WritePage() {
                     navigate(`/board/categorybooks/${id}`);
                 }
                 ).catch(error => {
-                    getAccessToken();
+                    
                 })
         }
     }
@@ -152,7 +140,7 @@ function WritePage() {
                 </div>
             </>
             :
-                <div className='Write_pageScroll'>
+                <div className='title_pageScroll'>
                     
                 </div>
             }
