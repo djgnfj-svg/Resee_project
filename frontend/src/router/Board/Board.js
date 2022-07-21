@@ -66,7 +66,11 @@ function Board() {
             .then(res => {
                 navigate(`/board/categorybooks/${id}`)
             }).catch(error => {
-                console.log(error)
+                if(error.response.status === 404){
+                    alert("우선 책 하나 작성을 해볼까요 ?")
+                }else{
+                    alert("예상 치 못한 오류 ")
+                }
             })
     }
 
