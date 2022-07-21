@@ -103,6 +103,7 @@ function Board() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
+            console.log(res.data)
             if(Object.keys(res.data).length === 1){
                 alert("복습을 다 하셨거나 안에 내용이 없어요 !")
             }else {

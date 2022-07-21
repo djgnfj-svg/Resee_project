@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './BooksReviewPage.css'
 import axios from 'axios'
-import './BooksReviewPage.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { Viewer } from '@toast-ui/react-editor';
@@ -74,14 +73,15 @@ function BooksReviewPage() {
                 </>
                 }
             </div>
-            <div className='Review_content'>
+            <div className='Review_Content'>
                 {postList && <>
                     <Viewer initialValue={postList[count].description} />
 
                 </>}
             </div>
             <div className='Review_addBtn'>
-                <div style={{ display: "flex", flexDirection: "row", width: "220px", position: "relative" }}>
+                <div style={{ display: "flex", flexDirection: "row", width: "258px", position: "relative" }}>
+                        <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>다 봤어요 !</button>
                     <div className='te'>
                         <button hidden={count + 1 === 1 ? true : false} onClick={() => setCount(count - 1)}>이전</button>
                         <div hidden={count + 1 === 1 ? false : true}></div>
@@ -92,8 +92,9 @@ function BooksReviewPage() {
                         {/* count === poistlish.length ? 다음 버튼 비활성화 : 다음버튼 활성화 */}
                         <button hidden={count + 1 === (Object.keys(postList).length - 1) ? true : false} onClick={() => setCount(count + 1)}>다음</button>
                     </div>
+                    <div>
+                    </div>
                 </div>
-                <button className='finish_btn' hidden={count + 1 === (Object.keys(postList).length - 1) ? false : true} onClick={(e) => handleFinishBtn(e)}>완료</button>
             </div>
         </div>
     )

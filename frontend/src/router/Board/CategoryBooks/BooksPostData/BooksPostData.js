@@ -25,19 +25,6 @@ function BooksPostData() {
         getBooksReviewData();
         getBooksData();
     }, [postId])
-   
-    const getAccessToken = () => {
-        axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/",
-                {
-                    refresh:localStorage.getItem('refresh_token')
-                }
-            ).then(res => {
-                localStorage.setItem('access_token', "lostark")
-                localStorage.setItem('access_token',res.data.access)
-                getBooksReviewData();
-                getBooksData();
-            })
-    }
 
     const getBooksData = () => {
         axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`, {
@@ -45,15 +32,10 @@ function BooksPostData() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            console.log(res.data[0].id)
-            if (res.data.msg === "Post가 없습니다.") {
-
-            } else {
-                setNavigateData(res.data)
-                setNavigateId(res.data[0].id);
-            }
+            setNavigateData(res.data)
+            setNavigateId(res.data[0].id);
         }).catch(error => {
-            getAccessToken()
+
         })
     }
 
@@ -65,7 +47,7 @@ function BooksPostData() {
         }).then(res => {
             setPostList(res.data)
         }).catch(error => {
-            getAccessToken()
+            
         })
     }
 
@@ -104,7 +86,6 @@ function BooksPostData() {
             <div className='Review_content'> 
                 {postList &&
                 <> 
-                {console.log(postList.description)}
                     <Viewer 
                         initialValue={postList.description}
                     />

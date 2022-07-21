@@ -21,7 +21,8 @@ function BooksChangeData() {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [ids ,setIds] = useState([])
+    const [prevDescription, setPrevDescription] = useState("")
+    const [ids, setIds] = useState([])
 
     const [scroll, setScroll] = useState(false);
 
@@ -32,25 +33,25 @@ function BooksChangeData() {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
-        window.removeEventListener('scroll', handleScroll); //clean up
+            window.removeEventListener('scroll', handleScroll); //clean up
         };
     }, []);
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 50){
+        if (window.scrollY >= 50) {
             setScroll(true);
             console.log(scroll)
-        }else{
-        // 스크롤이 50px 미만일경우 false를 넣어줌
+        } else {
+            // 스크롤이 50px 미만일경우 false를 넣어줌
             setScroll(false);
             console.log("실패")
         }
     }
 
-    const handleChangeInput = (e) => { 
+    const handleChangeInput = (e) => {
         setTitle(e.target.value)
-     }
+    }
 
     const handleChangeInput2 = (e) => {
         setDescription(textRef.current.getInstance().getMarkdown())
@@ -64,24 +65,27 @@ function BooksChangeData() {
         }).then(res => {
             setTitle(res.data.title)
             setDescription(res.data.description)
+            setPrevDescription(res.data.description)
         }).catch(error => {
-            
+
         })
     }
 
     const handleReplaceBack = () => {
-        const exit =  window.confirm("지금 나가시면 수정하신 정보를 잃어버려요 !")
-        if(exit === true){
+        if(description === prevDescription){
             navigate(`/board/categorybooks/${id}/postreview/${postId}`)
-        }else if(exit === false){
-
+        }else{
+            const exit = window.confirm("지금 나가시면 수정하신 정보를 잃어버려요 !")
+            if (exit === true) {
+                navigate(`/board/categorybooks/${id}/postreview/${postId}`)
+            } else if (exit === false) {}
         }
     }
-
+        
     const handleInputEnter = (e) => {
-        if(e.key === "Enter"){
+        if (e.key === "Enter") {
             textRef.current.getInstance().focus()
-            window.scrollTo({top : 100,behavior:'smooth'})
+            window.scrollTo({ top: 100, behavior: 'smooth' })
         }
     }
 
@@ -91,17 +95,12 @@ function BooksChangeData() {
         } else if (title === "") {
             alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
-            const formData = {
-                title: title,
-                description: description,
-                image_ids:ids
-            }
             axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,
-            {
-                title: title,
-                description: description,
-                image_ids:ids
-            } ,
+                {
+                    title: title,
+                    description: description,
+                    image_ids: ids
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -112,7 +111,7 @@ function BooksChangeData() {
                     console.log(description)
                 }
                 ).catch(error => {
-                    
+
                 })
         }
     }
@@ -121,23 +120,23 @@ function BooksChangeData() {
     return (
         <div>
             {scroll === false ?
-            <>
-                <div className="title_box">
-                    <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
-                </div>
+                <>
+                    <div className="title_box">
+                        <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                    </div>
                     <div className='title_span'>
                         <span> </span>
                     </div>
-            </>
-                
-            :
+                </>
+
+                :
                 <div className='title_pageScroll'>
-                    
+
                 </div>
             }
             <div className={scroll ? 'Write_pageScroll' : 'Write_page'} >
-                {description  === true || title.length >= 2 &&<>
-                    <Editor 
+                {description === true || title.length >= 2 && <>
+                    <Editor
                         ref={textRef}
                         initialValue={description}
                         previewStyle="vertical"
@@ -146,7 +145,7 @@ function BooksChangeData() {
                         initialEditType="markdown"
                         onChange={handleChangeInput2}
                         toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
-                        theme = 'dark'
+                        theme='dark'
                         plugins={[
                             [
                                 colorSyntax,
@@ -155,32 +154,32 @@ function BooksChangeData() {
                                     preset: ['#1F2E3D', '#4c5864', '#ED7675']
                                 }
                             ]
-                        ]} 
+                        ]}
                         hooks={{
-                            addImageBlobHook : async (blob, callback) => {
+                            addImageBlobHook: async (blob, callback) => {
                                 const formData = {
-                                    image : blob,
-                                    title : "aa",
+                                    image: blob,
+                                    title: "aa",
                                 }
-                                await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`,formData ,
-                                {
-                                    headers: {
-                                        "Content-Type": "multipart/form-data",
-                                        Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                                    },
-                                }).then(res => {
-                                    callback(res.data.image, '이미지');
-                                    setIds(ids.concat(res.data.id))
-                                }).catch(error => {
-                                    console.log(error)
-                                })
+                                await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`, formData,
+                                    {
+                                        headers: {
+                                            "Content-Type": "multipart/form-data",
+                                            Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                                        },
+                                    }).then(res => {
+                                        callback(res.data.image, '이미지');
+                                        setIds(ids.concat(res.data.id))
+                                    }).catch(error => {
+                                        console.log(error)
+                                    })
                             },
-                          }}
+                        }}
                     />
                 </>}
             </div>
-            <div className='Write_addBtn' style={{ position:"absolute" , marginRight:"20px"}}>
-                <button style={{marginRight:"20px" , border:"1px solid red"}} onClick={(e) => handleReplaceBack()}>취소</button>
+            <div className='Write_addBtn' style={{ position: "absolute", marginRight: "20px" }}>
+                <button style={{ marginRight: "20px", border: "1px solid red" }} onClick={(e) => handleReplaceBack()}>취소</button>
                 <button style={{}} onClick={(e) => handleSubmitPost(e)}>수정 완료</button>
             </div>
         </div>
