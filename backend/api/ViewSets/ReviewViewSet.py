@@ -12,29 +12,30 @@ class ReviewViewSet(viewsets.ViewSet):
 		review_list = ReviewPost.objects.filter(Book_id=book_id)
 		review_data = []
 
-		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).first()
+		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).last()
 		if first_data == None:
 			raise exceptions.NotFound({"msg" : "아무것도 작성하지 않아서 복습할 수 없습니다."}, code=401)
 		base_time = first_data.created_at
-			
+		#베이스 타임이 지금 내가 작성한 글 중 복습 횟수가 8개 이하인 걸로 되어있다
 
 		for review in review_list:
-			past_days = (review.created_at - base_time).days
+			past_days = abs((review.created_at - base_time).days)
+			print(past_days)
 			if past_days == 0 and review.review_count < 1:
 				review_data.append(review)
-			elif past_days > 1 and past_days < 3 and review.review_count < 2:
+			elif past_days >= 1 and past_days < 3 and review.review_count < 2:
 				review_data.append(review)
-			elif past_days > 3 and past_days < 7 and review.review_count < 3:
+			elif past_days >= 3 and past_days < 7 and review.review_count < 3:
 				review_data.append(review)
-			elif past_days > 7 and past_days < 14 and review.review_count < 4:
+			elif past_days >= 7 and past_days < 14 and review.review_count < 4:
 				review_data.append(review)
-			elif past_days > 14 and past_days < 31 and review.review_count < 5:
+			elif past_days >= 14 and past_days < 31 and review.review_count < 5:
 				review_data.append(review)
-			elif past_days > 31 and past_days < 93 and review.review_count < 6:
+			elif past_days >= 31 and past_days < 93 and review.review_count < 6:
 				review_data.append(review)
-			elif past_days > 93 and past_days < 182 and review.review_count < 7:
+			elif past_days >= 93 and past_days < 182 and review.review_count < 7:
 				review_data.append(review)
-			elif past_days > 182 and review.review_count < 8:
+			elif past_days >= 182 and review.review_count < 8:
 				review_data.append(review)
 
 		return_data = {}
