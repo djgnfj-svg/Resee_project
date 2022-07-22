@@ -10,19 +10,21 @@ import isLogin from './isLogin';
 function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
+	const [loginState , setLoginState] = useState(!!isLogin())
+
+	// useEffect(() => {
+	// 	setLoginState(!!isLogin())
+	// })
 
 	useEffect(() => {
-		if(!isLogin()) {
-			setAuth(false)
-		}else if(!!isLogin()){
+		if(!loginState && (localStorage.getItem('access_token' !== null) || localStorage.getItem('refresh_token') !== null)) {
+			alert("비 정상 접근")
+			navigate("/login")
+			console.log(loginState)
+		}else if(loginState){
 			setAuth(true)
 		}
-	},[!isLogin()])
-	
-
-	// useEffect(()=>{
-	// 	let 타이머 = setTimeout(()=>{ alert("aaa") }, 2000);
-	//  }, []);
+	},[loginState])
 
 	const handleLogout = () => {
 		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {

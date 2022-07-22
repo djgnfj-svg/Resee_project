@@ -15,12 +15,14 @@ const isLogin = () =>
             localStorage.clear();
             window.location.href="/login"
             alert(" 복습을 하지않으셔서 자동 로그아웃 됐어요 ! ")
-            
         })
         ?
         true
         :
         false
+
+    export const NotFoundSession = () =>
+        localStorage.getItem('access_token') ? true : false
 
 
     

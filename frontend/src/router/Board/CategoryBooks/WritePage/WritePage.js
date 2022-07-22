@@ -28,6 +28,7 @@ function WritePage() {
         description: "",
     })
     const { description } = descriptions
+    const [spanBoolean , setSpanBoolean] = useState(true) 
 
 
     useEffect(() => {
@@ -79,9 +80,11 @@ function WritePage() {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
         if(window.scrollY >= 50){
             setScroll(true);
+            setSpanBoolean(false)
         }else{
         // 스크롤이 50px 미만일경우 false를 넣어줌
             setScroll(false);
+            window.scrollTo({top:0})
         }
     }
 
@@ -135,8 +138,10 @@ function WritePage() {
                 <div className="title_box">
                     <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
                 </div>
-                <div className='title_span'>
+                    <div className='title_span' >
+                {spanBoolean && 
                         <span>제목 입력 후 엔터를 입력해보세요 !</span>
+                    }
                 </div>
             </>
             :
@@ -151,7 +156,7 @@ function WritePage() {
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
-                            height="800px"
+                            height="905px"
                             autofocus={false}
                             initialEditType="markdown"
                             theme='dark'

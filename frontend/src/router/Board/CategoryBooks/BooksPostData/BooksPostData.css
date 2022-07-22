@@ -20,13 +20,26 @@
     color: rgb(255, 255, 255);
     font-weight: 400;
 }
+
 .Menu_var img{
     width: 10px;
     object-fit: cover;
 }
+
+.Review_page {
+    padding-right: 13rem;
+}
+
 .Review_content{
-    margin-left: 27rem;
+    margin-left: 20rem;
     padding-bottom: 5rem;
+    margin-top: 2rem;
+    border: 1px solid red;
+}
+
+.Review_title{
+    margin-left: 20rem;
+    margin-top: 2rem;
 }
 .Review_content div p{
     color: white;
@@ -78,4 +91,14 @@
     padding: 0.2rem 0.2rem;
     font-size: 14px;
     width: 80px;
+}
+.scrollUpBtn{
+    
+   
+}
+.scrollUpBtn button{
+    width: 50px;
+    line-height: 2rem;
+    border: none;
+    background-color: #191919;
 }

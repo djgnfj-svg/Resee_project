@@ -3,7 +3,7 @@ import './Board.css'
 import Add_modal from './Section/js/Add_modal'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
-import isLogin from '../../components/isLogin';
+import NotFoundSession from '../../components/isLogin';
 
 function Board() {
 
@@ -22,13 +22,17 @@ function Board() {
     },[])
 
     useEffect(() => {
-        if(!!isLogin()){
+        if(booksData){
             getBooksData();
+        }else if(booksData === ""){
+            getBooksData();
+        }else{
+            alert("당신 어떻게 들어왔어 !!")
         }
-    }, [showModal === false] || delBoolean === true)
+    }, [showModal === false || delBoolean === true])
 
     const notFoundUser = () =>{
-        if(!isLogin()){
+        if(!NotFoundSession()){
             navigate("/login");
             alert("로그인 후 이용해주세요 !");
         }
@@ -43,7 +47,7 @@ function Board() {
             })
             .then(res => {
                 if(res.data.msg === "books가 없습니다."){
-                    
+                    setBooksData(res.data);
                 }else{
                     setBooksData(res.data);
                 }
@@ -115,10 +119,9 @@ function Board() {
     }
 
     return (
-            <div className={booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
-                <div className={booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
-                    
-                    {booksData && booksData.length !== 0 ? booksData.map((item, index) => (
+            <div className={booksData && booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
+                <div className={booksData && booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
+                    {booksData && booksData.length ? booksData.map((item, index) => (
                         <>
                             <div className="board">
                                 <div className="books_img">
@@ -146,7 +149,7 @@ function Board() {
                         </>
                     }
                 </div>
-                <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one' || ((booksData.length === 0 || booksData.length) === undefined && "hide") || 'write_btn'}>
+                <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
                     <button onClick={modalClose}>추가하기</button>
                     {showModal && <Add_modal show={modalClose} />}
                 </div>

@@ -19,12 +19,21 @@ function BooksPostData() {
 
     const [test, setTest] = useState(false)
 
+    const [scroll , setScroll] = useState(false)
+
     const navigate = useNavigate("");
 
     useEffect(() => {
         getBooksReviewData();
         getBooksData();
     }, [postId])
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll); //clean up
+        };
+    }, []);
 
     const getBooksData = () => {
         axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`, {
@@ -37,6 +46,16 @@ function BooksPostData() {
         }).catch(error => {
 
         })
+    }
+
+    const handleScroll = () => {
+        // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
+        if (window.scrollY >= 300) {
+            setScroll(true);
+        } else {
+            // 스크롤이 50px 미만일경우 false를 넣어줌
+            setScroll(false);
+        }
     }
 
     const getBooksReviewData = () => {
@@ -94,7 +113,7 @@ function BooksPostData() {
             </div>
                     
             <div>
-                <div style={{position:"absolute" ,top:"-50px"}}>
+                <div style={{position:"absolute" ,top:"-32px"}}>
                 <div className={test === true ? "CloseBtn" : "Navigations_var"}  >
                     {navigateData && navigateData.map((item, index) => (
                         <>
@@ -115,6 +134,13 @@ function BooksPostData() {
                     </div>
                 </div>
             </div>
+            {scroll && 
+                <div className='scrollUpBtn'>
+                    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        <img src={`${process.env.PUBLIC_URL}/img/arrow_up.png`} />
+                    </button>
+                </div>
+            }
         </div>
     )
 }

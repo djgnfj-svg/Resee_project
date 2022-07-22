@@ -7,14 +7,6 @@ import isLogin from '../../components/isLogin';
 function Home() {   
     
     const navigate = useNavigate("");
-    
-    const goSignUp = () => {
-        if(!isLogin() === true){
-            navigate('/sign_up')
-        }else{
-            alert(" 이미 로그인 중이에요 !")
-    }
-}
 
     return (
         <div className="hero-image">
@@ -22,7 +14,7 @@ function Home() {
                 <h1>Write & ReSee</h1>
                 <h3 style={{fontSize:"20px"}}>Wan't you Remember?</h3>
                 <h3 style={{fontSize:"20px"}}>Write and See again With ReSee</h3>
-                <button className='hero-button' ><a onClick={() => goSignUp()} style={{ textDecoration: 'none', color: "white" }}>가입하기</a></button>
+                <button className='hero-button' ><a style={{ textDecoration: 'none', color: "white" }}>가입하기</a></button>
             </div>
             <div className='hero-Go_velog'>
                 <div className='velog_content'>
