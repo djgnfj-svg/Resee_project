@@ -30,17 +30,22 @@
     padding-right: 13rem;
 }
 
+.Review_title{
+    margin-left: 17rem !important;
+    margin-top: 2rem;
+    width: 400px;
+}
+
 .Review_content{
-    margin-left: 20rem;
+    margin-left: 17rem;
     padding-bottom: 5rem;
     margin-top: 2rem;
     border: 1px solid red;
+    width: 70vw;
+    color: white;
+    text-align: left;
 }
 
-.Review_title{
-    margin-left: 20rem;
-    margin-top: 2rem;
-}
 .Review_content div p{
     color: white;
     font-size: 21px;

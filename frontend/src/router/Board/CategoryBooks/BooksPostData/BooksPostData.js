@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import './BooksPostData.css'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
@@ -15,13 +16,14 @@ function BooksPostData() {
     const [postList, setPostList] = useState("");
 
     const [navigateData, setNavigateData] = useState("")
-    const [navigateId , setNavigateId] = useState("");
+    const [navigateId, setNavigateId] = useState("");
 
     const [test, setTest] = useState(false)
 
-    const [scroll , setScroll] = useState(false)
+    const [scroll, setScroll] = useState(false)
 
     const navigate = useNavigate("");
+
 
     useEffect(() => {
         getBooksReviewData();
@@ -66,7 +68,7 @@ function BooksPostData() {
         }).then(res => {
             setPostList(res.data)
         }).catch(error => {
-            
+
         })
     }
 
@@ -76,55 +78,55 @@ function BooksPostData() {
 
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            axios.delete(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,{
+            axios.delete(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
-            .then(res => {
-                if(navigateData === null){
-                    navigate(`/board/categorybooks/${id}`)
-                }else{
-                    navigate(`/board/categorybooks/${id}/postreview/${navigateId}`);
-                    getBooksData();
-                }
-            })
+                .then(res => {
+                    if (navigateData === null) {
+                        navigate(`/board/categorybooks/${id}`)
+                    } else {
+                        navigate(`/board/categorybooks/${id}/postreview/${navigateId}`);
+                        getBooksData();
+                    }
+                })
         }
         // 포스트 삭제 시 관련 이미지룰 db에서 지워줘야 한다
     }
 
-
     return (
-        <div className='Review_page'>
-            <div className='Review_title'>
-                {postList && <>
-                    <ReactMarkdown className='markdown_title' children={postList.title} />
-                </>
-                }
-            </div>
-            <div className='Review_content'> 
-                {postList &&
-                <> 
-                    <Viewer 
-                        initialValue={postList.description}
-                    />
-                </>
-                }
-            </div>
-                    
-            <div>
-                <div style={{position:"absolute" ,top:"-32px"}}>
-                <div className={test === true ? "CloseBtn" : "Navigations_var"}  >
-                    {navigateData && navigateData.map((item, index) => (
-                        <>
-                            <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
-                        </>
-                    ))}
-                    {navigateData && navigateData === null && (
-                        <>
-                        </>
-                    )}
+        <>
+            <div className='Review_page'>
+                <div className='Review_title'>
+                    {postList && <>
+                        <ReactMarkdown className='markdown_title' children={postList.title} />
+                    </>
+                    }
                 </div>
+                <div className='Review_content'>
+                    {postList &&
+                        <>
+                            <ReactMarkdown
+                                children={postList.description}
+                            />
+                        </>
+                    }
+                </div>
+            </div>
+            <div>
+                <div style={{ position: "absolute", top: "58px" }}>
+                    <div className="Navigations_var"  >
+                        {navigateData && navigateData.map((item, index) => (
+                            <>
+                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                            </>
+                        ))}
+                        {navigateData && navigateData === null && (
+                            <>
+                            </>
+                        )}
+                    </div>
                     <div className='remove_Btn' >
                         <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>
                         <button style={{ backgroundColor: "#e62e3d", color: "white" }} onClick={() => handleRemoveBtn()}>삭제하기</button>
@@ -134,14 +136,14 @@ function BooksPostData() {
                     </div>
                 </div>
             </div>
-            {scroll && 
+            {scroll &&
                 <div className='scrollUpBtn'>
                     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                         <img src={`${process.env.PUBLIC_URL}/img/arrow_up.png`} />
                     </button>
                 </div>
             }
-        </div>
+        </>
     )
 }
 

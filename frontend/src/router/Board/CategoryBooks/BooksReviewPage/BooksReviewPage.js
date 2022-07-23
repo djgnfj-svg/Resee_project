@@ -20,6 +20,8 @@ function BooksReviewPage() {
         getBooksReviewData();
         
     }, [])
+    useEffect(() => {
+    },[count])
 
     const handleFinishBtn = (e) => {
         axios.post(`http://127.0.0.1:8000/api/books/${id}/review/`,
@@ -60,7 +62,7 @@ function BooksReviewPage() {
             </div>
             <div className='Review_Content'>
                 {postList && <>
-                    <Viewer initialValue={postList[count].description} />
+                    <ReactMarkdown  children={postList[count].description} />
 
                 </>}
             </div>

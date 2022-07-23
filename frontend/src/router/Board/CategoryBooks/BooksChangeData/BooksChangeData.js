@@ -137,7 +137,7 @@ function BooksChangeData() {
                         ref={textRef}
                         initialValue={description}
                         previewStyle="vertical"
-                        height="905px"
+                        height="805px"
                         autofocus={false}
                         initialEditType="markdown"
                         onChange={handleChangeInput2}

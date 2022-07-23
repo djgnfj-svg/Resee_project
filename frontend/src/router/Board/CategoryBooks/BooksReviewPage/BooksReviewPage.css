@@ -1,11 +1,13 @@
 .Review_page{
     position: relative;
+    display: initial;
 }
 
 .Review_title{
     width: 20rem;
     font-weight: bold;
     border-bottom: 5px solid rgb(165 165 165);
+    margin-left: 10rem !important;
 }
 
 .Review_title input{
@@ -18,11 +20,15 @@
     padding: 1rem 1rem;
 }
 .Review_Content{
-    height: 70vh;
-    overflow-y: scroll;
-    text-align: left;
-    padding: 3rem 3rem;
+    overflow: visible;
     border: 1px solid red;
+    margin-left:10rem;
+    text-align: left !important;
+    margin-top: 2rem;
+    padding-bottom: 15rem;
+    color: white;
+    width: 80vw;
+    font-size: 20px;
 }
 
 .toastui-editor-contents p{
@@ -44,10 +50,11 @@
 }
 
 .Review_addBtn{
-    margin-top: 20px;
+    position: absolute;
     display: inline-block;
     width: 200px;
     margin-bottom: 3rem;
+    bottom: 0px;
 }
 
 .Review_addBtn button{
