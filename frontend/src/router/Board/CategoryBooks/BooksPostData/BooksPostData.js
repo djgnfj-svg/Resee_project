@@ -14,6 +14,7 @@ function BooksPostData() {
     const { postId } = useParams("");
 
     const [postList, setPostList] = useState("");
+    const [postDescription, setPostDescription] = useState("");
 
     const [navigateData, setNavigateData] = useState("")
     const [navigateId, setNavigateId] = useState("");
@@ -26,8 +27,8 @@ function BooksPostData() {
 
 
     useEffect(() => {
-        getBooksReviewData();
         getBooksData();
+        getBooksReviewData();
     }, [postId])
 
     useEffect(() => {
@@ -67,7 +68,10 @@ function BooksPostData() {
             }
         }).then(res => {
             setPostList(res.data)
-        }).catch(error => {
+            const description = res.data.description.replaceAll("\n" , "\n\n")
+            setPostDescription(description)
+        })
+        .catch(error => {
 
         })
     }
@@ -108,7 +112,7 @@ function BooksPostData() {
                     {postList &&
                         <>
                             <ReactMarkdown
-                                children={postList.description}
+                                children={postDescription}
                             />
                         </>
                     }

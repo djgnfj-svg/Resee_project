@@ -12,15 +12,14 @@ function BooksReviewPage() {
 
     const [count, setCount] = useState(0);
     const [postList, setPostList] = useState("");
+    const [postDescription, setPostDescription] = useState("");
     const [postIds ,setPostIds] = useState("");
 
     const navigate = useNavigate("");
 
+    
     useEffect(() => {
         getBooksReviewData();
-        
-    }, [])
-    useEffect(() => {
     },[count])
 
     const handleFinishBtn = (e) => {
@@ -44,10 +43,11 @@ function BooksReviewPage() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
+            setPostDescription(res.data[count].description.replaceAll("\n", "\n\n"))
             setPostList(res.data)
             setPostIds(res.data.ids)
         }).catch(error => {
-           
+           console.log(error)
         })
     }
 
@@ -62,7 +62,7 @@ function BooksReviewPage() {
             </div>
             <div className='Review_Content'>
                 {postList && <>
-                    <ReactMarkdown  children={postList[count].description} />
+                    <ReactMarkdown  children={postDescription} />
 
                 </>}
             </div>

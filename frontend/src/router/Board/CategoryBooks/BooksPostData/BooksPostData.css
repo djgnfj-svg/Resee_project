@@ -40,16 +40,16 @@
     margin-left: 17rem;
     padding-bottom: 5rem;
     margin-top: 2rem;
-    border: 1px solid red;
     width: 70vw;
     color: white;
     text-align: left;
 }
 
-.Review_content div p{
+.Review_content p{
     color: white;
-    font-size: 21px;
+    font-size: 20px;
     text-align: left;
+    margin-bottom: 5px;
 }
 .Review_content p img{
     color: white;
