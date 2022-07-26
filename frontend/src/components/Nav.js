@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navbar, Container, Nav, } from 'react-bootstrap';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import isLogin from './isLogin';
+import useDidMountEffect from './useDidMountEffect';
 
 
 
@@ -10,30 +11,17 @@ function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
 	const [loginState , setLoginState] = useState(false)
+	const [test , setTest] = useState(false)
 
-	useEffect(() => {
+	useEffect(()=>{
 		if(!!isLogin()){
-			setLoginState(true)
 			setAuth(true)
-		}
-	},[localStorage.getItem('aceess_token')])
-
-	
-	useEffect(() => {
-		async function StateLogin() {
-		 if(!loginState && (localStorage.getItem('access_token') !== null || localStorage.getItem('refresh_token') !== null)) {
-			localStorage.clear()
-			alert("비 정상 접근")
-			navigate("/")
-			setAuth(false)
-		}else if((localStorage.getItem('access_token') === null || localStorage.getItem('refresh_token') === null)){
-			setAuth(false)
 		}else{
-			console.log("hhh")
+			setAuth(false)
 		}
-	}
-	StateLogin()
-	},[auth])
+	},[localStorage.getItem('access_token')])
+	
+		
 
 	const handleLogout = () => {
 		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {

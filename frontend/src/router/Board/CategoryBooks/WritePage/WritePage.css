@@ -123,6 +123,15 @@
     text-align: left;
     font-size: 20px;
 }
+.toastui-editor-defaultUI .ProseMirror , .toastui-editor-md-container .toastui-editor-md-preview h1 {
+    font-size: 40px;
+}
+.toastui-editor-defaultUI .ProseMirror , .toastui-editor-md-container .toastui-editor-md-preview h2 {
+    font-size: 32px;
+}
+.toastui-editor-defaultUI .ProseMirror , .toastui-editor-md-container .toastui-editor-md-preview h3 {
+    font-size: 24px;
+}
 .toastui-editor-md-container .toastui-editor-md-preview{
     padding-bottom: 2rem !important; 
 }

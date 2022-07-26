@@ -18,10 +18,6 @@ function Board() {
     }
 
     useEffect(() => {
-        notFoundUser();
-    },[])
-
-    useEffect(() => {
         if(booksData){
             getBooksData();
         }else if(booksData === ""){
@@ -30,13 +26,6 @@ function Board() {
             alert("당신 어떻게 들어왔어 !!")
         }
     }, [showModal === false || delBoolean === true])
-
-    const notFoundUser = () =>{
-        if(!NotFoundSession()){
-            navigate("/login");
-            alert("로그인 후 이용해주세요 !");
-        }
-    }
 
     const getBooksData = () => {
             axios.get("http://127.0.0.1:8000/api/books/",
@@ -52,7 +41,8 @@ function Board() {
                     setBooksData(res.data);
                 }
             }).catch(error => {
-                console.log(error)
+                alert("로그인 후 이용해주세요")
+                navigate('/')
             })  
         }
     

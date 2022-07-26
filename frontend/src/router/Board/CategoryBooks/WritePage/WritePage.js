@@ -18,6 +18,7 @@ function WritePage() {
     const { id } = useParams();
     const { postid } = useParams()
     const navigate = useNavigate("");
+    const titleRef = React.createRef()
     const textRef = React.createRef();
     const [ids, setIds] = useState([])
 
@@ -38,24 +39,18 @@ function WritePage() {
         };
     }, []);
 
-    useEffect(() => {
-        function onkeydown(e) {
-            if (e.key === "Control") {
-                console.log("aaa")
-             }
-        }
+    useEffect(() => { // esc 클릭 시 제목 포커스 한번더 누르면 그곳으로 이동함
         function onkeyup(e){
-            if(e.key === 'Enter'){
-                console.log("ddd")
+            if(e.key === "Escape"){
+                setScroll(false)
+                titleRef.current.focus()
             }
         }
         window.addEventListener('keyup', onkeyup);
-        window.addEventListener('keydown', onkeydown);
         return () => {
-            window.removeEventListener('keydown', onkeydown);
             window.removeEventListener('keyup', onkeyup);
         }
-    }, []);
+    }, [description]);
  
 
     useEffect(() => {
@@ -151,7 +146,7 @@ function WritePage() {
             {scroll === false ?
             <>
                 <div className="title_box">
-                    <input className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                    <input ref={titleRef} className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
                 </div>
                     <div className='title_span' >
                 {spanBoolean && 
