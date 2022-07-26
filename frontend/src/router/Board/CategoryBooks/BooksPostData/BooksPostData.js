@@ -130,6 +130,7 @@ function BooksPostData() {
                             <>
                             </>
                         )}
+                        <div className='add_booksBtn'><a><img src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
                     </div>
                     <div className='remove_Btn' >
                         <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>

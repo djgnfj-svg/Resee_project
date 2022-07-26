@@ -97,9 +97,14 @@
     font-size: 14px;
     width: 80px;
 }
-.scrollUpBtn{
-    
-   
+.add_booksBtn{
+    text-align:left;
+    border-bottom-right-radius:0.5rem;
+    color: #DCE2F0;
+    background-color:#ffffff0E;
+}
+.add_booksBtn a img{
+    margin-right: 18px;
 }
 .scrollUpBtn button{
     width: 50px;

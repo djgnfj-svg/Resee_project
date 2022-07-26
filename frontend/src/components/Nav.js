@@ -6,25 +6,34 @@ import isLogin from './isLogin';
 
 
 
-
 function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
-	const [loginState , setLoginState] = useState(!!isLogin())
-
-	// useEffect(() => {
-	// 	setLoginState(!!isLogin())
-	// })
+	const [loginState , setLoginState] = useState(false)
 
 	useEffect(() => {
-		if(!loginState && (localStorage.getItem('access_token' !== null) || localStorage.getItem('refresh_token') !== null)) {
-			alert("비 정상 접근")
-			navigate("/login")
-			console.log(loginState)
-		}else if(loginState){
+		if(!!isLogin()){
+			setLoginState(true)
 			setAuth(true)
 		}
-	},[loginState])
+	},[localStorage.getItem('aceess_token')])
+
+	
+	useEffect(() => {
+		async function StateLogin() {
+		 if(!loginState && (localStorage.getItem('access_token') !== null || localStorage.getItem('refresh_token') !== null)) {
+			localStorage.clear()
+			alert("비 정상 접근")
+			navigate("/")
+			setAuth(false)
+		}else if((localStorage.getItem('access_token') === null || localStorage.getItem('refresh_token') === null)){
+			setAuth(false)
+		}else{
+			console.log("hhh")
+		}
+	}
+	StateLogin()
+	},[auth])
 
 	const handleLogout = () => {
 		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {

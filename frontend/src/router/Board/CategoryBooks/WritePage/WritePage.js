@@ -39,6 +39,26 @@ function WritePage() {
     }, []);
 
     useEffect(() => {
+        function onkeydown(e) {
+            if (e.key === "Control") {
+                console.log("aaa")
+             }
+        }
+        function onkeyup(e){
+            if(e.key === 'Enter'){
+                console.log("ddd")
+            }
+        }
+        window.addEventListener('keyup', onkeyup);
+        window.addEventListener('keydown', onkeydown);
+        return () => {
+            window.removeEventListener('keydown', onkeydown);
+            window.removeEventListener('keyup', onkeyup);
+        }
+    }, []);
+ 
+
+    useEffect(() => {
         if (textRef.current) {
             textRef.current.getInstance().removeHook("addImageBlobHook");
             textRef.current
@@ -50,13 +70,9 @@ function WritePage() {
                          * blob 은 해당 이미지 파일이에요. 이 파일을 서버로 보내면 돼요.
                          * 받아온 이미지 주소를 callback 에 인수로 넣고, 두 번째 인수로는 alt 텍스트를 넣을 수 있어요. 아래의 모드는 예시입니다.
                          */
-                        const formData = {
-                            image: blob,
-                            title: "aa",
-                        }
                         await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`, {
                             image: blob,
-                            title: "aa",
+                            title: " ",
                         },
                             {
                                 headers: {
@@ -83,7 +99,6 @@ function WritePage() {
             setSpanBoolean(false)
         }else{
         // 스크롤이 50px 미만일경우 false를 넣어줌
-            setScroll(false);
             window.scrollTo({top:0})
         }
     }
@@ -98,11 +113,11 @@ function WritePage() {
     const handleInputEnter = (e) => {
         if(e.key === "Enter"){
             textRef.current.getInstance().focus()
-            window.scrollTo({top : 145,behavior:'smooth'})
+            window.scrollTo({top : 550,behavior:'smooth'})
+            setScroll(true);
+            setSpanBoolean(false)
         }
     }
-
-
 
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
@@ -156,7 +171,7 @@ function WritePage() {
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
-                            height="800px" // mac = 800 //desctop  = 905
+                            height="840px" // mac = 800 //desctop  = 905
                             autofocus={false}
                             initialEditType="markdown"
                             theme='dark'

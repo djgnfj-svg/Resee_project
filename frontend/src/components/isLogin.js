@@ -2,9 +2,10 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 
 const isLogin = () => 
-    localStorage.getItem('refresh_token')===null || localStorage.getItem('access_token')===null ?
+    localStorage.getItem('refresh_token') === null || localStorage.getItem('access_token') === null ?
         false
         :
+        (
         axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/", //리프레시 토큰 유효 검사
         {
             refresh: localStorage.getItem('refresh_token')
@@ -20,6 +21,7 @@ const isLogin = () =>
         true
         :
         false
+        )
 
     export const NotFoundSession = () =>
         localStorage.getItem('access_token') ? true : false

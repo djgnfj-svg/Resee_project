@@ -146,7 +146,7 @@ function Sign_up() {
 		e.preventDefault();
 		axios.post('http://127.0.0.1:8000/api/accounts/',{
 			email : email,
-			username : username,
+			username : username, 
 			password1 : password1,
 			password2 : password2
 		})
@@ -155,7 +155,7 @@ function Sign_up() {
 				alert("회원가입 성공!")
 				localStorage.setItem('access_token', res.data.access_token)
 				localStorage.setItem('refresh_token', res.data.refresh_token)
-				navigate("/");
+				navigate("/")
 			}else{
 				localStorage.clear()
 			}
