@@ -39,7 +39,7 @@ function WritePage() {
         };
     }, []);
 
-    useEffect(() => { // esc 클릭 시 제목 포커스 한번더 누르면 그곳으로 이동함
+    useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
         function onkeyup(e){
             if(e.key === "Escape"){
                 setScroll(false)
@@ -50,7 +50,7 @@ function WritePage() {
         return () => {
             window.removeEventListener('keyup', onkeyup);
         }
-    }, [description]);
+    }, [description || scroll]);
  
 
     useEffect(() => {

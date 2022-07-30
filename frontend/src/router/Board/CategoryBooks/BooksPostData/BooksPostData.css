@@ -38,11 +38,15 @@
 
 .Review_content{
     margin-left: 17rem;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
     margin-top: 2rem;
     width: 70vw;
     color: white;
     text-align: left;
+}
+
+.markdown_title p{
+    width: max-content;
 }
 
 .Review_content p{
@@ -106,9 +110,32 @@
 .add_booksBtn a img{
     margin-right: 18px;
 }
+.scrollUpBtn{
+    width: 100px;
+    height: 72px;
+    position: fixed;
+    bottom: 10vh;
+    right: 10vw;
+}
+@media (max-width: 500px) {
+    .scrollUpBtn {
+      left: 10vw;
+    }
+}
+
+div a{
+    cursor: pointer;
+}
+
 .scrollUpBtn button{
-    width: 50px;
+    width: 73px;
+    height: 70px;
     line-height: 2rem;
     border: none;
     background-color: #191919;
+}
+.scrollUpBtn button img {
+    object-fit: cover;
+    width: 70px;
+    margin-bottom: 30px;
 }

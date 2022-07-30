@@ -1,5 +1,5 @@
 const maxLength = () => {
-    return 512
+    return 2000
     } 
 export const maxTitleLength = () =>{
     return 2

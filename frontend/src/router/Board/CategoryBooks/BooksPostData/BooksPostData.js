@@ -123,14 +123,14 @@ function BooksPostData() {
                     <div className="Navigations_var"  >
                         {navigateData && navigateData.map((item, index) => (
                             <>
-                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a ><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                                <div className={item.id === postList.id ? "selected" : "unSelected"}><a onClick={() => goBooksData(item.id)}><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
                             </>
                         ))}
                         {navigateData && navigateData === null && (
                             <>
                             </>
                         )}
-                        <div className='add_booksBtn'><a><img src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
+                        <div className='add_booksBtn'><a onClick={() => navigate(`/board/categoryBooks/${id}/write`)}><img src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
                     </div>
                     <div className='remove_Btn' >
                         <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>
