@@ -1,11 +1,20 @@
 .hero-image{
     height: 94vh;
-    background-color: #e0e9e9;
+    background-color: #FBF7F2;
 }
 .hero-button{
     background-color: #222222;
     margin-top: 20px;
 }
+.hero-button_user{
+    background-color: #939393;
+    margin-top: 20px;
+    width: 100px;
+    line-height: 1.8rem;
+    border: none;
+    border-radius: 0.3rem;
+}
+
 .hero-Go_velog{
     display: flex;
     width: 1000px;

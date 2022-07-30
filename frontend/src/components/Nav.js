@@ -41,7 +41,7 @@ function MyNavbar() {
 
 	return (
 		<div>
-			<Navbar style={{ backgroundColor: "rgb(230,230,230) "  }}
+			<Navbar style={{ backgroundColor: "white "  }}
 			>
 				<Container>
 					<Navbar.Brand onClick={() => navigate('/')}>ReSee</Navbar.Brand>
