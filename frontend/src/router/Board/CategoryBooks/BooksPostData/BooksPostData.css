@@ -47,6 +47,10 @@
 
 .markdown_title p{
     width: max-content;
+    font-size: 33px;
+}
+.markdown_title {
+    height: 7vh !important;
 }
 
 .Review_content p{

@@ -172,6 +172,14 @@
     border-bottom-left-radius: 4px;
 }
 
+.add_promotion_text span{
+    color: #e62e3d;
+    text-decoration: none !important;
+}
+.add_promotion_text {
+    color: white;
+}
+
 .No_data{
    position: relative;
    top: 0px;

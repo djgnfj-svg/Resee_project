@@ -139,10 +139,21 @@ function Board() {
                         </>
                     }
                 </div>
-                <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
-                    <button onClick={modalClose}>추가하기</button>
-                    {showModal && <Add_modal show={modalClose} />}
-                </div>
+                {booksData.length >= 4 ? 
+                <>
+                    <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
+                    <div className='error_maxLength'>책은 최대 12개 까지만 생성 가능합니다.</div>
+                    <div style={{color:"#c7c7c7" , fontSize:"14px" , marginBottom:"10px" }}>추가 생성을 원한다면 ? <a href='#' style={{marginLeft:"5px" , color:"white" ,fontSize:"14.5px" ,  textDecoration:"underline" ,}}>Go Premium</a></div>
+                        <button onClick={modalClose} disabled = {true} >추가하기</button>
+                        {showModal && <Add_modal show={modalClose} />}
+                    </div>
+                </>
+                :
+                    <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
+                        <button onClick={modalClose}>추가하기</button>
+                        {showModal && <Add_modal show={modalClose} />}
+                    </div>
+            }
             </div>
     )
 }

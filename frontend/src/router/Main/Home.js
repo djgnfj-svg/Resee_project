@@ -2,10 +2,10 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import isLogin from '../../components/isLogin';
-import './Home.css' 
+import WrapperFrirst from './Section/WrapperFirst';
 
-function Home() {   
-    
+function Home() {
+
     const navigate = useNavigate("");
 
     useEffect(() => {
@@ -21,47 +21,13 @@ function Home() {
                     alert("정상 로그인 후 진행해주세요 ^^")
                     navigate('/')
                 })
-            }
+        }
     }, [])
 
     return (
-        <div className="hero-image">
-            <div className="hero-text" style={{color:"black" , top:"21%",position:"relative"}}>
-                <h1>Write & ReSee</h1>
-                <h3 style={{fontSize:"20px"}}>Wan't you Remember?</h3>
-                <h3 style={{fontSize:"20px"}}>Write and See again With ReSee</h3>
-                {!isLogin ? (
-                    <>
-                    <button className='hero-button' ><a style={{ textDecoration: 'none', color: "white" }}>가입하기</a></button>
-                    </>
-                ) 
-                :
-                (
-                    <>
-                    <button className='hero-button_user' onClick={() => navigate("/board")} ><a style={{ textDecoration: 'none', color: "white" }}>Go !</a></button>
-                    </>
-                )
-                
-                }
-            </div>
-            {/* <div className='hero-Go_velog'>
-                <div className='velog_content'>
-                    <div className='velog_img'></div>
-                    <div>여긴 글자에용</div>
-                    <button>Ok</button>
-                </div>
-                <div className='velog_content'>
-                    <div className='velog_img'></div>
-                    <div>여긴 글자에용</div>
-                    <button>Ok</button>
-                </div>
-                <div className='velog_content'>
-                    <div className='velog_img'></div>
-                    <div>여긴 글자에용</div>
-                    <button>Ok</button>
-                </div>
-            </div> */}
-        </div>
+        <>
+            <WrapperFrirst isLogin = {isLogin} />
+    </>
     )
 }
 

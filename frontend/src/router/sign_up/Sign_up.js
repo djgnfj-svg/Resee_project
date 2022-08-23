@@ -162,7 +162,7 @@ function Sign_up() {
 		})
 		.catch(error => {
 			console.log(error.response.data)
-			alert(error.response.data.email)
+			alert(error.response.data.message)
 			if (!error.response) {
 				this.errorStatus = 'Error: Network Error';
 			} else {

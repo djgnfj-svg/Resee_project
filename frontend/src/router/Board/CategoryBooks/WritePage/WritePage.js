@@ -67,7 +67,7 @@ function WritePage() {
                          */
                         await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`, {
                             image: blob,
-                            title: " ",
+                            title: "aa",
                         },
                             {
                                 headers: {
@@ -83,7 +83,6 @@ function WritePage() {
                     return false;
                 });
         }
-
         return () => { };
     }, [textRef]);
 
@@ -125,7 +124,7 @@ function WritePage() {
                 description: description,
                 image_ids: ids
             }
-            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, formData,
+            axios.post(`url`, formData,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -168,7 +167,7 @@ function WritePage() {
                             previewStyle="vertical"
                             height="840px" // mac = 800 //desctop  = 905
                             autofocus={false}
-                            initialEditType="markdown"
+                            initialEditType="wysiwyg"
                             theme='dark'
                             useCommandShortcut={true}
                             onChange={handleChangeInput2}

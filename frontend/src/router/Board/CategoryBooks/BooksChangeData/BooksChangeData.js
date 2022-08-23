@@ -39,7 +39,7 @@ function BooksChangeData() {
     }, []);
     useEffect(() => { // esc 클릭 시 제목 포커스 한번더 누르면 그곳으로 이동함
         function onkeyup(e){
-            if(e.key === "Escape" && scroll){
+            if(e.key === "Escape"){
                 setScroll(false)
                 window.scrollTo({top:0 , behavior : "smooth"})
             }
