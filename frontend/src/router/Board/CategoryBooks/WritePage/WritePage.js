@@ -124,7 +124,7 @@ function WritePage() {
                 description: description,
                 image_ids: ids
             }
-            axios.post(`url`, formData,
+            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, formData,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
