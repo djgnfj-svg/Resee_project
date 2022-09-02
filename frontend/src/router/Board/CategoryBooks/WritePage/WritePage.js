@@ -88,12 +88,12 @@ function WritePage() {
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 10){
+        if(window.scrollY >= 50){
             setScroll(true);
             setSpanBoolean(false)
         }else{
         // 스크롤이 50px 미만일경우 false를 넣어줌
-            window.scrollTo({top:0})
+            setScroll(false);
         }
     }
 
@@ -165,7 +165,7 @@ function WritePage() {
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
-                            height="840px" // mac = 800 //desctop  = 905
+                            height="1050px" // mac = 800 //desctop  = 905
                             autofocus={false}
                             initialEditType="wysiwyg"
                             theme='dark'
