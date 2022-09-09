@@ -167,7 +167,7 @@ function WritePage() {
                             previewStyle="vertical"
                             height="900px" // mac = 800 //desctop  = 905
                             autofocus={false}
-                            initialEditType="wysiwyg"
+                            initialEditType="markdown"
                             theme='dark'
                             useCommandShortcut={true}
                             onChange={handleChangeInput2}
