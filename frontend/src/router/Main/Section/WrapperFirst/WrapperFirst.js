@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../Section/WrapperFirst.css'
+import './WrapperFirst.css'
 
 function WrapperFrirst({ isLogin }) {
 

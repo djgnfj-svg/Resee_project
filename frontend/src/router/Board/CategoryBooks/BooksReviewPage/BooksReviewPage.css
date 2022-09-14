@@ -34,6 +34,12 @@
     margin-bottom: 5px;
 }
 
+.Review_Content img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
 .toastui-editor-contents p{
     color: white !important;
     font-size: 20px !important;

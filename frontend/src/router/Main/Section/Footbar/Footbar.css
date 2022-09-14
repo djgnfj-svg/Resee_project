@@ -1,0 +1,27 @@
+.footbar{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(214,214,214);
+}
+.footbar > .develop {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+}
+.footbar > .develop > .frontend{
+    margin: 0 auto;
+    text-align: left;
+    font-weight: 500;
+    font-size: 18px;
+}
+.foot_img{
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}

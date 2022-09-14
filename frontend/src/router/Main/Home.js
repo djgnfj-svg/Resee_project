@@ -2,7 +2,9 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import isLogin from '../../components/isLogin';
-import WrapperFrirst from './Section/WrapperFirst';
+import Footbar from './Section/Footbar/Footbar';
+import WrapperFrirst from './Section/WrapperFirst/WrapperFirst';
+import './Section/Footbar/Footbar.css'
 
 function Home() {
 
@@ -25,9 +27,12 @@ function Home() {
     }, [])
 
     return (
-        <>
+        <div>
             <WrapperFrirst isLogin = {isLogin} />
-    </>
+            <div className='footbar'>
+                <Footbar />
+            </div>
+        </div>
     )
 }
 
