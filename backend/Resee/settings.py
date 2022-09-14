@@ -139,25 +139,27 @@ WSGI_APPLICATION = 'Resee.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if ENV == "dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': get_secret("DB_NAME"),
+            'USER' : get_secret("DB_USER"),
+            'PASSWORD' : get_secret("DB_PASSWORD"),
+            'HOST' : get_secret("DB_HOST"),
+            'PORT' : get_secret("DB_PORT"),
+            'OPTIONS' : {
+                'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+            }
+        }
     }
-}
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME' : 'ReSee',
-#         'USER' : 'admin',
-#         'PASSWORD' : 'Zpdptl7407140',
-#         'HOST' : 'database-1.chcdlynsfhaa.ap-northeast-2.rds.amazonaws.com',
-#         'PORT' : '3306',
-#         'OPTIONS' : {
-#             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
-#         }
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
