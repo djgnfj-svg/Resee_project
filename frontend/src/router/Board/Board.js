@@ -4,6 +4,7 @@ import Add_modal from './Section/js/Add_modal'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import NotFoundSession from '../../components/isLogin';
+import { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
 
 function Board() {
 
@@ -28,7 +29,7 @@ function Board() {
     }, [showModal === false || delBoolean === true])
 
     const getBooksData = () => {
-            axios.get("http://127.0.0.1:8000/api/books/",
+            axios.get(CategoryListUrl,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -51,7 +52,7 @@ function Board() {
     }
 
     const GoCategoryBooks = (id) => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`,
+        axios.get(BooksListUrl(id),
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -70,9 +71,8 @@ function Board() {
 
     const handleRemoveBooks = (title,id) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
-        console.log(id)
         if(removeBooks === title){
-            axios.delete(`http://127.0.0.1:8000/api/books/${id}/` ,
+            axios.delete(CategoryDelete(id) ,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -87,12 +87,12 @@ function Board() {
         }else if(removeBooks === null){
             //취소 클릭 시 아무행동 없음
         }else if(removeBooks !== title){
-            alert("올바른 책 이름이 아닌거같아요 !")
+            alert("올바른 책 이름이 아니에요!")
         }
     }
 
     const getBooksReviewData = (id) => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/review/`, {
+        axios.get(ReviewBooks(id), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }

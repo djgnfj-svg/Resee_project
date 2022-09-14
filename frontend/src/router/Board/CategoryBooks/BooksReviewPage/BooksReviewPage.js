@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { Viewer } from '@toast-ui/react-editor';
+import { ReviewBooks } from '../../../../components/ApiUrl'
 
 
 function BooksReviewPage() {
@@ -23,7 +24,7 @@ function BooksReviewPage() {
     },[count])
 
     const handleFinishBtn = (e) => {
-        axios.post(`http://127.0.0.1:8000/api/books/${id}/review/`,
+        axios.post(ReviewBooks(id),
         {
             ids : postIds
         },
@@ -38,7 +39,7 @@ function BooksReviewPage() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/review/`, {
+        axios.get(ReviewBooks(id), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
