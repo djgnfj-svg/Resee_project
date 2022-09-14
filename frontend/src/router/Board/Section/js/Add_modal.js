@@ -3,6 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal'
 import { Button } from 'react-bootstrap';
 import '../css/Add_modal.css'
+import { CategoryListUrl } from '../../../../components/ApiUrl';
 
 function Add_modal({ show }) {
 
@@ -19,7 +20,7 @@ function Add_modal({ show }) {
         }else if(description.length < 5){
           alert("설명을 5글자 이내로 써주세요"); 
         }else{
-          axios.post("http://127.0.0.1:8000/api/books/",
+          axios.post(CategoryListUrl,
           {
             title : title,
             rough_description : description,

@@ -1,8 +1,8 @@
 import './Sign_up.css'
 import axios from 'axios'
-import CSRFToken from '../../components/CSRF';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import {EmailCheckUrl , SignUpUrl} from '../../components/ApiUrl'
 
 
 function Sign_up() {
@@ -41,8 +41,7 @@ function Sign_up() {
 	}
 
 	const BluerEmail = (e) => {
-		{console.log(overlapEmail)}
-		axios.post('http://127.0.0.1:8000/api/emailcheck/',{
+		axios.post(EmailCheckUrl,{
 			email : email,
 		}).then(res => {
 			if(e.target.value.length < 1){
@@ -144,7 +143,7 @@ function Sign_up() {
 
 	const Sign_up_button = (e)=>{
 		e.preventDefault();
-		axios.post('http://127.0.0.1:8000/api/accounts/',{
+		axios.post(SignUpUrl,{
 			email : email,
 			username : username, 
 			password1 : password1,
@@ -152,7 +151,7 @@ function Sign_up() {
 		})
 		.then(res =>{
 			if (res.data.access_token){
-				alert("회원가입 성공!")
+				alert("환영해요 :)")
 				localStorage.setItem('access_token', res.data.access_token)
 				localStorage.setItem('refresh_token', res.data.refresh_token)
 				navigate("/")
@@ -162,7 +161,7 @@ function Sign_up() {
 		})
 		.catch(error => {
 			console.log(error.response.data)
-			alert(error.response.data.message)
+			alert(error.response.data.non_field_errors)
 			if (!error.response) {
 				this.errorStatus = 'Error: Network Error';
 			} else {

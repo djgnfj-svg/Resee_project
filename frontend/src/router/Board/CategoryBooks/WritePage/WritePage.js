@@ -11,6 +11,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import { BooksImageUpload, BooksPostUrl } from '../../../../components/ApiUrl';
 
 
 function WritePage() {
@@ -65,7 +66,7 @@ function WritePage() {
                          * blob 은 해당 이미지 파일이에요. 이 파일을 서버로 보내면 돼요.
                          * 받아온 이미지 주소를 callback 에 인수로 넣고, 두 번째 인수로는 alt 텍스트를 넣을 수 있어요. 아래의 모드는 예시입니다.
                          */
-                        await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`, {
+                        await axios.post(BooksImageUpload(id), {
                             image: blob,
                             title: "aa",
                         },
@@ -124,7 +125,7 @@ function WritePage() {
                 description: description,
                 image_ids: ids
             }
-            axios.post(`http://127.0.0.1:8000/api/books/${id}/post/`, formData,
+            axios.post(BooksPostUrl(id), formData,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('access_token')}`

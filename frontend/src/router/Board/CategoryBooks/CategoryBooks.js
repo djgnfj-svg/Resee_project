@@ -2,13 +2,13 @@ import React , {useEffect , useState} from 'react'
 import './CategoryBooks.css'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
+import { BooksListUrl } from '../../../components/ApiUrl';
 
 function CategoryBooks() {
 
   const {id}  = useParams("");
-
   const navigate = useNavigate("");
-
+  
   const [postList , setPostList] = useState("");
 
   useEffect(() => {
@@ -17,14 +17,13 @@ function CategoryBooks() {
   
 
   const getCategoryList = () => {
-    axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`,
+    axios.get(BooksListUrl(id),
     {
       headers:{
         Authorization : `Bearer ${localStorage.getItem('access_token')}`
     } 
     })
     .then(res => {
-      console.log(res.data)
       if(res.data.msg === "Post가 없습니다."){
         
       }else{

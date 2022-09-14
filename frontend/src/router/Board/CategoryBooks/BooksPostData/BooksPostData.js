@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import './BooksPostData.css'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
+import { BooksListUrl } from '../../../../components/ApiUrl'
 
 
 function BooksPostData() {
@@ -19,7 +20,6 @@ function BooksPostData() {
     const [navigateData, setNavigateData] = useState("")
     const [navigateId, setNavigateId] = useState("");
 
-    const [test, setTest] = useState(false)
 
     const [scroll, setScroll] = useState(false)
 
@@ -39,7 +39,7 @@ function BooksPostData() {
     }, []);
 
     const getBooksData = () => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/`, {
+        axios.get(BooksListUrl(id), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -82,7 +82,7 @@ function BooksPostData() {
 
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            axios.delete(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
+            axios.delete(BooksPostData(id , postId), {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
