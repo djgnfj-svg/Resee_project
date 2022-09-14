@@ -11,7 +11,6 @@ from accounts.models import UserVerification, User
 class EmailcheckView(viewsets.ViewSet):
 	permission_classes  = [AllowAny]
 	def create(self, request):
-		print(request.data)
 		try :
 			user = User.objects.get(email=request.data['email'])
 		except User.DoesNotExist:

@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-	username = models.CharField(max_length=20, null=False)
+	username = models.CharField(max_length=20, null=False, unique=False)
 	email = models.EmailField(verbose_name='email', max_length=255,	unique=True,)
 	date_of_birth = models.DateField(auto_now_add=True)
 	verified = models.BooleanField(default=False, null=False)
@@ -35,7 +35,7 @@ class User(AbstractBaseUser):
 	objects = UserManager()
 
 	USERNAME_FIELD = 'email'
-
+	REQUIRED_FIELDS  = []
 	def __str__(self):
 		return self.email
 

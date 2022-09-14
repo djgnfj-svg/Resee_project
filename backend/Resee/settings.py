@@ -47,11 +47,12 @@ def get_secret(setting):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+ENV = os.environ.get("DJANGO_ENV", 'dev')
+if ENV == 'dev':
+    DEBUG = True
+else:
+    DEBUG = False
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 AUTH_USER_MODEL = 'accounts.User'
@@ -65,18 +66,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    
+    #app
     'books',
     'accounts',
-
+    
+    # swagger
+    'drf_yasg',
+    
+    #rest_framework
 	'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-
+    #dj-rest-autj
     'dj_rest_auth',
     'dj_rest_auth.registration',
-
+    #cors
     'corsheaders',
     #all auth
 	"allauth",
@@ -122,8 +128,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '..', 'frontend', 'build', 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = 'static/'
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WSGI_APPLICATION = 'Resee.wsgi.application'
 
@@ -137,6 +145,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME' : 'ReSee',
+#         'USER' : 'admin',
+#         'PASSWORD' : 'Zpdptl7407140',
+#         'HOST' : 'database-1.chcdlynsfhaa.ap-northeast-2.rds.amazonaws.com',
+#         'PORT' : '3306',
+#         'OPTIONS' : {
+#             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 
 
 # Password validation
@@ -168,49 +189,66 @@ TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
 
 USE_TZ = True
-
+# Swagger Setting
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 ## DRF 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE' : 5,
+
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
+        # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
         # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
         'rest_framework.permissions.AllowAny', # 누구나 접근 가능
     ),
 	
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication', 
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
     ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/min',
+        'user': '30/min'
+    }
 }
+
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'api.Seriailzers.UserSerialzer.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'api.Serializers.UserSerialzer.CustomRegisterSerializer',
 }
-# 추가적인 JWT_AUTH 설
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+# JWT Options
 REST_USE_JWT = True
 JWT_AUTH_COOKIE  = 'access_token'
 JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
+SITE_ID = 1
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
+    #todo : access_token 배포할떄 바꾸기
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -219,10 +257,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    "http://127.0.0.1:8000",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
-
-# All auth
-SITE_ID = 1

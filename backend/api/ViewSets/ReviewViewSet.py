@@ -2,7 +2,7 @@ from rest_framework import viewsets, status, exceptions
 from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
-from api.Seriailzers.PostSerializer import PostsSerializer
+from api.Serializers.PostSerializer import PostsSerializer
 
 from books.models import ReviewPost
 
@@ -20,7 +20,6 @@ class ReviewViewSet(viewsets.ViewSet):
 
 		for review in review_list:
 			past_days = abs((review.created_at - base_time).days)
-			print(past_days)
 			if past_days == 0 and review.review_count < 1:
 				review_data.append(review)
 			elif past_days >= 1 and past_days < 3 and review.review_count < 2:
@@ -48,7 +47,6 @@ class ReviewViewSet(viewsets.ViewSet):
 		return Response(return_data, status=status.HTTP_200_OK)
 
 	def create(self, request, book_id):
-		print(type(request.data['ids']))
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)
 		ids = ids.split(" ")

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
 from api.Utils.error_massge import error_msg
-from api.Seriailzers.PostSerializer import PostsSerializer, PostImageSerializer
+from api.Serializers.PostSerializer import PostsSerializer, PostImageSerializer
 
 from books.models import ReviewPostImgs, ReviewPost
 

@@ -1,5 +1,4 @@
 from dj_rest_auth.registration.serializers import RegisterSerializer
-
 # from api.Utils.email_utils import send_verification_mail
 
 class CustomRegisterSerializer(RegisterSerializer):

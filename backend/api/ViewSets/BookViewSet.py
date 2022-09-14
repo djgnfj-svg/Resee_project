@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from api.Seriailzers.BookSerialzer import BooksSerializer
+from api.Serializers.BookSerialzer import BooksSerializer
 from api.Utils.getUser import getUserId
 from api.Utils.error_massge import error_msg
 
