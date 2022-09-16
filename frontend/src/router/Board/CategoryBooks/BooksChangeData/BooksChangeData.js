@@ -10,6 +10,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import { BooksImageUpload, BooksPostData } from '../../../../components/ApiUrl';
 
 function BooksChangeData() {
 
@@ -71,7 +72,7 @@ function BooksChangeData() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
+        axios.get(BooksPostData(id , postId), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -109,7 +110,7 @@ function BooksChangeData() {
         } else if (title === "") {
             alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
-            axios.put(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`,
+            axios.put(BooksPostData(id , postId),
                 {
                     title: title,
                     description: description,
@@ -174,7 +175,7 @@ function BooksChangeData() {
                                     image: blob,
                                     title: "aa",
                                 }
-                                await axios.post(`http://127.0.0.1:8000/api/books/post/${id}/imgs/`, formData,
+                                await axios.post(BooksImageUpload(id), formData,
                                     {
                                         headers: {
                                             "Content-Type": "multipart/form-data",

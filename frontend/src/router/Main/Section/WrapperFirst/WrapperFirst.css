@@ -3,7 +3,6 @@
     background-color: #fcfcfc;
 }
 .hero-first{
-    height: 94vh;
     display: flex;
     flex-direction: row;
     position: relative;
