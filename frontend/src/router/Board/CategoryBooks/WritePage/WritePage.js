@@ -166,7 +166,7 @@ function WritePage() {
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
-                            height="900px" // mac = 800 //desctop  = 905
+                            height="2000px" // mac = 800 //desctop  = 905
                             autofocus={false}
                             initialEditType="markdown"
                             theme='dark'
