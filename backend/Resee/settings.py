@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import os, json, sys, datetime
+
+import os, json, sys, datetime, pymysql
 
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
@@ -47,11 +48,11 @@ def get_secret(setting):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
-ENV = os.environ.get("DJANGO_ENV", 'dev')
+ENV = os.environ.get("DJANGO_ENV", '')
 if ENV == 'dev':
-    DEBUG = True
-else:
     DEBUG = False
+else:
+    DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -139,6 +140,7 @@ WSGI_APPLICATION = 'Resee.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+pymysql.install_as_MySQLdb()
 if ENV == "dev":
     DATABASES = {
         'default': {
