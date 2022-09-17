@@ -3,11 +3,11 @@ import axios from 'axios'
 // import CSRFToken from '../../components/CSRF';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import isLogin from "../../components/isLogin";
+import React from "react";
 
 function Login() {
 	
-	const navigate = useNavigate("");
+	const navigate = useNavigate();
 	const [input, setInput] = useState({
 		email:"",
 		password:"",
@@ -60,7 +60,7 @@ function Login() {
 	return (
 		<>
 		<main className="login_main">
-			<form class="form_class" style={{backgroundColor:"white"}}>
+			<form className="form_class" style={{backgroundColor:"white"}}>
 			{/* <CSRFToken /> */}
 				<div className="form_div">
 					<div className="social_login">
@@ -86,7 +86,7 @@ function Login() {
 				</div>
 				<div className="info_div">
 					<p>ReSee가 처음이신가요?</p>
-					<a href="/sign_up">가입하기</a>
+					<a onClick={() => navigate("/sign_up")}>가입하기</a>
 				</div>
 			</form>
 		</main>
