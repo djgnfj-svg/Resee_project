@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react';
+import { useState, useEffect } from 'react'
 import './Board.css'
 import Add_modal from './Section/js/Add_modal'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
-import NotFoundSession from '../../components/isLogin';
 import { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
 
 function Board() {
 
-    const navigate = useNavigate("");
+    const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false);
-    const [booksData, setBooksData] = useState("");
+    const [booksData, setBooksData] = useState([]);
     const [delBoolean , setDelBoolean] = useState(false)
 
     const modalClose = () => {
