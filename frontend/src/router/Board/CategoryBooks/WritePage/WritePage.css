@@ -1,6 +1,8 @@
 .Write_page{
     position: relative;
-    height: 1000px;
+    height: max-content;
+    padding-bottom: 10rem;
+    overflow-y: hidden;
 }
 
 
@@ -88,9 +90,6 @@
         opacity: 1;
     }
 }
-
-
-
 
 .Write_addBtn{
     text-align: right;
