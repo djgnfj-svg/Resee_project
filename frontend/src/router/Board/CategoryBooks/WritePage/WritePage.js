@@ -97,7 +97,7 @@ function WritePage() {
             setScroll(false);
         }
     }
-
+   
     const handleChangeInput = (e) => { setTitle(e.target.value) }
     const handleChangeInput2 = (e) => {
         setDescriptions({
@@ -166,7 +166,7 @@ function WritePage() {
                             ref={textRef}
                             initialValue=""
                             previewStyle="vertical"
-                            height="2000px" // mac = 800 //desctop  = 905
+                            height="1050px" // mac = 800 //desctop  = 905
                             autofocus={false}
                             initialEditType="markdown"
                             theme='dark'

@@ -3,13 +3,18 @@ import axios from 'axios'
 // import CSRFToken from '../../components/CSRF';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import isLogin from "../../components/isLogin";
+import React from "react";
 
 function Login() {
+
+	type Input = {
+		email:string; 
+		password? : string;
+	}
 	
-	const navigate = useNavigate("");
-	const [input, setInput] = useState({
-		email:"",
+	const navigate = useNavigate();
+	const [input, setInput] = useState<Input>({
+		email :"",
 		password:"",
 	});
 
@@ -19,7 +24,8 @@ function Login() {
 	const {email, password} = input;
 
 	
-	const onChange = (e) =>  {
+	const onChange = (e: { target: { name: string; value: string; }; }) =>  {
+		let i = 10;
 		const {name , value} = e.target
 		setInput({
 			...input ,
@@ -27,7 +33,7 @@ function Login() {
 		});
 	};
 
-	const handleEmailChangeInput = (e) => {
+	const handleEmailChangeInput = (e: { target: { value: string; }; }) => {
 		const userEmailRegex = new RegExp('^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
 		if((!e.target.value || (userEmailRegex.test(e.target.value)))){
 			setUserEmailError(false);
@@ -40,7 +46,7 @@ function Login() {
 		});
 	}
 	
-	const Login_button = (e)=>{
+	const Login_button = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
 		e.preventDefault();
 		axios.post("http://127.0.0.1:8000/api/accounts/login/", input)
 		.then(res =>{
@@ -54,13 +60,12 @@ function Login() {
 		).catch(res =>{
 			alert("존재하지않는 이메일 이거나 비밀번호가 틀립니다.");
 		})
-		console.log(input)
 	};
 
 	return (
 		<>
 		<main className="login_main">
-			<form class="form_class" style={{backgroundColor:"white"}}>
+			<form className="form_class" style={{backgroundColor:"white"}}>
 			{/* <CSRFToken /> */}
 				<div className="form_div">
 					<div className="social_login">
@@ -86,7 +91,7 @@ function Login() {
 				</div>
 				<div className="info_div">
 					<p>ReSee가 처음이신가요?</p>
-					<a href="/sign_up">가입하기</a>
+					<a href="#" onClick={() => navigate("/sign_up")}>가입하기</a>
 				</div>
 			</form>
 		</main>
