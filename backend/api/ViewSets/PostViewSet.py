@@ -3,28 +3,9 @@ from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
 from api.Utils.error_massge import error_msg
-from api.Serializers.PostSerializer import PostsSerializer, PostImageSerializer
+from api.Serializers.PostSerializer import PostsSerializer
 
-from books.models import ReviewPostImgs, ReviewPost
-
-class PostImgViewSet(viewsets.ModelViewSet):
-	serializer_class = PostImageSerializer
-	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
-
-	def list(self, request, post_id):
-		queryset = ReviewPostImgs.objects.filter(post_id = post_id).order_by("created_at")
-		if not queryset:
-			return Response(error_msg(1), status=status.HTTP_404_NOT_FOUND)
-		serializer = PostImageSerializer(queryset, many=True)
-		return Response(serializer.data, status=status.HTTP_200_OK)
-
-	def create(self, request, post_id):
-		serializer = PostImageSerializer(data=request.data, context={'request' : request})
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data, status=status.HTTP_200_OK)
-		return Response(error_msg(serializer=serializer), status=status.HTTP_402_PAYMENT_REQUIRED)
-
+from posts.models import ReviewPost
 
 class PostViewSet(viewsets.ModelViewSet):
 	serializer_class = PostsSerializer
@@ -36,22 +17,20 @@ class PostViewSet(viewsets.ModelViewSet):
 		if not queryset:
 			return Response(error_msg(1), status=status.HTTP_404_NOT_FOUND)
 		serializer = PostsSerializer(queryset, many=True)
-		return Response(serializer.data, status=status.HTTP_200_OK)
+		return Response(serializer.data)
 
 	def create(self, request, book_id):
 		serializer = PostsSerializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.create(request, book_id, serializer.data)
-			if rtn:
-				return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
+			return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
 		else :
-			return Response(error_msg(serializer=serializer), status=status.HTTP_402_PAYMENT_REQUIRED)
+			return Response(error_msg(serializer=serializer), status=status.HTTP_400_BAD_REQUEST)
 
 	def update(self, request, book_id, pk):
 		serializer = PostsSerializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.update(ReviewPost.objects.get(id=pk), serializer.data)
-			if rtn:
-				return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
+			return Response(PostsSerializer(rtn).data)
 		else :
-			return Response(error_msg(serializer=serializer), status=status.HTTP_402_PAYMENT_REQUIRED)
+			return Response(error_msg(serializer=serializer), status=status.HTTP_400_BAD_REQUEST)

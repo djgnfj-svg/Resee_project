@@ -44,7 +44,7 @@ class ReviewViewSet(viewsets.ViewSet):
 			return_data[i] = temp
 			return_data['ids'] += str(temp['id']) +" "
 		return_data['ids'] = return_data['ids'].rstrip()
-		return Response(return_data, status=status.HTTP_200_OK)
+		return Response(return_data)
 
 	def create(self, request, book_id):
 		ids = str(request.data['ids'])
@@ -55,4 +55,4 @@ class ReviewViewSet(viewsets.ViewSet):
 			temp = ReviewPost.objects.get(id = i, user_id = userid)
 			temp.review_count_up()
 		
-		return Response({"msg":"{} 의 리뷰카운터를 성공적으로 올렸습니다.".format(ids)}, status=status.HTTP_200_OK)
+		return Response({"msg":"{} 의 리뷰카운터를 성공적으로 올렸습니다.".format(ids)})

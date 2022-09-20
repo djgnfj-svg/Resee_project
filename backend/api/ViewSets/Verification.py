@@ -14,7 +14,7 @@ class EmailcheckView(viewsets.ViewSet):
 		try :
 			user = User.objects.get(email=request.data['email'])
 		except User.DoesNotExist:
-			return Response({"msg" : "가입가능"}, status=status.HTTP_200_OK)
+			return Response({"msg" : "가입가능"})
 		return Response({"msg" : "이미 있는유저"}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
 class VerificationView(viewsets.ViewSet):
@@ -22,7 +22,7 @@ class VerificationView(viewsets.ViewSet):
 	def list(self, request):
 		key = request.GET.get('key','')
 		if key == None:
-			return Response({"msg" : "이곳은 인증채널입니다."}, status=status.HTTP_200_OK)
+			return Response({"msg" : "이곳은 인증채널입니다."})
 		verification = UserVerification.objects.get(key=key)
 		current = timezone.now()
 		if verification.expired_at > current:
@@ -34,7 +34,7 @@ class VerificationView(viewsets.ViewSet):
 			user.verified = True
 			user.save()
 			msg = "인증에 성공하셨습니다."
-			return Response({"msg" : msg}, status=status.HTTP_200_OK)
+			return Response({"msg" : msg})
 		else:
 			msg = "인증에 실패하셨습니다."
 			return Response({"msg" : msg}, status=status.HTTP_400_BAD_REQUEST)
