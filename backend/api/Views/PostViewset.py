@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
-from api.Utils.error_massge import error_msg
+from api.Utils.error_massge import error_msg, success_msg
 from api.Serializers.PostSerializer import PostsSerializer
 
 from posts.models import ReviewPost
@@ -15,7 +15,7 @@ class PostViewSet(viewsets.ModelViewSet):
 		userid = getUserId(request.user)
 		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
 		if not queryset:
-			return Response(error_msg(1), status=status.HTTP_404_NOT_FOUND)
+			return Response(success_msg(204), status=status.HTTP_204_NO_CONTENT)
 		serializer = PostsSerializer(queryset, many=True)
 		return Response(serializer.data)
 
