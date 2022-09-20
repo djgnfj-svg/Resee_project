@@ -2,9 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './WrapperFirst.css'
 
-function WrapperFrirst({ isLogin }) {
-
-    const navigate = useNavigate("")
+function WrapperFrirst({ isLogin }:{isLogin:boolean}) {
+    const navigate = useNavigate()
 
     return (
         <div className='hero-image'>

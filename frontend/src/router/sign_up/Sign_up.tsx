@@ -1,13 +1,14 @@
 import './Sign_up.css'
 import axios from 'axios'
-import { useState } from 'react';
+import { FocusEvent, SetStateAction, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import {EmailCheckUrl , SignUpUrl} from '../../components/ApiUrl'
+import React from 'react'
 
 
 function Sign_up() {
 
-	const navigate = useNavigate("");
+	const navigate = useNavigate();
 
 	const [erroruserNickname  , setErroruserNickname] = useState(false);
 	const [errorUserEmail  , setErrorUserEmail] = useState(false);
@@ -31,8 +32,8 @@ function Sign_up() {
 
 	const [overlapEmail , setOverLapEmail] = useState("")
 
-	const BluerUserName = (e) => {
-		if(e.target.value.length < 1){
+	const BluerUserName = (e: FocusEvent<HTMLInputElement, Element>) => {
+		if(e.target.value.length < 1 || e.target.value.length > 11){
 			setNameLength(false)
 		}else{
 			setNameLength(true);
@@ -40,7 +41,7 @@ function Sign_up() {
 		}
 	}
 
-	const BluerEmail = (e) => {
+	const BluerEmail = (e: FocusEvent<HTMLInputElement, Element>) => {
 		axios.post(EmailCheckUrl,{
 			email : email,
 		}).then(res => {
@@ -57,7 +58,7 @@ function Sign_up() {
 	})
 	}
 
-	const BluerPassword = (e) => {
+	const BluerPassword = (e: FocusEvent<HTMLInputElement, Element>) => {
 		if(e.target.value.length < 1){
 			setPasswordLength(false)
 		}else{
@@ -67,16 +68,16 @@ function Sign_up() {
 		bluerPaasword2()
 	}
 
-	const bluerPaasword2 = (e) =>{
+	const bluerPaasword2 = () =>{
 		if(password2 !== password1){
 			setErrorUserPassword2(true)
 		}
 	}
 
 
-	const onChangeuserName = (e) =>  {
+	const onChangeuserName = (e: { target: { value: string; }; }) =>  {
 
-		const usernameRegex = new RegExp("^[a-zA-Z0-9가-힣ㄱ-ㅎ]{1,10}$");
+		const usernameRegex = new RegExp("^[a-zA-Z0-9가-힣ㄱ-ㅎ]{1,}$");
 		
 		if((!e.target.value || (usernameRegex.test(e.target.value)))){
 			setErroruserNickname(false)
@@ -88,7 +89,7 @@ function Sign_up() {
 		setUserName(e.target.value);
 	};
 
-	const onChangeEmail = (e) =>  {
+	const onChangeEmail = (e: { target: { value: string; }; }) =>  {
 		const emailRegex = new RegExp("^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
 		
 		if((!e.target.value || (emailRegex.test(e.target.value)))){
@@ -101,7 +102,7 @@ function Sign_up() {
 		setEmail(e.target.value);
 	};
 
-	const onChangepassword = (e) =>  {
+	const onChangepassword = (e: { target: { value: string; }; }) =>  {
 
 		const passwordRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$")
 		const appTest = email.split("@")[0];
@@ -128,7 +129,7 @@ function Sign_up() {
 		setPassword(e.target.value);
 	};
 
-	const onChangepassword2 = (e) =>  {	
+	const onChangepassword2 = (e: { target: { value: string; }; }) =>  {	
 		if(e.target.value === password1 ){
 			setErrorUserPassword2(false)
 			setPassword2Updated(true);
@@ -141,7 +142,7 @@ function Sign_up() {
 		setPassword2(e.target.value);
 	};
 
-	const Sign_up_button = (e)=>{
+	const Sign_up_button = (e: { preventDefault: () => void; })=>{
 		e.preventDefault();
 		axios.post(SignUpUrl,{
 			email : email,
@@ -160,13 +161,7 @@ function Sign_up() {
 			}
 		})
 		.catch(error => {
-			console.log(error.response.data)
 			alert(error.response.data.non_field_errors)
-			if (!error.response) {
-				this.errorStatus = 'Error: Network Error';
-			} else {
-				this.errorStatus = error.response.data.message;
-			}
 		})
 	};
 
@@ -182,10 +177,10 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)} type="text" placeholder="닉네임을 입력하세요" autoFocus onChange={onChangeuserName} value={username} maxLength="10" />
+					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)}  placeholder="닉네임을 입력하세요" autoFocus onChange={onChangeuserName} value={username}  />
 					{nameLength===false && 
 					<>
-						<div className='blank_txt'>필수 입력 요소입니다</div>
+						<div className='blank_txt'>2글자 이상 10글자 이하로 입력해주세요</div>
 					</>
 					 }
 					{erroruserNickname &&

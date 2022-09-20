@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { Navbar, Container, Nav, } from 'react-bootstrap';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import isLogin from './isLogin';
@@ -9,8 +9,6 @@ import isLogin from './isLogin';
 function MyNavbar() {
 	let navigate = useNavigate();
 	let [auth, setAuth] = useState(false)
-	const [loginState , setLoginState] = useState(false)
-	const [test , setTest] = useState(false)
 
 	useEffect(()=>{
 		if(!!isLogin()){
