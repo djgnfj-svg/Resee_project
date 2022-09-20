@@ -1,10 +1,11 @@
-from rest_framework import viewsets, status, exceptions
+from rest_framework import viewsets, exceptions
 from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
 from api.Serializers.PostSerializer import PostsSerializer
 
-from books.models import ReviewPost
+from posts.models import ReviewPost
+
 
 class ReviewViewSet(viewsets.ViewSet):
 	def list(self, request, book_id):

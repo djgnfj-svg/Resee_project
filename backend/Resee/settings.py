@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     
     #app
     'books',
+    'posts',
     'accounts',
     
     # swagger
@@ -232,7 +233,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'api.Serializers.UserSerialzer.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'api.Serializers.UserSerializer.CustomRegisterSerializer',
 }
 
 # JWT Options
