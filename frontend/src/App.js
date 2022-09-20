@@ -1,7 +1,7 @@
 import './App.css';
 import MyNavbar from './components/Nav';
 import Login from './router/Login/Login'
-import Sign_up from './router/Sign_up/Sign_up'
+import Sign_up from './router/Sign_up/sign_up'
 import Home from './router/Main/Home'
 import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
 import useState from 'react'
