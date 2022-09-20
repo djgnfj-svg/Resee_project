@@ -1,10 +1,8 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './WritePage.css'
 import { useNavigate, useParams } from 'react-router-dom'
-
 import maxLength, { maxTitleLength } from '../../../../components/MaxLength';
-
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
@@ -16,20 +14,16 @@ import { BooksImageUpload, BooksPostUrl } from '../../../../components/ApiUrl';
 
 function WritePage() {
 
-    const { id } = useParams();
-    const { postid } = useParams()
-    const navigate = useNavigate("");
-    const titleRef = React.createRef()
-    const textRef = React.createRef();
+    const { id } = useParams() 
+    const navigate = useNavigate();
+
+    const titleRef = useRef<HTMLInputElement>(null)
+    const textRef = useRef<HTMLInputElement>(null);
     const [ids, setIds] = useState([])
 
     const [scroll, setScroll] = useState(false);
-
     const [title, setTitle] = useState("")
-    const [descriptions, setDescriptions] = useState({
-        description: "",
-    })
-    const { description } = descriptions
+    const [description, setDescriptions] = useState("")
     const [spanBoolean , setSpanBoolean] = useState(true) 
 
 
@@ -41,7 +35,7 @@ function WritePage() {
     }, []);
 
     useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
-        function onkeyup(e){
+        function onkeyup(e: { key: string; }){
             if(e.key === "Escape"){
                 setScroll(false)
                 titleRef.current.focus()
@@ -59,7 +53,7 @@ function WritePage() {
             textRef.current.getInstance().removeHook("addImageBlobHook");
             textRef.current
                 .getInstance()
-                .addHook("addImageBlobHook", (blob, callback) => {
+                .addHook("addImageBlobHook", (blob: any, callback: (arg0: any, arg1: string) => void) => {
                     (async () => {
                         /**
                          * 이미지 받아오는 함수를 실행합니다.
@@ -98,14 +92,14 @@ function WritePage() {
         }
     }
    
-    const handleChangeInput = (e) => { setTitle(e.target.value) }
-    const handleChangeInput2 = (e) => {
-        setDescriptions({
-            description: textRef.current.getInstance().getMarkdown()
-        })
+    const handleChangeInput = (e: { target: { value: React.SetStateAction<string>; }; }) => { setTitle(e.target.value) }
+    const handleChangeInput2 = (e: any) => {
+        setDescriptions(
+            textRef.current.getInstance().getMarkdown()
+        )
     }
 
-    const handleInputEnter = (e) => {
+    const handleInputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === "Enter"){
             textRef.current.getInstance().focus()
             window.scrollTo({top : 550,behavior:'smooth'})
@@ -117,7 +111,7 @@ function WritePage() {
     const handleSubmitPost = () => {
         if (description.length > maxLength()) {
             alert(maxLength() + "글자 미만으로 입력해주세요")
-        } else if (title < maxTitleLength()) {
+        } else if (title.length < maxTitleLength()) {
             alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
             const formData = {
@@ -132,7 +126,7 @@ function WritePage() {
                     }
                 })
                 .then(res => {
-                    navigate(`/board/categorybooks/${id}`);
+                    navigate(`/board/categorybooks/${id}/postrivew/${res.data.id}`);
                 }
                 ).catch(error => {
                     
@@ -146,7 +140,7 @@ function WritePage() {
             {scroll === false ?
             <>
                 <div className="title_box">
-                    <input ref={titleRef} className='Write_title' onKeyUp={(e) => handleInputEnter(e)} maxLength="9" placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
+                    <input ref={titleRef} className='Write_title' onKeyUp={(e) => handleInputEnter(e)} placeholder='제목을 입력해주세요' value={title} onChange={handleChangeInput} />
                 </div>
                     <div className='title_span' >
                 {spanBoolean && 
@@ -185,7 +179,7 @@ function WritePage() {
                         />
                     </div>
                     <div className='Write_addBtn' style={{ marginRight: "30px" }}>
-                        <button onClick={(e) => handleSubmitPost(e)}>추가하기</button>
+                        <button onClick={() => handleSubmitPost()}>추가하기</button>
                     </div>
                 </>
             }

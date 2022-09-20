@@ -1,7 +1,7 @@
 import './App.css';
 import MyNavbar from './components/Nav';
-import Login from './router/Login/Login'
-import Sign_up from './router/Sign_up/Sign_up'
+import Login from './router/Login/login'
+import Sign_up from './router/Sign_up/sign_up'
 import Home from './router/Main/Home'
 import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
 import useState from 'react'
@@ -30,7 +30,7 @@ function App() {
 				<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />} />
 				<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />} />
 				<Route path="/board/categoryBooks/:id/write" element={<WritePage />} />
-				<Route path="*" element={<NotLoginUser />} />
+				<Route path="*" />
 			</Routes>
 		</div>
 	);
