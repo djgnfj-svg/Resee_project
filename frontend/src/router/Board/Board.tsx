@@ -26,14 +26,6 @@ function Board() {
     }
 
     useEffect(() => {
-        if(!isLogin()){
-            alert("로그인 후 이용해주세요")
-            localStorage.clear()
-            navigate("/login")
-        }
-    },[])
-
-    useEffect(() => {
         if(booksData){
             getBooksData();
         }else if(booksData === ""){
@@ -58,7 +50,7 @@ function Board() {
                 }
             }).catch(error => {
                 alert("로그인 후 이용해주세요")
-                navigate('/')
+                navigate('/login')
             })  
         }
     
