@@ -19,21 +19,19 @@ function App() {
 
 	return (
 		<div className="App">
-				<MyNavbar />
-				<Routes>
-					<Route path="/" element={<Home />}/>
-					<Route path="/login" element={<Login />}/>
-					<Route path="/sign_up" element={<Sign_up />}/>
-						<>
-							<Route path="/board" element={<Board />} />
-							<Route path="/board/categoryBooks/:id" element={<CategoryBooks />}  />
-							<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />}/>
-							<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />}/>
-							<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />}/>
-						</>
-					<Route path="/board/categoryBooks/:id/write" element={<WritePage />}/>
-					<Route path="*" element={<NotLoginUser />}/>
-				</Routes>
+			<MyNavbar />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/sign_up" element={<Sign_up />} />
+				<Route path="/board" element={<Board />} />
+				<Route path="/board/categoryBooks/:id" element={<CategoryBooks />} />
+				<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />} />
+				<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />} />
+				<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />} />
+				<Route path="/board/categoryBooks/:id/write" element={<WritePage />} />
+				<Route path="*" element={<NotLoginUser />} />
+			</Routes>
 		</div>
 	);
 }
