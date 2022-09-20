@@ -19,7 +19,7 @@ class ReviewPost(models.Model):
 		self.review_count += 1
 		self.save()
 
-	def update(self, title, description, image_ids):
+	def update(self, title, description, image_ids=None):
 		self.title = title
 		self.description = description
 		self.image_ids = image_ids
