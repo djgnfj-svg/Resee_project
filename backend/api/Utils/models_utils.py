@@ -1,5 +1,4 @@
-
-from books.models import ReviewPost, ReviewPostImgs
+from posts.models import ReviewPost, ReviewPostImgs
 
 
 def set_imgdata(img_list, post_id):
