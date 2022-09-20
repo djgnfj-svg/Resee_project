@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import isLogin from '../../components/isLogin';
 import Footbar from './Section/Footbar/Footbar';
@@ -8,7 +8,13 @@ import './Section/Footbar/Footbar.css'
 
 function Home() {
 
-    const navigate = useNavigate("");
+
+    const navigate = useNavigate();
+    const [logState , setLogState] = useState(false)
+
+    useEffect(() => {
+        setLogState(!!isLogin())
+    },[localStorage.getItem('access_token')])
 
     useEffect(() => {
         if (!!isLogin()) {
@@ -28,7 +34,7 @@ function Home() {
 
     return (
         <div>
-            <WrapperFrirst isLogin = {isLogin} />
+            <WrapperFrirst isLogin ={logState} />
             <div className='footbar'>
                 <Footbar />
             </div>

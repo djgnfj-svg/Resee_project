@@ -6,10 +6,19 @@ import { BooksListUrl } from '../../../components/ApiUrl';
 
 function CategoryBooks() {
 
-  const {id}  = useParams("");
-  const navigate = useNavigate("");
+  type Books = {
+    id:number;
+    title:string;
+    created_at:string;
+  }
+  type ids = {
+    id : string
+  }
+
+  const {id} = useParams() as any;
+  const navigate = useNavigate();
   
-  const [postList , setPostList] = useState("");
+  const [postList , setPostList] = useState([]);
 
   useEffect(() => {
     getCategoryList();  
@@ -42,7 +51,7 @@ function CategoryBooks() {
         <div className='wrapper_category'>
           <div className='category_List'>
         <div className='closeBooks'><button className='closeBooksBtn' onClick={() => navigate("/board")}>책 닫기</button></div>
-            {postList &&  postList.map((item,index) => (
+            {postList &&  postList.map((item:Books) => (
               <>
                 <div className='books_title'>
                   <div style={{textAlign:"right" , fontSize:"13px"}}>{item.created_at}</div>

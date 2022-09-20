@@ -5,20 +5,20 @@ import { Button } from 'react-bootstrap';
 import '../css/Add_modal.css'
 import { CategoryListUrl } from '../../../../components/ApiUrl';
 
-function Add_modal({ show }) {
+function Add_modal({ show }:any) {
 
     const [title , setTitle] = useState("");
     const [description, setDescription] = useState("");
 
 
-    const handleChangeInput = (e) => { setDescription(e.target.value) };
-    const change = (e) => { setTitle(e.target.value) }
+    const handleChangeInput = (e: { target: { value: React.SetStateAction<string>; }; }) => { setDescription(e.target.value) };
+    const change = (e: { target: { value: React.SetStateAction<string>; }; }) => { setTitle(e.target.value) }
     
     const handleSubmit = () =>{
         if(title.length  < 2 ){
           alert("제목을 2글자 이상 입력해주세요 !");
-        }else if(description.length < 5){
-          alert("설명을 5글자 이내로 써주세요"); 
+        }else if(description.length < 1){
+          alert("설명을 1글자 이내로 써주세요"); 
         }else{
           axios.post(CategoryListUrl,
           {
@@ -59,7 +59,7 @@ function Add_modal({ show }) {
                 </div>
             </Modal.Body>
             <Modal.Footer style={{backgroundColor:"#31313c",border:"none"}}>
-              <Button style={{ backgroundColor:"#31313c",height:"42px" ,border:"1px solid #515163" ,  width:"47%",position:"relative" , left:"-15px" , borderRadius:"0.3rem"}} onClick={show}>
+              <Button style={{ backgroundColor:"#31313c",height:"42px" ,border:"1px solid #515163" ,  width:"47%",position:"relative" , left:"-15px" , borderRadius:"0.3rem"}} onClick={() => show}>
                 닫기
               </Button>
               <Button style={{width:"47%",height:"41px" ,  borderRadius:"0.3rem" , backgroundColor:"#00bba3" , border:"none"}} onClick={handleSubmit}>

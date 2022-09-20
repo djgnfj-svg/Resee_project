@@ -1,7 +1,7 @@
 const maxLength = () => {
     return 2000
-    } 
-export const maxTitleLength = () =>{
+}
+export const maxTitleLength = () => {
     return 2
 }
 

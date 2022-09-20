@@ -4,9 +4,16 @@ import './Board.css'
 import Add_modal from './Section/js/Add_modal'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
-import { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
+import  { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
+import isLogin from '../../components/isLogin';
 
 function Board() {
+
+    type Books = {
+        id : number;
+        title : string;
+        rough_description : string;
+    }
 
     const navigate = useNavigate();
 
@@ -17,6 +24,14 @@ function Board() {
     const modalClose = () => {
         setShowModal(!showModal)
     }
+
+    useEffect(() => {
+        if(!isLogin()){
+            alert("로그인 후 이용해주세요")
+            localStorage.clear()
+            navigate("/login")
+        }
+    },[])
 
     useEffect(() => {
         if(booksData){
@@ -47,11 +62,11 @@ function Board() {
             })  
         }
     
-    const AddPostBook = (id) => {
+    const AddPostBook = (id:number) => {
         navigate(`/board/categorybooks/${id}/write/`)
     }
 
-    const GoCategoryBooks = (id) => {
+    const GoCategoryBooks = (id:number) => {
         axios.get(BooksListUrl(id),
             {
                 headers: {
@@ -69,7 +84,7 @@ function Board() {
             })
     }
 
-    const handleRemoveBooks = (title,id) => {
+    const handleRemoveBooks = (title:string,id:number) => {
         let removeBooks = prompt("삭제하실 책의 이름을 입력해주세요","")
         if(removeBooks === title){
             axios.delete(CategoryDelete(id) ,
@@ -91,13 +106,12 @@ function Board() {
         }
     }
 
-    const getBooksReviewData = (id) => {
+    const getBooksReviewData = (id:number) => {
         axios.get(ReviewBooks(id), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            console.log(res.data)
             if(Object.keys(res.data).length === 1){
                 alert("복습을 다 하셨거나 안에 내용이 없어요 !")
             }else {
@@ -111,7 +125,7 @@ function Board() {
     return (
             <div className={booksData && booksData.length === 2 && 'board_contain_two' || booksData.length === 1 && 'board_contain_one' || 'board_contain'} >
                 <div className={booksData && booksData.length === 2 && 'wrapper_board_two' || booksData.length === 1 && 'wrapper_board_one' || 'wrapper_board'}>
-                    {booksData && booksData.length ? booksData.map((item, index) => (
+                    {booksData && booksData.length ? booksData.map((item:Books, index) => (
                         <>
                             <div className="board">
                                 <div className="books_img">
@@ -142,7 +156,7 @@ function Board() {
                 {booksData.length >= 4 ? 
                 <>
                     <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
-                    <div className='error_maxLength'>책은 최대 12개 까지만 생성 가능합니다.</div>
+                    <div className='error_maxLength'>책은 최대 4개 까지만 생성 가능합니다.</div>
                     <div style={{color:"#c7c7c7" , fontSize:"14px" , marginBottom:"10px" }}>추가 생성을 원한다면 ? <a href='#' style={{marginLeft:"5px" , color:"white" ,fontSize:"14.5px" ,  textDecoration:"underline" ,}}>Go Premium</a></div>
                         <button onClick={modalClose} disabled = {true} >추가하기</button>
                         {showModal && <Add_modal show={modalClose} />}

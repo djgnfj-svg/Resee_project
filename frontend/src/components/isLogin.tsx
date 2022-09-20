@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-const isLogin = () => 
+export const isLogin = () => 
     localStorage.getItem('refresh_token') === null || localStorage.getItem('access_token') === null ?
         false
         :
