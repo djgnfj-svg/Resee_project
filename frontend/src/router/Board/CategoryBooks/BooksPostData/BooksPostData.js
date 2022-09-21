@@ -119,7 +119,7 @@ function BooksPostData() {
                 </div>
             </div>
             <div>
-                <div style={{ position: "absolute", top: "58px" }}>
+                <div style={{ position: "absolute", top: "74px" }}>
                     <div className="Navigations_var"  >
                         {navigateData && navigateData.map((item, index) => (
                             <>

@@ -1,14 +1,25 @@
 import axios from 'axios';
 import React,{ useEffect, useState } from 'react';
 import { Navbar, Container, Nav, } from 'react-bootstrap';
-import { Routes, Route, useNavigate, } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, } from 'react-router-dom';
 import isLogin from './isLogin';
-
+import '../App.css'
 
 
 function MyNavbar() {
 	let navigate = useNavigate();
-	let [auth, setAuth] = useState(false)
+	const location = useLocation()
+
+	const [auth, setAuth] = useState(false)
+	const [home , setHome] = useState(false)
+	
+	useEffect(() => {
+		if(location.pathname === '/'){
+			setHome(true)
+		}else {
+			setHome(false)
+		}
+	},[location])
 
 	useEffect(()=>{
 		if(!!isLogin()){
@@ -38,23 +49,26 @@ function MyNavbar() {
 
 	return (
 		<div>
-			<Navbar style={{ backgroundColor: "#fcfcfc "  }}
+			<Navbar className='NavBackgrond' style={home ? {zIndex:"2"} : {backgroundColor:"whitesmoke"}}
 			>
 				<Container>
-					<Navbar.Brand onClick={() => navigate('/')}>ReSee</Navbar.Brand>
+					<Navbar.Brand style={home ? {fontSize:"30px" , color:"#cf8360" , fontWeight:"600"} : {fontSize:"30px",color:"black"}} onClick={() => navigate('/')}>ReSee</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="me-auto">
-							<Nav.Link onClick={() => navigate("/board")}>게시판</Nav.Link>
+						<Nav className="me-auto" style={{marginLeft:"30px"}}>
+							<Nav.Link style={home ? {fontSize:"23px" ,color:"#755139" } : {fontSize:"23px",color:"red"}}  onClick={() => navigate("/board")}>Books</Nav.Link>
 						</Nav>
 						{auth ?
 							<Nav>
-								<Nav.Link onClick={handleLogout}><img style={{ objectFit: "cover", width: "20px", position: "relative", top: "-2px" }} src={`${process.env.PUBLIC_URL}/img/Logout.png`} />로그아웃</Nav.Link>
+								<Nav.Link style={{ fontSize:"22px" }} onClick={handleLogout}>
+									<img style={{ fontSize:"25px",objectFit: "cover", width: "20px", position: "relative", top: "-2px" }} src={`${process.env.PUBLIC_URL}/img/Logout.png`} />
+										로그아웃
+									</Nav.Link>
 							</Nav>
 							:
 							<Nav>
-								<Nav.Link onClick={() => navigate('/login')}><img style={{ objectFit: "cover", width: "20px", position: "relative", top: "-2px" }} src={`${process.env.PUBLIC_URL}/img/Login.png`} />로그인</Nav.Link>
-								<Nav.Link onClick={() => navigate('/sign_up')}>회원가입</Nav.Link>
+								<Nav.Link style={{fontSize:"20px"}} onClick={() => navigate('/login')}>로그인</Nav.Link>
+								<Nav.Link style={{fontSize:"20px"}} onClick={() => navigate('/sign_up')}>회원가입</Nav.Link>
 							</Nav>
 						}
 					</Navbar.Collapse>

@@ -5,9 +5,9 @@ import isLogin from '../../components/isLogin';
 import Footbar from './Section/Footbar/Footbar';
 import WrapperFrirst from './Section/WrapperFirst/WrapperFirst';
 import './Section/Footbar/Footbar.css'
+import './Home.css'
 
 function Home() {
-
 
     const navigate = useNavigate();
     const [logState , setLogState] = useState(false)
