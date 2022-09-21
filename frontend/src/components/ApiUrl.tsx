@@ -16,4 +16,4 @@ export const ReviewBooks = (id:number) => `http://127.0.0.1:8000/api/books/${id}
 export const BooksListUrl = (id:number) => `http://127.0.0.1:8000/api/books/${id}/posts/` // 책들 리스트
 export const BooksImageUpload = (id:number) => `http://127.0.0.1:8000/api/books/posts/${id}/imgs/` //Books 이미지 업로드 (Post)
 export const BooksPostUrl = (id:number) => `http://127.0.0.1:8000/api/books/${id}/posts/` // Books 포스트 생성(Post)
-export const BooksPostData = (id:number , postId:number) => `http://127.0.0.1:8000/api/books/${id}/posts/${postId}/` // 책하나의 값(get) , 수정(put)
+export const BooksPostDataUrl = (id:number , postId:number) => `http://127.0.0.1:8000/api/books/${id}/posts/${postId}/` // 책하나의 값(get) , 수정(put)

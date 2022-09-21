@@ -6,13 +6,13 @@ import remarkGfm from 'remark-gfm'
 import './BooksPostData.css'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
-import { BooksListUrl } from '../../../../components/ApiUrl'
+import { BooksListUrl, BooksPostDataUrl } from '../../../../components/ApiUrl'
 
 
 function BooksPostData() {
 
-    const { id } = useParams("");
-    const { postId } = useParams("");
+    const { id } = useParams();
+    const { postId } = useParams();
 
     const [postList, setPostList] = useState("");
     const [postDescription, setPostDescription] = useState("");
@@ -23,7 +23,7 @@ function BooksPostData() {
 
     const [scroll, setScroll] = useState(false)
 
-    const navigate = useNavigate("");
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -62,7 +62,7 @@ function BooksPostData() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(BooksPostData(id,postId), {
+        axios.get(BooksPostDataUrl(id,postId), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
