@@ -1,7 +1,6 @@
 import './App.css';
 import MyNavbar from './components/Nav';
-import Login from './router/Login/Login'
-import Sign_up from './router/Sign_up/sign_up'
+import Sign from './router/Sign_up/Sign'
 import Home from './router/Main/Home'
 import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
 import useState from 'react'
@@ -12,6 +11,7 @@ import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksR
 import BooksPostData from './router/Board/CategoryBooks/BooksPostData/BooksPostData';
 import isLogin from './components/isLogin';
 import BooksChangeData from './router/Board/CategoryBooks/BooksChangeData/BooksChangeData';
+import Login from './router/Login/Log';
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
-				<Route path="/sign_up" element={<Sign_up />} />
+				<Route path="/sign_up" element={<Sign />} />
 				<Route path="/board" element={<Board />} />
 				<Route path="/board/categoryBooks/:id" element={<CategoryBooks />} />
 				<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />} />
