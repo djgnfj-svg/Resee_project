@@ -35,7 +35,7 @@ function WritePage() {
     }, []);
 
     useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
-        function onkeyup(){
+        function onkeyup(e){
             if(e.key === "Escape"){
                 setScroll(false)
                 titleRef.current.focus()
