@@ -62,7 +62,7 @@ function BooksPostData() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(`http://127.0.0.1:8000/api/books/${id}/post/${postId}/`, {
+        axios.get(BooksPostData(id,postId), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }

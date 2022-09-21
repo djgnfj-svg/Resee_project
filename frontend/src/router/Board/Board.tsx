@@ -49,8 +49,12 @@ function Board() {
                     setBooksData(res.data);
                 }
             }).catch(error => {
-                alert("로그인 후 이용해주세요")
-                navigate('/login')
+                if(error.response.status === 403) {
+                    alert("로그인 후 이용해주세요")
+                    navigate('/login')
+                }else{
+                    alert("요청이 너무많습니다.")
+                }
             })  
         }
     
