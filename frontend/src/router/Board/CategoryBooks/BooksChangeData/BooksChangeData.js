@@ -10,7 +10,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import { BooksImageUpload, BooksPostData } from '../../../../components/ApiUrl';
+import { BooksImageUpload, BooksPostData, BooksPostDataUrl } from '../../../../components/ApiUrl';
 
 function BooksChangeData() {
 
@@ -72,7 +72,7 @@ function BooksChangeData() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(BooksPostData(id , postId), {
+        axios.get(BooksPostDataUrl(id , postId), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -110,7 +110,7 @@ function BooksChangeData() {
         } else if (title === "") {
             alert(`제목을 ${maxTitleLength()} 이상 입력해주세요 !`)
         } else {
-            axios.put(BooksPostData(id , postId),
+            axios.put(BooksPostDataUrl(id , postId),
                 {
                     title: title,
                     description: description,

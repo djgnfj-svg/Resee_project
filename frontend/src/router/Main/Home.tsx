@@ -33,7 +33,7 @@ function Home() {
     }, [])
 
     return (
-        <div>
+        <div className='Hero'>
             <WrapperFrirst isLogin ={logState} />
             <div className='footbar'>
                 <Footbar />
