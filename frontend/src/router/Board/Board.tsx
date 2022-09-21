@@ -52,6 +52,8 @@ function Board() {
                 if(error.response.status === 403) {
                     alert("로그인 후 이용해주세요")
                     navigate('/login')
+                }else if(error.response.status === 404){
+                    
                 }else{
                     alert("요청이 너무많습니다.")
                 }
