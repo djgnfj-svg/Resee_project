@@ -9,12 +9,15 @@ function WrapperFrirst({ isLogin }:{isLogin:boolean}) {
         <div className='hero-image'>
             <div className='hero-first'>
                 <div className='hero-first-img'>
-                    <div><img /></div>
+                    <div><img src={`${process.env.PUBLIC_URL}/img/Hero_Char.png`} /></div>
                 </div>
+                {/* <div className='LeonImg'>
+                    <img src={`${process.env.PUBLIC_URL}/img/Leon.png`}/>
+                </div> */}
                 <div className="hero-first-text" style={{ color: "black", position: "relative" }}>
                     <h1>Write & ReSee</h1>
-                    <h3 style={{ fontSize: "20px" }}>Wan't you Remember?</h3>
-                    <h3 style={{ fontSize: "20px" }}>Write and See again With ReSee</h3>
+                    <h3>Wan't you Remember?</h3>
+                    <h3>Write and See again With ReSee</h3>
                     {!isLogin ? (
                         <>
                             <button className='hero-button' ><a style={{ textDecoration: 'none', color: "white" }}>가입하기</a></button>
