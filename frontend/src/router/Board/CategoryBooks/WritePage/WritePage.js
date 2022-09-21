@@ -17,8 +17,8 @@ function WritePage() {
     const { id } = useParams() 
     const navigate = useNavigate();
 
-    const titleRef = React.useRef<HTMLInputElement>(null)
-    const textRef = React.useRef<HTMLInputElement>(null);
+    const titleRef = useRef(null)
+    const textRef = useRef(null);
     const [ids, setIds] = useState([])
 
     const [scroll, setScroll] = useState(false);
@@ -35,7 +35,7 @@ function WritePage() {
     }, []);
 
     useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
-        function onkeyup(e: { key: string; }){
+        function onkeyup(){
             if(e.key === "Escape"){
                 setScroll(false)
                 titleRef.current.focus()
@@ -53,7 +53,7 @@ function WritePage() {
             textRef.current.getInstance().removeHook("addImageBlobHook");
             textRef.current
                 .getInstance()
-                .addHook("addImageBlobHook", (blob: any, callback: (arg0: any, arg1: string) => void) => {
+                .addHook("addImageBlobHook", (blob,callback) => {
                     (async () => {
                         /**
                          * 이미지 받아오는 함수를 실행합니다.
@@ -92,14 +92,14 @@ function WritePage() {
         }
     }
    
-    const handleChangeInput = (e: { target: { value: React.SetStateAction<string>; }; }) => { setTitle(e.target.value) }
-    const handleChangeInput2 = (e: any) => {
+    const handleChangeInput = (e) => { setTitle(e.target.value) }
+    const handleChangeInput2 = (e) => {
         setDescriptions(
             textRef.current.getInstance().getMarkdown()
         )
     }
 
-    const handleInputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleInputEnter = (e) => {
         if(e.key === "Enter"){
             textRef.current.getInstance().focus()
             window.scrollTo({top : 550,behavior:'smooth'})
