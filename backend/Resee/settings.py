@@ -229,7 +229,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '20/min',
         'user': '30/min'
-    }
+    }          
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {

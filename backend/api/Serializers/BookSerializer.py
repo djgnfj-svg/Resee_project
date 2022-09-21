@@ -6,7 +6,7 @@ from books.models import ReviewBook
 
 class BooksSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(max_length=20)
-	rough_description = serializers.CharField(max_length=40)
+	rough_description = serializers.CharField(max_length=40, required=False)
 
 	class Meta:
 		model = ReviewBook
