@@ -17,8 +17,8 @@ function WritePage() {
     const { id } = useParams() 
     const navigate = useNavigate();
 
-    const titleRef = useRef<HTMLInputElement>(null)
-    const textRef = useRef<HTMLInputElement>(null);
+    const titleRef = React.useRef<HTMLInputElement>(null)
+    const textRef = React.useRef<HTMLInputElement>(null);
     const [ids, setIds] = useState([])
 
     const [scroll, setScroll] = useState(false);
