@@ -2,7 +2,7 @@ import './Sign_up.css'
 import axios from 'axios'
 import { FocusEvent, SetStateAction, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import {EmailCheckUrl , SignUpUrl} from '../../components/ApiUrl'
+import {EmailCheckUrl , SignUpUrl} from '../../../components/ApiUrl'
 import React from 'react'
 
 
