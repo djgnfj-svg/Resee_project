@@ -1,6 +1,6 @@
 import './App.css';
 import MyNavbar from './components/Nav';
-import Sign from './router/Sign_up/Sign'
+import Sign from './router/sign_up/Sign'
 import Home from './router/Main/Home'
 import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
 import useState from 'react'
@@ -11,7 +11,7 @@ import BooksReviewPage from './router/Board/CategoryBooks/BooksReviewPage/BooksR
 import BooksPostData from './router/Board/CategoryBooks/BooksPostData/BooksPostData';
 import isLogin from './components/isLogin';
 import BooksChangeData from './router/Board/CategoryBooks/BooksChangeData/BooksChangeData';
-import Login from './router/Login/Log';
+import Login from './router/LoginPage/Login/Log';
 
 
 function App() {
