@@ -17,8 +17,6 @@ function Add_modal({ show }:any) {
     const handleSubmit = () =>{
         if(title.length  < 2 ){
           alert("제목을 2글자 이상 입력해주세요 !");
-        }else if(description.length < 1){
-          alert("설명을 1글자 이내로 써주세요"); 
         }else{
           axios.post(CategoryListUrl,
           {
