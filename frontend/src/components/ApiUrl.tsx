@@ -1,6 +1,6 @@
 /* Login & SignUp */
 
-export const EmailCheckUrl = `http://127.0.0.1:8000/api/emailchecked/` //이메일 체크(Post)
+export const EmailCheckUrl = `http://127.0.0.1:8000/api/emailcheck/` //이메일 체크(Post)
 export const SignUpUrl = `http://127.0.0.1:8000/api/accounts/` // 회원가입(Post)
 
 export const LoginUrl = `http://127.0.0.1:8000/api/accounts/login/` // 로그인(Post)
