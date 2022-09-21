@@ -1,8 +1,9 @@
-from rest_framework import viewsets, exceptions
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from api.Utils.getUser import getUserId
 from api.Serializers.PostSerializer import PostsSerializer
+from api.Utils.error_massge import success_msg
 
 from posts.models import ReviewPost
 
@@ -15,12 +16,15 @@ class ReviewViewSet(viewsets.ViewSet):
 
 		first_data = ReviewPost.objects.filter(Book_id = book_id, user_id = userid, review_count__lte=8).last()
 		if first_data == None:
-			raise exceptions.NotFound({"msg" : "아무것도 작성하지 않아서 복습할 수 없습니다."}, code=401)
+			return Response(success_msg(204), status=status.HTTP_204_NO_CONTENT)
 		base_time = first_data.created_at
-		#베이스 타임이 지금 내가 작성한 글 중 복습 횟수가 8개 이하인 걸로 되어있다
 
 		for review in review_list:
-			past_days = abs((review.created_at - base_time).days)
+			#todo : 리뷰의 기준을 시간 22시간으로 해야되나?
+			# 24시간이 지나지 리뷰 데이터에 추가 되지 않는다...
+			# 흠.... 일단 패스하긴 하는데...
+			# 이건 나중에 고쳐야된다.
+			past_days = abs((base_time - review.created_at).days)
 			if past_days == 0 and review.review_count < 1:
 				review_data.append(review)
 			elif past_days >= 1 and past_days < 3 and review.review_count < 2:

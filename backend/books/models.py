@@ -5,7 +5,7 @@ from Resee.settings import AUTH_USER_MODEL as MyUser
 
 class ReviewBook(models.Model):
 	title = models.CharField(max_length=20, null=False)
-	rough_description = models.CharField(max_length=100, null=True)
+	rough_description = models.CharField(max_length=100, null=True, blank=True)
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)

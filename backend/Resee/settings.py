@@ -246,14 +246,22 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = True
 
-SIMPLE_JWT = {
-    #todo : access_token 배포할떄 바꾸기
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-
+if ENV == "dev":
+    SIMPLE_JWT = {
+        #todo : access_token 배포할떄 바꾸기
+        'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
+        'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+        'ROTATE_REFRESH_TOKENS': False,
+        'BLACKLIST_AFTER_ROTATION': True,
+    }
+else : 
+    SIMPLE_JWT = {
+        #todo : access_token 배포할떄 바꾸기
+        'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
+        'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+        'ROTATE_REFRESH_TOKENS': False,
+        'BLACKLIST_AFTER_ROTATION': True,
+    }
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default primary key field type
