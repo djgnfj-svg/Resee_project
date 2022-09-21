@@ -126,7 +126,7 @@ function WritePage() {
                     }
                 })
                 .then(res => {
-                    navigate(`/board/categorybooks/${id}/postrivew/${res.data.id}`);
+                    navigate(`/board/categorybooks/${id}/postreview/${res.data.id}`);
                 }
                 ).catch(error => {
                     
