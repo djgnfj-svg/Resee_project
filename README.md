@@ -1,16 +1,15 @@
-## 회원가입 
 # 프로젝트명 : ReSee
 
-##### url : ...Not yet
-##### last_update : 2022-09-21
-##### 프로젝트 기간 : 2022-07-17 ~ 진행중
-
+#### url : ...Not yet
+#### last_update : 2022-09-21
+#### 프로젝트 기간 : 2022-09-14 ~ 진행중
+#### 프로토타입 : 2022-06-09 ~ 2022-07-21
 ---
 
 ## 🙉개발인원 2명
 
-##### Back-end : [송영재](https://github.com/djgnfj-svg)
-##### Front-end : [박형석](https://github.com/b-hyoung)
+#### Back-end : [송영재](https://github.com/djgnfj-svg)
+#### Front-end : [박형석](https://github.com/b-hyoung)
 
 ---
 
@@ -25,7 +24,7 @@
 - Django, Python, DRF
 - Mysql
 - RESTful API
-- AWS-EC2, RDS (진행중)
+- AWS-EC2(진행중), RDS
 
 ## Frontend(박형석)
 - HTML, CSS
@@ -48,8 +47,6 @@
 
     ![회원가입](https://user-images.githubusercontent.com/87049249/189102596-a3e7632a-61a4-4f13-8286-65ca5c784fdd.gif)
 
-- 로그인
-
 - 책 CRUD
 
     ![책사용](https://user-images.githubusercontent.com/87049249/189107028-de391920-3719-4b22-9f5e-f09d4a2c8d04.gif)
@@ -65,11 +62,13 @@
 
 ## 🦼진행중
 - 배포 (진행중)
+- 
 ---
 ## 추가예정
 #### 공동
 - 소셜 로그인
 - 유저 고객센터
+- 수익수단?
 
 #### Front
 - 반응형 (2순위)
