@@ -65,12 +65,11 @@
   font-family: 'system-ui';
   font-size: 0.9rem;
   letter-spacing: 2px;
-  background-color: rgb(251, 210, 210);
-  
+  background-color: rgb(255, 187, 187);
 }
 .field_errorClass::placeholder{
   font-size: 15px;
-  color: #313131;
+  color: #5a5a5a;
 }
 
 

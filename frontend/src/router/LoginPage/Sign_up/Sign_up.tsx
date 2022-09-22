@@ -153,9 +153,7 @@ function Sign_up() {
 		.then(res =>{
 			if (res.data.access_token){
 				alert("환영해요 :)")
-				localStorage.setItem('access_token', res.data.access_token)
-				localStorage.setItem('refresh_token', res.data.refresh_token)
-				navigate("/")
+				navigate("/sign_up/emailcheck")
 			}else{
 				localStorage.clear()
 			}
@@ -177,7 +175,7 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)}  placeholder="닉네임을 입력하세요" autoFocus onChange={onChangeuserName} value={username}  />
+					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)}  placeholder="ex) 홍길동" autoFocus onChange={onChangeuserName} value={username}  />
 					{nameLength===false && 
 					<>
 						<div className='blank_txt'>2글자 이상 10글자 이하로 입력해주세요</div>
@@ -195,7 +193,7 @@ function Sign_up() {
 							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
-					<input name='email' className="field_class" onBlur={(e) => BluerEmail(e)} type="text" placeholder="이메일주소를 입력하세요" onChange={onChangeEmail} value={email} />
+					<input name='email' className="field_class" onBlur={(e) => BluerEmail(e)} type="text" placeholder="ex) hong@test.com" onChange={onChangeEmail} value={email} />
 					{errorUserEmail &&
 						<div className='errorMsg'>
 							올바른 이메일 형식이 아닙니다.
