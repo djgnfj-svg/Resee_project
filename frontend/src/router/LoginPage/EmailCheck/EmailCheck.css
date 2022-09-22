@@ -1,0 +1,27 @@
+.EmailCheck_main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 94vh;
+    width: 100%;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mountains-1412683.svg/1280px-Mountains-1412683.svg.png) no-repeat center center;
+    background-size: cover;
+  }
+  .EmailCheck_main div{
+    font-size: 25px;
+    border-radius: 2rem;
+    color: #b266db;
+    font-weight: 500;
+    background-color: white;
+    padding: 1rem 1rem;
+  }
+  .EmailCheck_main button{
+    width: 40px;
+    height: 40px;
+    border-radius: 1rem;
+    background-color: rgb(54, 228, 225);
+    border: none;
+    text-align: center;
+    font-size: 20px;
+  }
