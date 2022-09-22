@@ -46,40 +46,6 @@ function WritePage() {
             window.removeEventListener('keyup', onkeyup);
         }
     }, [description || scroll]);
- 
-
-    useEffect(() => {
-        if (textRef.current) {
-            textRef.current.getInstance().removeHook("addImageBlobHook");
-            textRef.current
-                .getInstance()
-                .addHook("addImageBlobHook", (blob,callback) => {
-                    (async () => {
-                        /**
-                         * 이미지 받아오는 함수를 실행합니다.
-                         * blob 은 해당 이미지 파일이에요. 이 파일을 서버로 보내면 돼요.
-                         * 받아온 이미지 주소를 callback 에 인수로 넣고, 두 번째 인수로는 alt 텍스트를 넣을 수 있어요. 아래의 모드는 예시입니다.
-                         */
-                        await axios.post(BooksImageUpload(id), {
-                            image: blob,
-                            title: "aa",
-                        },
-                            {
-                                headers: {
-                                    "Content-Type": "multipart/form-data",
-                                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                                },
-                            }).then(res => {
-                                setIds(ids.concat(res.data.id))
-                                callback(res.data.image, "alt text");
-                            })
-                    })();
-
-                    return false;
-                });
-        }
-        return () => { };
-    }, [textRef]);
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
@@ -176,6 +142,24 @@ function WritePage() {
                                     }
                                 ]
                             ]}
+                            hooks={{
+                                addImageBlobHook: async (blob, callback) => {
+                                    await axios.post(BooksImageUpload(id), {
+                                        image: blob,
+                                        title: "aa",
+                                    },
+                                        {
+                                            headers: {
+                                                "Content-Type": "multipart/form-data",
+                                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                                            },
+                                        }).then(res => {
+                                            setIds(ids.concat(res.data.id))
+                                            callback(res.data.image, "alt text");
+                                        })
+                                },
+                            }}
+                            
                         />
                     </div>
                     <div className='Write_addBtn' style={{ marginRight: "30px" }}>
