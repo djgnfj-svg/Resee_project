@@ -222,98 +222,6 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-<<<<<<< HEAD
-
-# 배포용
-# if ENV == "dev":
-SIMPLE_JWT = {
-    #todo : access_token 배포할떄 바꾸기
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE' : 5,
-
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
-        # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
-        # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
-    ),
-    
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication', 
-    ),
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '20/min',
-        'user': '30/min'
-    }
-}
-# JWT Options
-
-REST_USE_JWT = True
-JWT_AUTH_COOKIE  = 'access_token'
-JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
-SITE_ID = 1
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-#email_option
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'email-smtp.ap-northeast-2.amazonaws.com'
-EMAIL_HOST_USER = get_secret('AWS_SMTP_USER_NAME')
-EMAIL_HOST_PASSWORD = get_secret('AWS_SMTP_PASSWORD')
-EMAIL_USE_TLS = True 
-EMAIL_PORT = get_secret("EMAIL_PORT")
-DEFAULT_FROM_EMAIL = get_secret("DEFAULT_FROM_EMAIL")
-
-
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Resee]"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
-EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
-# 개발용
-# else : 
-#     SIMPLE_JWT = {
-#         #todo : access_token 배포할떄 바꾸기
-#         'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
-#         'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-#         'ROTATE_REFRESH_TOKENS': False,
-#         'BLACKLIST_AFTER_ROTATION': True,
-#     }
-#     REST_FRAMEWORK = {
-#             'DEFAULT_PERMISSION_CLASSES': (
-#             # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
-#             # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
-#             'rest_framework.permissions.AllowAny', # 누구나 접근 가능
-#         ),
-        
-#         'DEFAULT_AUTHENTICATION_CLASSES': (
-#             'rest_framework.authentication.SessionAuthentication',
-#             'rest_framework_simplejwt.authentication.JWTAuthentication', 
-#         ),
-#     }
-#     # JWT Options
-#     REST_USE_JWT = True
-#     JWT_AUTH_COOKIE  = 'access_token'
-#     JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
-#     SITE_ID = 1
-#     ACCOUNT_UNIQUE_EMAIL = True
-#     ACCOUNT_AUTHENTICATION_METHOD = 'email'
-#     ACCOUNT_EMAIL_VERIFICATION = "none"
-#     ACCOUNT_EMAIL_REQUIRED = True
-
-#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-=======
 
 # 배포용
 if ENV == "dev":
@@ -404,7 +312,6 @@ else :
     ACCOUNT_EMAIL_REQUIRED = True
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
->>>>>>> develop
 
 ## DRF 
 REST_AUTH_REGISTER_SERIALIZERS = {

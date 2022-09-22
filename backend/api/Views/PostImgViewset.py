@@ -10,11 +10,7 @@ class PostImgViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 	serializer_class = PostImageSerializer
 	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
 
-<<<<<<< HEAD
-	def create(self, request, book_id):
-=======
 	def create(self, request, post_id):
->>>>>>> develop
 		serializer = PostImageSerializer(data=request.data, context={'request' : request})
 		if serializer.is_valid():
 			serializer.save()
