@@ -49,7 +49,7 @@ function MyNavbar() {
 
 	return (
 		<div>
-			<Navbar className='NavBackgrond' style={home ? {zIndex:"2"} : {backgroundColor:"whitesmoke"}}
+			<Navbar className={home ? 'NavNoneBackground' : 'NavBackgrond'}
 			>
 				<Container>
 					<Navbar.Brand style={home ? {fontSize:"30px" , color:"#cf8360" , fontWeight:"600"} : {fontSize:"30px",color:"black"}} onClick={() => navigate('/')}>ReSee</Navbar.Brand>

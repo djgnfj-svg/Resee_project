@@ -2,6 +2,10 @@
 	text-align: center;
 }
 .NavBackgrond{
+	background-image: url('./img/heroimg.jpeg');
+}
+.NavNoneBackground{
+	z-index: 2;
 }
 p , span{
 	cursor: pointer;

@@ -15,7 +15,7 @@ function WrapperFrirst({ isLogin }:{isLogin:boolean}) {
                     <img src={`${process.env.PUBLIC_URL}/img/Leon.png`}/>
                 </div> */}
                 <div className="hero-first-text" style={{ color: "black", position: "relative" }}>
-                    <h1>Write & ReSee</h1>
+                    <h1>Write & See</h1>
                     <h3>Wan't you Remember?</h3>
                     <h3>Write and See again With ReSee</h3>
                     {!isLogin ? (
