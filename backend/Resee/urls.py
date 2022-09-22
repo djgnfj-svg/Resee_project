@@ -8,9 +8,11 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg       import openapi
 
+from dj_rest_auth.registration.views import VerifyEmailView
 
 from accounts.urls import login_patterns
-from api.urls import router 
+from api.urls import router
+from api.Serializers.UserSerializer import ConfirmEmailView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -33,6 +35,8 @@ urlpatterns = [
     path('api/oauth/', include(login_patterns)),
     path('api/accounts/', include('dj_rest_auth.urls')),
     path('api/accounts/', include('dj_rest_auth.registration.urls')),
+    re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
