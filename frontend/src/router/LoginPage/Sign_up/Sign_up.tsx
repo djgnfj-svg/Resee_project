@@ -151,12 +151,8 @@ function Sign_up() {
 			password2 : password2
 		})
 		.then(res =>{
-			if (res.data.access_token){
-				alert("환영해요 :)")
-				navigate("/sign_up/emailcheck")
-			}else{
-				localStorage.clear()
-			}
+			alert("환영해요 :)")
+			navigate("/sign_up/emailcheck")
 		})
 		.catch(error => {
 			alert(error.response.data.non_field_errors)

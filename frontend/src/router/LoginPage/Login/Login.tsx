@@ -1,7 +1,7 @@
 import "./Login.css";
 import axios from 'axios'
-import { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import {useLocation, useNavigate} from 'react-router-dom'
 import React from "react";
 
 function Login() {
@@ -11,6 +11,7 @@ function Login() {
 		password? : string;
 	}
 	
+	const status = window.location.search
 	const navigate = useNavigate();
 	const [input, setInput] = useState<Input>({
 		email :"",
@@ -21,6 +22,12 @@ function Login() {
 	const [useEmailError,setUserEmailError] = useState(false)
 
 	const {email, password} = input;
+
+	useEffect(() => {
+		if(status === '?signup=True'){
+			alert(`가입을 환영합니다.로그인 후 이용해주세요`)
+		}
+	},[])
 
 	
 	const onChange = (e: { target: { name: string; value: string; }; }) =>  {
