@@ -29,7 +29,6 @@ def send_verification_mail(request, user, receiver):
 	email_context = {'link' : link}
 	msg_plain = render_to_string('email/email.txt', email_context)
 	msg_html = render_to_string('email/email.html', email_context)
-	
 	send_mail(
 		'이메일 인증을 완료해주세요', msg_plain,
 		'djgnfj3795@gmail.com',

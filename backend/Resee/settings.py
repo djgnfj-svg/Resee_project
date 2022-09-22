@@ -18,7 +18,7 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # 추후 구글 로그인시 체인지
-# BASE_FRONTEND_URL = "http://127.0.0.1:8000"
+
 
 SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 STATE = 'random_string'
@@ -48,11 +48,17 @@ def get_secret(setting):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
-ENV = os.environ.get("DJANGO_ENV", '')
+
+ENV = os.environ.get("DJANGO_ENV",)
 if ENV == 'dev':
     DEBUG = False
 else:
     DEBUG = True
+
+if ENV == 'dev':
+    BASE_FRONTEND_URL = "http://localhost/login/?signup=True"
+else:
+    BASE_FRONTEND_URL = "http://localhost:3000/login/?signup=True"
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -93,6 +99,13 @@ INSTALLED_APPS = [
 	"allauth.socialaccount.providers.auth0",
 	"allauth.socialaccount.providers.google",
 ]
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+]
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -111,7 +124,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, '..', 'frontend', 'build',), # 경로 변경
+            os.path.join(BASE_DIR, 'templates'), # 경로 변경
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,7 +144,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -143,6 +156,7 @@ WSGI_APPLICATION = 'Resee.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 pymysql.install_as_MySQLdb()
+
 if ENV == "dev":
     DATABASES = {
         'default': {
@@ -195,6 +209,9 @@ TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
 
 USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # Swagger Setting
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {
@@ -205,22 +222,29 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-## DRF 
+
+# 배포용
+# if ENV == "dev":
+SIMPLE_JWT = {
+    #todo : access_token 배포할떄 바꾸기
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE' : 5,
 
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
         # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
         # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
-        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
     ),
-	
+    
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication', 
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
@@ -229,50 +253,67 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '20/min',
         'user': '30/min'
-    }          
+    }
 }
-
-REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'api.Serializers.UserSerializer.CustomRegisterSerializer',
-}
-
 # JWT Options
+
 REST_USE_JWT = True
 JWT_AUTH_COOKIE  = 'access_token'
 JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
 SITE_ID = 1
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = "none"
+
+#email_option
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'email-smtp.ap-northeast-2.amazonaws.com'
+EMAIL_HOST_USER = get_secret('AWS_SMTP_USER_NAME')
+EMAIL_HOST_PASSWORD = get_secret('AWS_SMTP_PASSWORD')
+EMAIL_USE_TLS = True 
+EMAIL_PORT = get_secret("EMAIL_PORT")
+DEFAULT_FROM_EMAIL = get_secret("DEFAULT_FROM_EMAIL")
+
+
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Resee]"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+# 개발용
+# else : 
+#     SIMPLE_JWT = {
+#         #todo : access_token 배포할떄 바꾸기
+#         'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
+#         'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+#         'ROTATE_REFRESH_TOKENS': False,
+#         'BLACKLIST_AFTER_ROTATION': True,
+#     }
+#     REST_FRAMEWORK = {
+#             'DEFAULT_PERMISSION_CLASSES': (
+#             # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
+#             # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
+#             'rest_framework.permissions.AllowAny', # 누구나 접근 가능
+#         ),
+        
+#         'DEFAULT_AUTHENTICATION_CLASSES': (
+#             'rest_framework.authentication.SessionAuthentication',
+#             'rest_framework_simplejwt.authentication.JWTAuthentication', 
+#         ),
+#     }
+#     # JWT Options
+#     REST_USE_JWT = True
+#     JWT_AUTH_COOKIE  = 'access_token'
+#     JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
+#     SITE_ID = 1
+#     ACCOUNT_UNIQUE_EMAIL = True
+#     ACCOUNT_AUTHENTICATION_METHOD = 'email'
+#     ACCOUNT_EMAIL_VERIFICATION = "none"
+#     ACCOUNT_EMAIL_REQUIRED = True
 
-if ENV == "dev":
-    SIMPLE_JWT = {
-        #todo : access_token 배포할떄 바꾸기
-        'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=2),
-        'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-        'ROTATE_REFRESH_TOKENS': False,
-        'BLACKLIST_AFTER_ROTATION': True,
-    }
-else : 
-    SIMPLE_JWT = {
-        #todo : access_token 배포할떄 바꾸기
-        'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7),
-        'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-        'ROTATE_REFRESH_TOKENS': False,
-        'BLACKLIST_AFTER_ROTATION': True,
-    }
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
-]
-
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOW_CREDENTIALS = True
+## DRF 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'api.Serializers.UserSerializer.CustomRegisterSerializer',
+}
