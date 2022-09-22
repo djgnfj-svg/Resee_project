@@ -10,6 +10,7 @@ import BooksPostData from './router/Board/CategoryBooks/BooksPostData/BooksPostD
 import BooksChangeData from './router/Board/CategoryBooks/BooksChangeData/BooksChangeData';
 import Login from '../src/router/LoginPage/Login/Login'
 import Sign_up from '../src/router/LoginPage/Sign_up/Sign_up'
+import EmailCheck from './router/LoginPage/EmailCheck/EmailCheck';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/sign_up" element={<Sign_up />} />
+				<Route path="/sign_up/emailcheck" element={<EmailCheck />} />
 				<Route path="/board" element={<Board />} />
 				<Route path="/board/categoryBooks/:id" element={<CategoryBooks />} />
 				<Route path="/board/categoryBooks/:id/review" element={<BooksReviewPage />} />

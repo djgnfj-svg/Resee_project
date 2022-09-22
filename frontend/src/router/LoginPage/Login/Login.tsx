@@ -57,7 +57,7 @@ function Login() {
 			}
 			}
 		).catch(res =>{
-			alert("존재하지않는 이메일 이거나 비밀번호가 틀립니다.");
+			alert("가입되지않은 이메일 또는 비밀번호가 틀립니다.");
 		})
 	};
 
@@ -79,7 +79,7 @@ function Login() {
 					</div>
 					<hr />
 					<label>이메일:</label>
-					<input name='email' className="field_class" type="text" placeholder="이메일주소를 입력하세요" onChange={handleEmailChangeInput} value={email} />
+					<input name='email' className="field_class" type="text" placeholder="Email@example.com" onChange={handleEmailChangeInput} value={email} />
 					{
 						useEmailError && 
 						<div style={{fontSize:"14px" , marginTop:"-12px" , marginBottom:"10px" , paddingLeft:"0.5rem" , color:"red"}}>올바른 이메일 형식이 아닙니다.</div>
