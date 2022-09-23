@@ -82,7 +82,11 @@ function BooksPostData() {
 
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
+<<<<<<< HEAD
             axios.delete(BooksPostData(id , postId), {
+=======
+            axios.delete(BooksPostDataUrl(id , postId), {
+>>>>>>> 5410feac484ef28c7acdc425852c414afd98c29a
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }

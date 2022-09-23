@@ -46,6 +46,7 @@ function WritePage() {
             window.removeEventListener('keyup', onkeyup);
         }
     }, [description || scroll]);
+<<<<<<< HEAD
  
 
     useEffect(() => {
@@ -80,6 +81,8 @@ function WritePage() {
         }
         return () => { };
     }, [textRef]);
+=======
+>>>>>>> 5410feac484ef28c7acdc425852c414afd98c29a
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
@@ -176,6 +179,24 @@ function WritePage() {
                                     }
                                 ]
                             ]}
+                            hooks={{
+                                addImageBlobHook: async (blob, callback) => {
+                                    await axios.post(BooksImageUpload(id), {
+                                        image: blob,
+                                        title: "aa",
+                                    },
+                                        {
+                                            headers: {
+                                                "Content-Type": "multipart/form-data",
+                                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                                            },
+                                        }).then(res => {
+                                            setIds(ids.concat(res.data.id))
+                                            callback(res.data.image, "alt text");
+                                        })
+                                },
+                            }}
+                            
                         />
                     </div>
                     <div className='Write_addBtn' style={{ marginRight: "30px" }}>

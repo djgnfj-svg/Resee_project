@@ -13,5 +13,9 @@ router.register(r'books', BooksViewSet, basename="books")
 router.register(r'books/(?P<book_id>\d+)/posts', PostViewSet, basename="post")
 router.register(r'books/(?P<book_id>\d+)/review', ReviewViewSet, basename="review")
 # router.register(r'verification', VerificationView, basename="verification",)
+<<<<<<< HEAD
 router.register(r'books/posts/(?P<post_id>\d+)/imgs', PostImgViewSet, basename="postImg",)
+=======
+router.register(r'books/post/(?P<post_id>\d+)/imgs', PostImgViewSet, basename="postImg",)
+>>>>>>> 5410feac484ef28c7acdc425852c414afd98c29a
 router.register(r'emailcheck', EmailcheckView, basename="emailcheck",)
