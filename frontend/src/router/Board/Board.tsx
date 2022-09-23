@@ -2,10 +2,9 @@ import * as React from 'react';
 import { useState, useEffect } from 'react'
 import './Board.css'
 import Add_modal from './Section/js/Add_modal'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import  { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
-import isLogin from '../../components/isLogin';
 
 function Board() {
 
@@ -19,7 +18,6 @@ function Board() {
 
     const [showModal, setShowModal] = useState(false);
     const [booksData, setBooksData] = useState([]);
-    const [delBoolean , setDelBoolean] = useState(false)
 
     const modalClose = () => {
         setShowModal(!showModal)
@@ -33,7 +31,8 @@ function Board() {
         }else{
             alert("당신 어떻게 들어왔어 !!")
         }
-    }, [showModal === false || delBoolean === true])
+        //eslint-disable-next-line
+    }, [showModal === false])
 
     const getBooksData = () => {
             axios.get(CategoryListUrl,
@@ -127,8 +126,8 @@ function Board() {
                         <>
                             <div className="board">
                                 <div className="books_img">
-                                    <img className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => GoCategoryBooks(item.id)} />
-                                    <img className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => GoCategoryBooks(item.id)} />
+                                    <img alt='img' className="test_a" src={`${process.env.PUBLIC_URL}/img/books.png`} onClick={() => GoCategoryBooks(item.id)} />
+                                    <img alt='img' className="test_b" src={`${process.env.PUBLIC_URL}/img/revels.png`} onClick={() => GoCategoryBooks(item.id)} />
                                 </div>
                                 <div className="books">
                                     <div className='books_title' onClick={() => navigate(`/board/categorybooks/${item.id}`)}> {item.title}</div>
@@ -145,7 +144,7 @@ function Board() {
                         :
                         <>
                             <div className='No_data'>
-                                <img src={`${process.env.PUBLIC_URL}/img/No_Data.png`} />
+                                <img alt='img' src={`${process.env.PUBLIC_URL}/img/No_Data.png`} />
                                 <div>음? 데이터가 없어요 추가해주실래요?</div>
                             </div>
                         </>
@@ -155,15 +154,15 @@ function Board() {
                 <>
                     <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
                     <div className='error_maxLength'>책은 최대 4개 까지만 생성 가능합니다.</div>
-                    <div style={{color:"#c7c7c7" , fontSize:"14px" , marginBottom:"10px" }}>추가 생성을 원한다면 ? <a href='#' style={{marginLeft:"5px" , color:"white" ,fontSize:"14.5px" ,  textDecoration:"underline" ,}}>Go Premium</a></div>
+                    <div style={{color:"#c7c7c7" , fontSize:"14px" , marginBottom:"10px" }}>추가 생성을 원한다면 ? <a href='#!' style={{marginLeft:"5px" , color:"white" ,fontSize:"14.5px" ,  textDecoration:"underline" ,}}>Go Premium</a></div>
                         <button onClick={modalClose} disabled = {true} >추가하기</button>
                         {showModal && <Add_modal show={modalClose} />}
                     </div>
                 </>
                 :
-                    <div className={booksData.length === 2 && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
+                    <div className={(booksData.length === 2) && 'write_btn_two' || booksData.length === 1 && 'write_btn_one'|| 'write_btn'}>
                         <button onClick={modalClose}>추가하기</button>
-                        {showModal && <Add_modal show={modalClose} />}
+                        {(showModal) && <Add_modal show={modalClose} />}
                     </div>
             }
             </div>

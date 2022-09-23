@@ -26,6 +26,7 @@ function BooksPostData() {
     useEffect(() => {
         getBooksData();
         getBooksReviewData();
+        //eslint-disable-next-line
     }, [postId])
 
     useEffect(() => {
@@ -120,28 +121,28 @@ function BooksPostData() {
                     <div className="Navigations_var"  >
                         {navigateData && navigateData.map((item, index) => (
                             <>
-                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a><img src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
                             </>
                         ))}
                         {navigateData && navigateData === null && (
                             <>
                             </>
                         )}
-                        <div className='add_booksBtn' onClick={() => navigate(`/board/categoryBooks/${id}/write`)}><a><img src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
+                        <div className='add_booksBtn' onClick={() => navigate(`/board/categoryBooks/${id}/write`)}><a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
                     </div>
                     <div className='remove_Btn' >
                         <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>
                         <button style={{ backgroundColor: "#e62e3d", color: "white" }} onClick={() => handleRemoveBtn()}>삭제하기</button>
                     </div>
                     <div className='prev_btn'>
-                        <img /><button onClick={() => navigate(`/board/CategoryBooks/${id}`)}>이전 페이지</button>
+                        <img alt='img' /><button onClick={() => navigate(`/board/CategoryBooks/${id}`)}>이전 페이지</button>
                     </div>
                 </div>
             </div>
             {scroll &&
                 <div className='scrollUpBtn'>
                     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                        <img src={`${process.env.PUBLIC_URL}/img/arrow_up.png`} />
+                        <img alt='img' src={`${process.env.PUBLIC_URL}/img/arrow_up.png`} />
                     </button>
                 </div>
             }

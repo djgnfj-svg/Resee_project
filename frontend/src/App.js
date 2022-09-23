@@ -1,7 +1,7 @@
 import './App.css';
 import MyNavbar from './components/Nav';
 import Home from './router/Main/Home'
-import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
 import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';

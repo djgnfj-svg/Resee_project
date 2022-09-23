@@ -20,6 +20,7 @@ function BooksReviewPage() {
     
     useEffect(() => {
         getBooksReviewData();
+        //eslint-disable-next-line
     },[count])
 
     const handleFinishBtn = (e) => {

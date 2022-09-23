@@ -46,7 +46,7 @@ function BooksChangeData() {
         return () => {
             window.removeEventListener('keyup', onkeyup);
         }
-    }, [description || scroll]);
+    }, [description ,scroll]);
 
 
     const handleScroll = () => {
@@ -146,7 +146,7 @@ function BooksChangeData() {
                 </div>
             }
             <div className={scroll ? 'Write_pageScroll' : 'Write_page'} >
-                {description === true || title.length >= 2 && <>
+                {((description === true) || (title.length >= 2)) && <>
                     <Editor
                         ref={textRef}
                         initialValue={description}
