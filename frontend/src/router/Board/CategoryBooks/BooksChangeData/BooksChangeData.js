@@ -1,16 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
 import maxLength, { maxTitleLength } from '../../../../components/MaxLength';
-
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import { BooksImageUpload, BooksPostData, BooksPostDataUrl } from '../../../../components/ApiUrl';
+import { BooksImageUpload, BooksPostDataUrl } from '../../../../components/ApiUrl';
 
 function BooksChangeData() {
 

@@ -3,7 +3,6 @@ import './BooksReviewPage.css'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { Viewer } from '@toast-ui/react-editor';
 import { ReviewBooks } from '../../../../components/ApiUrl'
 
 

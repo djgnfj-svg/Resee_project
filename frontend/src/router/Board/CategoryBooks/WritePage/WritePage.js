@@ -45,7 +45,7 @@ function WritePage() {
         return () => {
             window.removeEventListener('keyup', onkeyup);
         }
-    }, [description || scroll]);
+    }, [description , scroll]);
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌

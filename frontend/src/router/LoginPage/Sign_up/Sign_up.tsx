@@ -1,6 +1,6 @@
 import './Sign_up.css'
 import axios from 'axios'
-import { FocusEvent, SetStateAction, useState } from 'react';
+import { FocusEvent, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import {EmailCheckUrl , SignUpUrl} from '../../../components/ApiUrl'
 import React from 'react'
@@ -90,7 +90,7 @@ function Sign_up() {
 	};
 
 	const onChangeEmail = (e: { target: { value: string; }; }) =>  {
-		const emailRegex = new RegExp("^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+		const emailRegex = new RegExp("^[a-zA-Z0-9+-.]+@[a-zA-Z0-9-]+[a-zA-Z0-9-.]+$");
 		
 		if((!e.target.value || (emailRegex.test(e.target.value)))){
 			setErrorUserEmail(false)
@@ -168,7 +168,7 @@ function Sign_up() {
 					<label>닉네임</label>
 					{erroruserNickname === false && nameUpdated && nameLength && 
 						<span className='succes_check'>
-							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+							<img alt='img'  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
 					<input className={nameLength ? "field_class" : "field_errorClass"} onBlur={(e) => BluerUserName(e)}  placeholder="ex) 홍길동" autoFocus onChange={onChangeuserName} value={username}  />
@@ -186,7 +186,7 @@ function Sign_up() {
 					<label>이메일</label>
 					{errorUserEmail === false && emailUpdated  && emailLength && overlapEmail === "" &&
 						<span className='succes_check'>
-							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+							<img alt='img'  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
 					<input name='email' className="field_class" onBlur={(e) => BluerEmail(e)} type="text" placeholder="ex) hong@test.com" onChange={onChangeEmail} value={email} />
@@ -204,7 +204,7 @@ function Sign_up() {
 					<label>비밀번호</label>
 					{errorUserPassword === false && passwordUpdated && passwordLength &&
 						<span className='succes_check'>
-							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+							<img alt='img'  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
 					<input name="password" id="pass" onBlur={(e) => BluerPassword(e)} className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword} value={password1} />
@@ -222,7 +222,7 @@ function Sign_up() {
 					<label>비밀번호 확인</label>
 					{errorUserPassword2 === false && password2Updated2 &&
 						<span className='succes_check'>
-							<img  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
+							<img alt='img'  src={`${process.env.PUBLIC_URL}/img/checked.png`}/>
 						</span>
 					}
 					<input name="password2" id="pass" className="field_class" type="password" placeholder="비밀번호를 입력하세요" onChange={onChangepassword2} value={password2} />

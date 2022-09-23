@@ -3,8 +3,6 @@ import './Footbar.css'
 
 function Footbar() {
   
-  const b_hyoungGit = `https://github.com/b-hyoung`
-
   return (
     <>
     <div style={{cursor : "default"}}>Developer</div>

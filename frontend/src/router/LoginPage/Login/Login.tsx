@@ -1,7 +1,7 @@
 import "./Login.css";
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import {useLocation, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import React from "react";
 
 function Login() {
@@ -27,11 +27,10 @@ function Login() {
 		if(status === '?signup=True'){
 			alert(`가입을 환영합니다.로그인 후 이용해주세요`)
 		}
-	},[])
+	},[status])
 
 	
 	const onChange = (e: { target: { name: string; value: string; }; }) =>  {
-		let i = 10;
 		const {name , value} = e.target
 		setInput({
 			...input ,
@@ -40,7 +39,7 @@ function Login() {
 	};
 
 	const handleEmailChangeInput = (e: { target: { value: string; }; }) => {
-		const userEmailRegex = new RegExp('^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+		const userEmailRegex = new RegExp('^[a-zA-Z0-9+-.]+@[a-zA-Z0-9-]+[a-zA-Z0-9-.]+$')
 		if((!e.target.value || (userEmailRegex.test(e.target.value)))){
 			setUserEmailError(false);
 		}
@@ -76,11 +75,11 @@ function Login() {
 				<div className="form_div">
 					<div className="social_login">
 						<div className="social_google">
-							<img src={`${process.env.PUBLIC_URL}/img/btn_google.png`} />
+							<img alt="img" src={`${process.env.PUBLIC_URL}/img/btn_google.png`} />
 							<span>Google로 진행하기</span>
 						</div>
 						<div className="social_naver">
-							<img src={`${process.env.PUBLIC_URL}/img/btn_naver.png`} />
+							<img alt="img" src={`${process.env.PUBLIC_URL}/img/btn_naver.png`} />
 							<span>Naver로 진행하기</span>
 						</div>
 					</div>
@@ -97,7 +96,7 @@ function Login() {
 				</div>
 				<div className="info_div">
 					<p>ReSee가 처음이신가요?</p>
-					<a href="#" onClick={() => navigate("/sign_up")}>가입하기</a>
+					<button onClick={() => navigate("/sign_up")}>가입하기</button>
 				</div>
 			</form>
 		</main>

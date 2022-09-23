@@ -74,8 +74,10 @@ footer {
 .info_div p{
   margin-bottom: 5px;
 }
-.info_div a{
+.info_div button{
   color: #8AAAE5;
+  background-color: white;
+  border: none;
 }
 .info_div a:hover{
   color: #f20606;
