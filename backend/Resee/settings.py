@@ -49,7 +49,7 @@ def get_secret(setting):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
 
-ENV = os.environ.get("DJANGO_ENV",)
+ENV = get_secret("DEV")
 if ENV == 'dev':
     DEBUG = False
 else:
