@@ -82,6 +82,9 @@ function BooksChangeData() {
             if(error.response.status === 403) {
                 alert("로그인 후 진행해주세요")
                 navigate("/login")
+              }else if (error.response.status === 429) {
+                alert("요청이 많습니다 잠시만 기다려주세요");
+                navigate("/board/toomanyrequest")
               }
         })
     }

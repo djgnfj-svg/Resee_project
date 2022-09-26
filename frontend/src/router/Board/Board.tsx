@@ -59,6 +59,7 @@ function Board() {
                     navigate("/")
                 } else if (error.response.status === 429) {
                     alert("요청이 많습니다 잠시만 기다려주세요");
+                    navigate("/board/toomanyrequest")
                 } else if (error.response.status === 0) {
                     alert("서버가 꺼졌어요 !")
                     navigate("/")
