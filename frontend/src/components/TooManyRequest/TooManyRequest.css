@@ -1,0 +1,17 @@
+.Request_Toomany{
+    background-color: black;
+    top: 50%;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+.Request_Toomany img {
+    width: 40%;
+    object-fit: cover;
+}
+.Request_Toomany h2{
+    color: rgb(226, 226, 226);
+    position: absolute;
+    top: 60%;
+    left: 40%;
+}

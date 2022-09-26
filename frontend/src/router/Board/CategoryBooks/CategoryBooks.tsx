@@ -13,16 +13,6 @@ function CategoryBooks() {
     created_at:string;
   }
 
-  const loginState = () => {
-    if(isLogin()){
-        
-    }else{
-        alert("로그인 후 이용해주세요")
-    }
-}
-useEffect(() => {
-    loginState()
-},[])
 
   const {id} = useParams() as any;
   const navigate = useNavigate();
@@ -48,7 +38,10 @@ useEffect(() => {
         setPostList(res.data)
       }
     }).catch(error => {
-      
+      if(error.response.status === 403) {
+        alert("로그인 후 진행해주세요")
+        navigate("/login")
+      }
   })
   }
   

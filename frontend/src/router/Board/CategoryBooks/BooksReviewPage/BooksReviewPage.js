@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { ReviewBooks } from '../../../../components/ApiUrl'
+import isLogin from '../../../../components/isLogin'
 
 
 function BooksReviewPage() {
@@ -16,18 +17,6 @@ function BooksReviewPage() {
     const [postIds ,setPostIds] = useState("");
 
     const navigate = useNavigate("");
-
-
-    const loginState = () => {
-        if(isLogin()){
-            
-        }else{
-            alert("로그인 후 이용해주세요")
-        }
-    }
-    useEffect(() => {
-        loginState()
-    },[])
     
     useEffect(() => {
         getBooksReviewData();
@@ -59,7 +48,10 @@ function BooksReviewPage() {
             setPostList(res.data)
             setPostIds(res.data.ids)
         }).catch(error => {
-           console.log(error)
+            if(error.response.status === 403) {
+                alert("로그인 후 진행해주세요")
+                navigate("/login")
+              }
         })
     }
 

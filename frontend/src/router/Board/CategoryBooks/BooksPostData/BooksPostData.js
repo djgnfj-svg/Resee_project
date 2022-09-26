@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import './BooksPostData.css'
 import { BooksListUrl, BooksPostDataUrl } from '../../../../components/ApiUrl'
+import isLogin from '../../../../components/isLogin'
 
 
 function BooksPostData() {
@@ -26,7 +27,8 @@ function BooksPostData() {
         if(isLogin()){
             
         }else{
-            alert("로그인 후 이용해주세요")
+            alert("로그인 후 이용해주세요");
+            navigate("/login")
         }
     }
     useEffect(() => {
@@ -56,7 +58,10 @@ function BooksPostData() {
             setNavigateData(res.data)
             setNavigateId(res.data[0].id);
         }).catch(error => {
-
+            if(error.response.status === 403) {
+                alert("로그인 후 진행해주세요")
+                navigate("/login")
+              }
         })
     }
 

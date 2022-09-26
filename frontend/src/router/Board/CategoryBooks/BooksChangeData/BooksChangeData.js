@@ -8,6 +8,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { BooksImageUpload, BooksPostDataUrl } from '../../../../components/ApiUrl';
+import isLogin from '../../../../components/isLogin';
 
 function BooksChangeData() {
 
@@ -24,17 +25,6 @@ function BooksChangeData() {
     const [ids, setIds] = useState([])
 
     const [scroll, setScroll] = useState(false);
-
-    const loginState = () => {
-        if(isLogin()){
-            
-        }else{
-            alert("로그인 후 이용해주세요")
-        }
-    }
-    useEffect(() => {
-        loginState()
-    },[])
 
     useEffect(() => {
         getBooksReviewData()
@@ -89,7 +79,10 @@ function BooksChangeData() {
             setDescription(res.data.description)
             setPrevDescription(res.data.description)
         }).catch(error => {
-
+            if(error.response.status === 403) {
+                alert("로그인 후 진행해주세요")
+                navigate("/login")
+              }
         })
     }
 
