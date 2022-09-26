@@ -26,6 +26,17 @@ function WritePage() {
     const [description, setDescriptions] = useState("")
     const [spanBoolean , setSpanBoolean] = useState(true) 
 
+    const loginState = () => {
+        if(isLogin()){
+            
+        }else{
+            alert("로그인 후 이용해주세요")
+        }
+    }
+    useEffect(() => {
+        loginState()
+    },[])
+
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);

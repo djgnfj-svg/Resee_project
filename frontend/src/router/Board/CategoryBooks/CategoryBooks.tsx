@@ -3,6 +3,7 @@ import './CategoryBooks.css'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
 import { BooksListUrl } from '../../../components/ApiUrl';
+import isLogin from '../../../components/isLogin';
 
 function CategoryBooks() {
 
@@ -11,6 +12,17 @@ function CategoryBooks() {
     title:string;
     created_at:string;
   }
+
+  const loginState = () => {
+    if(isLogin()){
+        
+    }else{
+        alert("로그인 후 이용해주세요")
+    }
+}
+useEffect(() => {
+    loginState()
+},[])
 
   const {id} = useParams() as any;
   const navigate = useNavigate();

@@ -22,6 +22,17 @@ function BooksPostData() {
 
     const navigate = useNavigate()
 
+    const loginState = () => {
+        if(isLogin()){
+            
+        }else{
+            alert("로그인 후 이용해주세요")
+        }
+    }
+    useEffect(() => {
+        loginState()
+    },[])
+
 
     useEffect(() => {
         getBooksData();

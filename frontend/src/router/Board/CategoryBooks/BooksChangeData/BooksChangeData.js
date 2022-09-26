@@ -25,6 +25,17 @@ function BooksChangeData() {
 
     const [scroll, setScroll] = useState(false);
 
+    const loginState = () => {
+        if(isLogin()){
+            
+        }else{
+            alert("로그인 후 이용해주세요")
+        }
+    }
+    useEffect(() => {
+        loginState()
+    },[])
+
     useEffect(() => {
         getBooksReviewData()
     }, [])

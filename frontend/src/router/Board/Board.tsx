@@ -5,6 +5,7 @@ import Add_modal from './Section/js/Add_modal'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import  { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
+import isLogin from '../../components/isLogin';
 
 function Board() {
 
@@ -14,14 +15,26 @@ function Board() {
         rough_description : string;
     }
 
+    
     const navigate = useNavigate();
-
+    
     const [showModal, setShowModal] = useState(false);
     const [booksData, setBooksData] = useState([]);
-
+    
     const modalClose = () => {
         setShowModal(!showModal)
     }
+    
+    const loginState = () => {
+        if(isLogin()){
+            
+        }else{
+            alert("로그인 후 이용해주세요")
+        }
+    }
+    useEffect(() => {
+        loginState()
+    },[])
 
     useEffect(() => {
         if(booksData){
