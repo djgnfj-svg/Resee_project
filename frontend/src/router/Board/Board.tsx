@@ -5,7 +5,6 @@ import Add_modal from './Section/js/Add_modal'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
-import isLogin from '../../components/isLogin';
 
 function Board() {
 

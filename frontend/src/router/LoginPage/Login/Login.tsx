@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom'
 import React from "react";
+import { LoginUrl } from "../../../components/ApiUrl";
 
 function Login() {
 
@@ -53,7 +54,7 @@ function Login() {
 	
 	const Login_button = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
 		e.preventDefault();
-		axios.post("http://127.0.0.1:8000/api/accounts/login/", input)
+		axios.post(LoginUrl, input)
 		.then(res =>{
 			if (res.data.access_token){
 				alert("로그인 성공")
