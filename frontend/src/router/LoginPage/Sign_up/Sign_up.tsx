@@ -43,7 +43,10 @@ function Sign_up() {
 
 	const BluerEmail = (e: FocusEvent<HTMLInputElement, Element>) => {
 		axios.post(EmailCheckUrl,{
-			email : email,
+			email : email},{
+				headers: {
+					'Content-Type': 'application/json',
+				}
 		}).then(res => {
 			if(e.target.value.length < 1){
 				setEmailLength(false)
