@@ -66,6 +66,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 INSTALLED_APPS = [
+    #cors
+    'corsheaders',
+    # defulat
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,8 +93,6 @@ INSTALLED_APPS = [
     #dj-rest-autj
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    #cors
-    'corsheaders',
     #all auth
 	"allauth",
 	"allauth.account",
@@ -99,16 +100,17 @@ INSTALLED_APPS = [
 	"allauth.socialaccount.providers.auth0",
 	"allauth.socialaccount.providers.google",
 ]
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
-]
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:8000",
+# ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
