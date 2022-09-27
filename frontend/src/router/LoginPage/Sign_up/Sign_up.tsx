@@ -56,7 +56,9 @@ function Sign_up() {
 				
 			}
 		}).catch(error => {
-			setOverLapEmail(error.response.data.msg)
+			if(error.response.data.msg){
+				setOverLapEmail(error.response.data.msg)
+			}
 			console.log(error)
 	})
 	}

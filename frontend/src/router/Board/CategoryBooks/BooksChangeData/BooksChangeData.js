@@ -66,7 +66,6 @@ function BooksChangeData() {
 
     const handleChangeInput2 = (e) => {
         setDescription(textRef.current.getInstance().getMarkdown())
-
     }
 
     const getBooksReviewData = () => {
