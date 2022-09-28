@@ -41,7 +41,7 @@ class PostsSerializer(serializers.ModelSerializer):
 			image_ids = list(filter(None,validated_data['image_ids']))
 			instance.image_ids = image_ids
 			set_imgdata(image_ids, instance.id)
-			#delete no post img
+			# delete_imgdata(image_ids, instance.id)
 		return instance
 
 

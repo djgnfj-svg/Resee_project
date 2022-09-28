@@ -56,14 +56,14 @@ else:
     DEBUG = True
 
 if ENV == 'dev':
-    BASE_FRONTEND_URL = "http://localhost/login/?signup=True"
+    BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
 else:
-    BASE_FRONTEND_URL = "http://localhost:3000/login/?signup=True"
+    BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
 AUTH_USER_MODEL = 'accounts.User'
-
+DEFAULT_HTTP_PROTOCOL = "https"
 
 INSTALLED_APPS = [
     #cors
@@ -105,7 +105,7 @@ INSTALLED_APPS = [
 #     "http://127.0.0.1:8000",
 # ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
@@ -267,6 +267,8 @@ if ENV == "dev":
     ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
     #email_option
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+    DEFAULT_HTTP_PROTOCOL = 'https'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'email-smtp.ap-northeast-2.amazonaws.com'
     EMAIL_HOST_USER = get_secret('AWS_SMTP_USER_NAME')
