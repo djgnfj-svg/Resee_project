@@ -5,6 +5,7 @@ import Footbar from './Section/Footbar/Footbar';
 import WrapperFrirst from './Section/WrapperFirst/WrapperFirst';
 import './Section/Footbar/Footbar.css'
 import './Home.css'
+import { refreshUrl } from '../../components/ApiUrl';
 
 function Home() {
 
@@ -16,7 +17,7 @@ function Home() {
 
     useEffect(() => {
         if (!!isLogin()) {
-            axios.post("http://127.0.0.1:8000/api/accounts/token/refresh/", //리프레시 토큰 유효 검사
+            axios.post(refreshUrl, //리프레시 토큰 유효 검사
                 {
                     refresh: localStorage.getItem('refresh_token')
                 }).then(res => {

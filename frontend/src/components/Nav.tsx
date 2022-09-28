@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, } from 'react-bootstrap';
 import { useNavigate, useLocation, } from 'react-router-dom';
 import isLogin from './isLogin';
 import '../App.css'
+import { LogoutUrl } from './ApiUrl';
 
 
 function MyNavbar() {
@@ -33,7 +34,7 @@ function MyNavbar() {
 		
 
 	const handleLogout = () => {
-		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {
+		axios.post(LogoutUrl , {
 			refresh : localStorage.getItem('refresh_token'),
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
