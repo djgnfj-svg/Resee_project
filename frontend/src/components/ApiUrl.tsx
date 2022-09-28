@@ -9,7 +9,6 @@ export const LogoutUrl = `https://reseep:8000/api/accounts/logout/` // 로그인
 export const refreshUrl = `https://reseep:8000/api/accounts/token/refresh/` // 로그인(Post)
 
 /* Category */
-
 export const CategoryListUrl = `https://reseep:8000/api/books/` // 카테고리 리스트 가져오기(Get) , 생성시 Post
 export const CategoryDelete = (id: number) => `https://reseep:8000/api/books/${id}/` // 카테고리 책 삭제(Delete)
 
