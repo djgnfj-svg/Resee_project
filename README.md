@@ -33,8 +33,8 @@
 ---
 ## 👜문서
 
-- ![ERD](https://www.erdcloud.com/d/XhuoHNQ8E5XDYvMaM) 추가예정
-- ![API문서](https://reseep.com:8000/swagger) 추가예정
+- [ERD](https://www.erdcloud.com/d/XhuoHNQ8E5XDYvMaM) 추가예정
+- [API문서](https://reseep.com:8000/swagger) 추가예정
 - [시스템흐름도] 추가예정
 - [화면정의서] 추가예정
 
