@@ -1,12 +1,12 @@
 /* Login & SignUp */
 
 export const EmailCheckUrl = `https://reseep:8000/api/emailcheck/` //이메일 체크(Post)
-export const SignUpUrl = `http://127.0.0.1:8000/api/accounts/logout/` // 회원가입(Post)
+export const SignUpUrl = `https://reseep:8000/api/accounts/logout/` // 회원가입(Post)
 
 export const LoginUrl = `https://reseep:8000/api/accounts/login/` // 로그인(Post)
 export const LogoutUrl = `https://reseep:8000/api/accounts/logout/` // 로그인(Post)
 /* JWT */
-export const refreshUrl = `http://127.0.0.1:8000/api/accounts/token/refresh/` // 로그인(Post)
+export const refreshUrl = `https://reseep:8000/api/accounts/token/refresh/` // 로그인(Post)
 
 /* Category */
 
