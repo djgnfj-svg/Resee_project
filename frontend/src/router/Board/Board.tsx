@@ -62,6 +62,9 @@ function Board() {
                 } else if (error.response.status === 0) {
                     alert("서버가 꺼졌어요 !")
                     navigate("/")
+                }else if ( error.response.status === 401) {
+                    alert( "로그인 후 이용해주세요")
+                    navigate("/login")
                 }
             })
     }
