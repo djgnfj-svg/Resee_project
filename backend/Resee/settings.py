@@ -53,10 +53,6 @@ else:
 if ENV == 'dev':
     BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
 else:
-<<<<<<< HEAD
-    BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
-ALLOWED_HOSTS = ["*"]
-=======
     BASE_FRONTEND_URL = "http://localhost:3000/login/?signup=True"
 
 
@@ -64,7 +60,6 @@ if ENV == 'dev':
     ALLOWED_HOSTS = ["reseep.com", 'reseep.com:8000',"www.reseep.com", 'www.reseep.com:8000']
 else :
     ALLOWED_HOSTS = ["*"]
->>>>>>> develop
 
 # Application definition
 AUTH_USER_MODEL = 'accounts.User'
@@ -114,10 +109,6 @@ CORS_ORIGIN_WHITELIST = [
     "https://reseep:8000",
 ]
 
-<<<<<<< HEAD
-CORS_ORIGIN_ALLOW_ALL = True
-=======
->>>>>>> develop
 CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
