@@ -32,8 +32,6 @@ jobs:
         echo \"SECRET_KEY\" : \"${{ secrets.json.SECRET_KEY }}\", >> backend/secrets.json
         echo \"DEV\" : \"None\" >> backend/secrets.json
         echo } >> backend/secrets.json
-        echo ${{secrets.TEST}}
-        echo ${{secrets.TEST}}
         cat backend/secrets.json
     - name: Run Tests
       run: |
