@@ -10,6 +10,7 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { BooksImageUpload, BooksPostUrl } from '../../../../components/ApiUrl';
+import isLogin from '../../../../components/isLogin';
 
 
 function WritePage() {
@@ -24,8 +25,14 @@ function WritePage() {
     const [scroll, setScroll] = useState(false);
     const [title, setTitle] = useState("")
     const [description, setDescriptions] = useState("")
-    const [spanBoolean , setSpanBoolean] = useState(true) 
+    const [spanBoolean , setSpanBoolean] = useState(true)
 
+    useEffect(() => {
+        if(!isLogin()){
+            alert("로그인 후 이용해주세요")
+            navigate("/login")
+        }
+    },[])
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -45,7 +52,7 @@ function WritePage() {
         return () => {
             window.removeEventListener('keyup', onkeyup);
         }
-    }, [description || scroll]);
+    }, [description , scroll]);
 
     const handleScroll = () => {
         // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌

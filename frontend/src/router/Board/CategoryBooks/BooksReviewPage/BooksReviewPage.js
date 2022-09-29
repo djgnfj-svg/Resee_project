@@ -3,8 +3,8 @@ import './BooksReviewPage.css'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { Viewer } from '@toast-ui/react-editor';
 import { ReviewBooks } from '../../../../components/ApiUrl'
+import isLogin from '../../../../components/isLogin'
 
 
 function BooksReviewPage() {
@@ -17,10 +17,10 @@ function BooksReviewPage() {
     const [postIds ,setPostIds] = useState("");
 
     const navigate = useNavigate("");
-
     
     useEffect(() => {
         getBooksReviewData();
+        //eslint-disable-next-line
     },[count])
 
     const handleFinishBtn = (e) => {
@@ -48,7 +48,13 @@ function BooksReviewPage() {
             setPostList(res.data)
             setPostIds(res.data.ids)
         }).catch(error => {
-           console.log(error)
+            if(error.response.status === 403) {
+                alert("로그인 후 진행해주세요")
+                navigate("/login")
+              }else if (error.response.status === 429) {
+                alert("요청이 많습니다 잠시만 기다려주세요");
+                navigate("/board/toomanyrequest")
+              }
         })
     }
 

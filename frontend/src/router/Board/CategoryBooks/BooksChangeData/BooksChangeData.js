@@ -1,16 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
 import maxLength, { maxTitleLength } from '../../../../components/MaxLength';
-
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import { BooksImageUpload, BooksPostData, BooksPostDataUrl } from '../../../../components/ApiUrl';
+import { BooksImageUpload, BooksPostDataUrl } from '../../../../components/ApiUrl';
+import isLogin from '../../../../components/isLogin';
 
 function BooksChangeData() {
 
@@ -49,7 +47,7 @@ function BooksChangeData() {
         return () => {
             window.removeEventListener('keyup', onkeyup);
         }
-    }, [description || scroll]);
+    }, [description ,scroll]);
 
 
     const handleScroll = () => {
@@ -68,7 +66,6 @@ function BooksChangeData() {
 
     const handleChangeInput2 = (e) => {
         setDescription(textRef.current.getInstance().getMarkdown())
-
     }
 
     const getBooksReviewData = () => {
@@ -81,7 +78,13 @@ function BooksChangeData() {
             setDescription(res.data.description)
             setPrevDescription(res.data.description)
         }).catch(error => {
-
+            if(error.response.status === 403) {
+                alert("로그인 후 진행해주세요")
+                navigate("/login")
+              }else if (error.response.status === 429) {
+                alert("요청이 많습니다 잠시만 기다려주세요");
+                navigate("/board/toomanyrequest")
+              }
         })
     }
 
@@ -149,7 +152,7 @@ function BooksChangeData() {
                 </div>
             }
             <div className={scroll ? 'Write_pageScroll' : 'Write_page'} >
-                {description === true || title.length >= 2 && <>
+                {((description === true) || (title.length >= 2)) && <>
                     <Editor
                         ref={textRef}
                         initialValue={description}

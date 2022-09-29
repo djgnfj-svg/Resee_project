@@ -1,7 +1,7 @@
 import './App.css';
 import MyNavbar from './components/Nav';
 import Home from './router/Main/Home'
-import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import Board from './router/Board/Board';
 import CategoryBooks from './router/Board/CategoryBooks/CategoryBooks';
 import WritePage from './router/Board/CategoryBooks/WritePage/WritePage';
@@ -11,6 +11,8 @@ import BooksChangeData from './router/Board/CategoryBooks/BooksChangeData/BooksC
 import Login from '../src/router/LoginPage/Login/Login'
 import Sign_up from '../src/router/LoginPage/Sign_up/Sign_up'
 import EmailCheck from './router/LoginPage/EmailCheck/EmailCheck';
+import TooManyRequest from './components/TooManyRequest/TooManyRequest';
+import NonePage from './components/NonePage';
 
 function App() {
 
@@ -28,7 +30,8 @@ function App() {
 				<Route path="/board/categoryBooks/:id/postreview/:postId" element={<BooksPostData />} />
 				<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />} />
 				<Route path="/board/categoryBooks/:id/write" element={<WritePage />} />
-				<Route path="*" />
+				<Route path="/board/toomanyrequest" element={<TooManyRequest />} />
+				<Route path="*" element={<NonePage />} />
 			</Routes>
 		</div>
 	);

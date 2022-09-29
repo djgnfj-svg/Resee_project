@@ -49,7 +49,7 @@ def get_secret(setting):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
 
-ENV = os.environ.get("DJANGO_ENV",)
+ENV = get_secret("DEV")
 if ENV == 'dev':
     DEBUG = False
 else:
@@ -66,6 +66,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 INSTALLED_APPS = [
+    #cors
+    'corsheaders',
+    # defulat
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,8 +93,6 @@ INSTALLED_APPS = [
     #dj-rest-autj
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    #cors
-    'corsheaders',
     #all auth
 	"allauth",
 	"allauth.account",
@@ -99,16 +100,17 @@ INSTALLED_APPS = [
 	"allauth.socialaccount.providers.auth0",
 	"allauth.socialaccount.providers.google",
 ]
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
-]
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:8000",
+# ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -144,7 +146,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React,{ useEffect, useState } from 'react';
 import { Navbar, Container, Nav, } from 'react-bootstrap';
-import { Routes, Route, useNavigate, useLocation, } from 'react-router-dom';
+import { useNavigate, useLocation, } from 'react-router-dom';
 import isLogin from './isLogin';
 import '../App.css'
+import { LogoutUrl } from './ApiUrl';
 
 
 function MyNavbar() {
@@ -27,12 +28,13 @@ function MyNavbar() {
 		}else{
 			setAuth(false)
 		}
+        //eslint-disable-next-line
 	},[localStorage.getItem('access_token')])
 	
 		
 
 	const handleLogout = () => {
-		axios.post("http://127.0.0.1:8000/api/accounts/logout/", {
+		axios.post(LogoutUrl , {
 			refresh : localStorage.getItem('refresh_token'),
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -61,7 +63,7 @@ function MyNavbar() {
 						{auth ?
 							<Nav>
 								<Nav.Link style={{ fontSize:"22px" }} onClick={handleLogout}>
-									<img style={{ fontSize:"25px",objectFit: "cover", width: "20px", position: "relative", top: "-2px" }} src={`${process.env.PUBLIC_URL}/img/Logout.png`} />
+									<img alt='img' style={{ fontSize:"25px",objectFit: "cover", width: "20px", position: "relative", top: "-2px" }} src={`${process.env.PUBLIC_URL}/img/Logout.png`} />
 										로그아웃
 									</Nav.Link>
 							</Nav>
