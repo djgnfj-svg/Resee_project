@@ -31,7 +31,7 @@ jobs:
       run : |
         touch backend/secrets.json
         echo { >> backend/secrets.json
-        echo \"SECRET_KEY\" : \"${{secrets.API}}\", >> backend/secrets.json
+        echo \t\"SECRET_KEY\" : \"${{secrets.json.SECRET_KEY}}\", >> backend/secrets.json
         echo \"DEV\" : \"None\" >> backend/secrets.json
         echo } >> backend/secrets.json
         cat backend/secrets.json
