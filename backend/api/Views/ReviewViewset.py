@@ -7,8 +7,10 @@ from api.Utils.error_massge import success_msg
 
 from posts.models import ReviewPost
 
+from drf_yasg.utils import swagger_auto_schema
 
 class ReviewViewSet(viewsets.ViewSet):
+	@swagger_auto_schema(tags=["Review"])
 	def list(self, request, book_id):
 		userid = getUserId(request.user)
 		review_list = ReviewPost.objects.filter(Book_id=book_id)
@@ -51,6 +53,7 @@ class ReviewViewSet(viewsets.ViewSet):
 		return_data['ids'] = return_data['ids'].rstrip()
 		return Response(return_data)
 
+	@swagger_auto_schema(tags=["Review"])
 	def create(self, request, book_id):
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)

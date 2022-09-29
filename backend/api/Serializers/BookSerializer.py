@@ -10,6 +10,7 @@ class BooksSerializer(serializers.ModelSerializer):
 	rough_description = serializers.CharField(max_length=40, required=False, allow_blank=True)
 
 	class Meta:
+		book = ReviewBook.objects.all()
 		model = ReviewBook
 		fields = ["id", "title", "rough_description"]
 

@@ -3,10 +3,14 @@ from django.utils import timezone
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+
 from accounts.models import UserVerification, User
+
+from drf_yasg.utils import swagger_auto_schema
 
 class EmailcheckView(viewsets.ViewSet):
 	permission_classes  = [AllowAny]
+	@swagger_auto_schema(tags=["Email Check에 관한 요청입니다."])
 	def create(self, request):
 		try :
 			user = User.objects.get(email=request.data['email'])

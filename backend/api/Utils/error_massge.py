@@ -1,8 +1,5 @@
-
-from rest_framework.response import Response
-
 ERROR_MSG = {
-	403 : "허락 못해",
+	403 : "권한이 없습니다.",
 	404 : "데어터가 없습니다.",
 
 	2001: "이미 가입된유저 입니다.",
