@@ -3,15 +3,15 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 # Create your tests here.
-# 생각해보니 이미 만은 검증을 받은 api를 왜 테스트하냐 시간낭비다
-# 나중에 사항이 바뀌면 그떄 추가하자 
+
+
 class testAccounts(APITestCase):
     def setUp(self):
         self.username = "testcate1"
         self.email = "test@test.com"
         self.password1 = "test@0830"
         self.password2 = "test@0830"
-        self.signup_url = "/api/accounts/"
+        self.signup_url = "/api-auth/"
         self.signup_data = {
             'username' : self.username,
             'email' : self.email,

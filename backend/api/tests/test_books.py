@@ -6,7 +6,7 @@ class testBooks(APITestCase):
     def setUp(self):
         #계정생성하고 accsekey 
         self.target_url = '/api/books/'
-        self.signup_url = "/api/accounts/"
+        self.signup_url = "/api-auth/"
         self.username = "testcate1"
         self.email = "test@test.com"
         self.password1 = "test@0830"
@@ -17,7 +17,6 @@ class testBooks(APITestCase):
             'password1' : self.password1,
             'password2' : self.password2
         }
-        self.signup_url = "/api/accounts/"
         response = self.client.post(self.signup_url, self.signup_data)
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {response.data.get('access_token')}")
     

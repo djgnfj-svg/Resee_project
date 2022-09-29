@@ -20,20 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 추후 구글 로그인시 체인지
 
 
-SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 STATE = 'random_string'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
-
+SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
-
 secrets = json.loads(open(SECRET_BASE_FILE).read())
+
 
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
@@ -45,6 +39,7 @@ def get_secret(setting):
     except KeyError:
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
@@ -58,8 +53,18 @@ else:
 if ENV == 'dev':
     BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
 else:
+<<<<<<< HEAD
     BASE_FRONTEND_URL = "https://www.reseep.com/login/?signup=True"
 ALLOWED_HOSTS = ["*"]
+=======
+    BASE_FRONTEND_URL = "http://localhost:3000/login/?signup=True"
+
+
+if ENV == 'dev':
+    ALLOWED_HOSTS = ["reseep.com", 'reseep.com:8000',"www.reseep.com", 'www.reseep.com:8000']
+else :
+    ALLOWED_HOSTS = ["*"]
+>>>>>>> develop
 
 # Application definition
 AUTH_USER_MODEL = 'accounts.User'
@@ -100,12 +105,19 @@ INSTALLED_APPS = [
 	"allauth.socialaccount.providers.auth0",
 	"allauth.socialaccount.providers.google",
 ]
-# CORS_ORIGIN_WHITELIST = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:8000",
-# ]
+#CORS
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
 
+    "https://reseep",
+    "https://reseep:8000",
+]
+
+<<<<<<< HEAD
 CORS_ORIGIN_ALLOW_ALL = True
+=======
+>>>>>>> develop
 CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
@@ -239,8 +251,8 @@ if ENV == "dev":
         'PAGE_SIZE' : 5,
 
         'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.AllowAny', # 누구나 접근 가능
-            # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
+            # 'rest_framework.permissions.AllowAny', # 누구나 접근 가능
+            'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
             # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
         ),
         

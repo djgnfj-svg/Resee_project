@@ -10,7 +10,7 @@ class testPosts(APITestCase):
         #books 만들고
         # post crud
         #sign up data
-        self.signup_url = "/api/accounts/"
+        self.signup_url = "/api-auth/"
         self.username = "testcate1"
         self.email = "test@test.com"
         self.password1 = "test@0830"
@@ -22,7 +22,7 @@ class testPosts(APITestCase):
             'password2' : self.password2
         }
         response = self.client.post(self.signup_url, self.signup_data)
-        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {response.data.get('access_token')}")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {response.get('access_token')}")
         #book data
         ReviewBook.objects.create(title = "title", \
             rough_description = "rough_description",

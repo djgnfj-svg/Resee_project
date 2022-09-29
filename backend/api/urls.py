@@ -6,7 +6,6 @@ from api.Views.PostImgViewset import PostImgViewSet
 from api.Views.PostViewset import PostViewSet
 from api.Views.ReviewViewset import ReviewViewSet
 
-
 router = routers.DefaultRouter()
 
 router.register(r'books', BooksViewSet, basename="books")
