@@ -37,6 +37,7 @@ function Board() {
     }, [showModal === false])
 
     const getBooksData = () => {
+        console.log(CategoryListUrl)
         axios.get(CategoryListUrl,
             {
                 headers: {
@@ -49,6 +50,7 @@ function Board() {
                 } else {
                     setBooksData(res.data);
                 }
+                console.log("정상작동")
             }).catch(error => {
                 if (error.response.status === 403) {
                     alert("로그인 후 이용해주세요")
@@ -62,6 +64,8 @@ function Board() {
                 } else if (error.response.status === 0) {
                     alert("서버가 꺼졌어요 !")
                     navigate("/")
+                }else{
+                    console.log(error)
                 }
             })
     }
