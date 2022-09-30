@@ -30,35 +30,18 @@ function BooksChangeData() {
         getBooksReviewData()
     }, [])
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll); //clean up
-        };
-    }, []);
-    useEffect(() => { // esc 클릭 시 제목 포커스 한번더 누르면 그곳으로 이동함
-        function onkeyup(e){
-            if(e.key === "Escape"){
-                setScroll(false)
-                window.scrollTo({top:0 , behavior : "smooth"})
-            }
-        }
-        window.addEventListener('keyup', onkeyup);
-        return () => {
-            window.removeEventListener('keyup', onkeyup);
-        }
-    }, [description ,scroll]);
-
-
-    const handleScroll = () => {
-        // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 50){
-            setScroll(true);
-        }else{
-        // 스크롤이 50px 미만일경우 false를 넣어줌
-            setScroll(false);
-        }
-    }
+    // useEffect(() => { // esc 클릭 시 제목 포커스 한번더 누르면 그곳으로 이동함
+    //     function onkeyup(e){
+    //         if(e.key === "Escape"){
+    //             setScroll(false)
+    //             window.scrollTo({top:0 , behavior : "smooth"})
+    //         }
+    //     }
+    //     window.addEventListener('keyup', onkeyup);
+    //     return () => {
+    //         window.removeEventListener('keyup', onkeyup);
+    //     }
+    // }, [description ,scroll]);
 
     const handleChangeInput = (e) => {
         setTitle(e.target.value)
@@ -102,8 +85,6 @@ function BooksChangeData() {
     const handleInputEnter = (e) => {
         if (e.key === "Enter") {
             textRef.current.getInstance().focus()
-            window.scrollTo({ top: 10, behavior: 'smooth' })
-            setScroll(true)
         }
     }
 

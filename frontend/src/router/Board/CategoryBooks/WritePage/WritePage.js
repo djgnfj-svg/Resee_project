@@ -34,36 +34,19 @@ function WritePage() {
         }
     },[])
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-        window.removeEventListener('scroll', handleScroll); //clean up
-        };
-    }, []);
 
-    useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
-        function onkeyup(e){
-            if(e.key === "Escape"){
-                setScroll(false)
-                titleRef.current.focus()
-            }
-        }
-        window.addEventListener('keyup', onkeyup);
-        return () => {
-            window.removeEventListener('keyup', onkeyup);
-        }
-    }, [description , scroll]);
-
-    const handleScroll = () => {
-        // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-        if(window.scrollY >= 50){
-            setScroll(true);
-            setSpanBoolean(false)
-        }else{
-        // 스크롤이 50px 미만일경우 false를 넣어줌
-            setScroll(false);
-        }
-    }
+    // useEffect(() => { // esc 한번 더 클릭 시 포커스 이동
+    //     function onkeyup(e){
+    //         if(e.key === "Escape"){
+    //             setScroll(false)
+    //             titleRef.current.focus()
+    //         }
+    //     }
+    //     window.addEventListener('keyup', onkeyup);
+    //     return () => {
+    //         window.removeEventListener('keyup', onkeyup);
+    //     }
+    // }, [description , scroll]);
    
     const handleChangeInput = (e) => { setTitle(e.target.value) }
     const handleChangeInput2 = (e) => {
@@ -75,8 +58,6 @@ function WritePage() {
     const handleInputEnter = (e) => {
         if(e.key === "Enter"){
             textRef.current.getInstance().focus()
-            window.scrollTo({top : 550,behavior:'smooth'})
-            setScroll(true);
             setSpanBoolean(false)
         }
     }

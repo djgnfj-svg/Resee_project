@@ -121,13 +121,16 @@ function Board() {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
-            if (Object.keys(res.data).length === 1) {
+            if (res.status=== 204) {
                 alert("복습을 다 하셨거나 안에 내용이 없어요 !")
             } else {
                 navigate(`/board/categorybooks/${id}/review`)
             }
         }).catch(error => {
-            alert("복습할 책이 없어요 !")
+            if(error.response.status === 204){
+                alert("복습할 책이 없어요 !")
+            }
+            console.log(error)
         })
     }
 

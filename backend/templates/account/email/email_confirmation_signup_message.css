@@ -1,0 +1,16 @@
+.formEmailCheck{
+    background-color: white;
+    width: 100vw;
+    height: 50vw;
+}
+.formEmailCheck img{
+    width: 300px;
+}
+.formEmailCheck > a > button{
+    width: 120px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid skyblue;
+    background-color: white;
+    font-size: 20px;
+}
