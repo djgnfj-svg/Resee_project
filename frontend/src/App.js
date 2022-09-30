@@ -13,6 +13,7 @@ import Sign_up from '../src/router/LoginPage/Sign_up/Sign_up'
 import EmailCheck from './router/LoginPage/EmailCheck/EmailCheck';
 import TooManyRequest from './components/TooManyRequest/TooManyRequest';
 import NonePage from './components/NonePage';
+import TestEmailChecked from './TestEmailChecked';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
 				<Route path="/board/categoryBooks/:id/changereview/:postId" element={<BooksChangeData />} />
 				<Route path="/board/categoryBooks/:id/write" element={<WritePage />} />
 				<Route path="/board/toomanyrequest" element={<TooManyRequest />} />
+				<Route path="/test" element={<TestEmailChecked />} />
 				<Route path="*" element={<NonePage />} />
 			</Routes>
 		</div>
