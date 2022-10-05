@@ -21,9 +21,10 @@ class BooksViewSet(viewsets.ModelViewSet):
 		'''
 		userid = getUserId(request.user)
 		queryset = ReviewBook.objects.filter(user_id = userid)
+
 		if not queryset:
 			return Response(success_msg(204), status=status.HTTP_204_NO_CONTENT)
-		serializer = BooksSerializer(queryset, many=True)
+		serializer = self.get_serializer(queryset, many=True)
 		return Response(serializer.data)
 
 	@swagger_auto_schema(tags=["Book에 관한 요청입니다."], query_serializer=BooksSerializer)
@@ -33,10 +34,10 @@ class BooksViewSet(viewsets.ModelViewSet):
 
 		해당 유저의 book을 만들어 줌니다.
 		'''
-		serializer = BooksSerializer(data=request.data)
+		serializer = self.get_serializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.create(request, serializer.data)
-			return Response(BooksSerializer(rtn).data, status=status.HTTP_201_CREATED)
+			return Response(self.get_serializer(rtn).data, status=status.HTTP_201_CREATED)
 		else :
 			return Response(error_msg(serializer=serializer), status = status.HTTP_400_BAD_REQUEST)
 	

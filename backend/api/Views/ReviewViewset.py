@@ -68,7 +68,6 @@ class ReviewViewSet(viewsets.ViewSet):
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)
 		ids = ids.split(" ")
-		#list형태로 오면 update함수로 한큐에 가능할듯하다
 		for i in ids:
 			temp = ReviewPost.objects.get(id = i, user_id = userid)
 			temp.review_count_up()

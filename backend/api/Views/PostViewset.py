@@ -24,7 +24,7 @@ class PostViewSet(viewsets.ModelViewSet):
 		queryset = ReviewPost.objects.filter(user_id = userid, Book_id = book_id)
 		if not queryset:
 			return Response(success_msg(204), status=status.HTTP_204_NO_CONTENT)
-		serializer = PostsSerializer(queryset, many=True)
+		serializer = self.get_serializer(queryset, many=True)
 		return Response(serializer.data)
 
 	@swagger_auto_schema(tags=["Post에 관련된 로직입니다."], query_serializer=PostsSerializer)
@@ -34,10 +34,10 @@ class PostViewSet(viewsets.ModelViewSet):
 
 		해당 유저의 Post를 생성합니다
 		'''
-		serializer = PostsSerializer(data=request.data)
+		serializer = self.get_serializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.create(request, book_id, serializer.data)
-			return Response(PostsSerializer(rtn).data, status=status.HTTP_201_CREATED)
+			return Response(self.get_serializer(rtn).data, status=status.HTTP_201_CREATED)
 		else :
 			return Response(error_msg(serializer=serializer), status=status.HTTP_400_BAD_REQUEST)
 
@@ -48,10 +48,10 @@ class PostViewSet(viewsets.ModelViewSet):
 
 		해당 Post를 업데이트 합니다.
 		'''
-		serializer = PostsSerializer(data=request.data)
+		serializer = self.get_serializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.update(ReviewPost.objects.get(id=pk), serializer.data)
-			return Response(PostsSerializer(rtn).data)
+			return Response(self.get_serializer(rtn).data)
 		else :
 			return Response(error_msg(serializer=serializer), status=status.HTTP_400_BAD_REQUEST)
 
