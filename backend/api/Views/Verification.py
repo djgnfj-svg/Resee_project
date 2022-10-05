@@ -12,12 +12,17 @@ class EmailcheckView(viewsets.ViewSet):
 	permission_classes  = [AllowAny]
 	@swagger_auto_schema(tags=["Email Check에 관한 요청입니다."])
 	def create(self, request):
+		'''
+		email_check
+
+		email_check에 관한 로직입니다.
+		'''
 		try :
 			user = User.objects.get(email=request.data['email'])
 		except User.DoesNotExist:
 			return Response({"msg" : "가입가능"})
 		return Response({"msg" : "이미 있는유저"}, status=status.HTTP_402_PAYMENT_REQUIRED)
-
+	# action을 통해서 username체크도 만들자? <- 나중에 중복이 가능하게 할꺼니 필요없다
 class VerificationView(viewsets.ViewSet):
 	#dj-auth-rest에 있음 나중에 읽고 추가하기
 	def list(self, request):

@@ -12,6 +12,11 @@ from drf_yasg.utils import swagger_auto_schema
 class ReviewViewSet(viewsets.ViewSet):
 	@swagger_auto_schema(tags=["Review"])
 	def list(self, request, book_id):
+		'''
+		Get review list
+
+		리뷰 리스트를 리턴합니다.
+		'''
 		userid = getUserId(request.user)
 		review_list = ReviewPost.objects.filter(Book_id=book_id)
 		review_data = []
@@ -55,6 +60,11 @@ class ReviewViewSet(viewsets.ViewSet):
 
 	@swagger_auto_schema(tags=["Review"])
 	def create(self, request, book_id):
+		'''
+		Study review
+
+		복습한 내용의 post의 카운터를 올립니다.
+		'''
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)
 		ids = ids.split(" ")

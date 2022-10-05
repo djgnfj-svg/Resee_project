@@ -13,6 +13,11 @@ class PostImgViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
 	@swagger_auto_schema(tags=["PostImg에 관한 요청입니다."])
 	def create(self, request, post_id):
+		'''
+		Create PostImg
+
+		post이미지 생성 로직 입니다.
+		'''
 		serializer = PostImageSerializer(data=request.data, context={'request' : request})
 		if serializer.is_valid():
 			serializer.save()
