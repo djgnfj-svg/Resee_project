@@ -19,10 +19,16 @@ class ReviewPost(models.Model):
 		self.review_count += 1
 		self.save()
 
-	def update(self, title, description, image_ids=None):
-		self.title = title
-		self.description = description
-		self.image_ids = image_ids
+	def update(self, title=None, description=None, image_ids=None):
+		if title :
+			self.title = title
+		if description:
+			self.description = description
+		if image_ids:
+			old_ids = self.image_ids
+			self.image_ids = image_ids
+			# old_img에서 new에 해당하지 않는 것을 모두 삭제해준다,.
+			ReviewPostImgs.objects.filter(id__in = old_ids).exclude(id__in = self.image_ids).delete()
 		self.save()
 		return self
 

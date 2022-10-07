@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from api.Utils.getUser import getUserId
-from api.Utils.models_utils import set_imgdata
+from api.Utils.models_utils import set_imgdata, del_imgdata
 
 from accounts.models import User
 from posts.models import ReviewPost
@@ -33,6 +33,7 @@ class PostsSerializer(serializers.ModelSerializer):
 		return instance
 
 	def update(self, instance, validated_data):
+		# 이미지 ids가 오면 
 		instance.update(
 				title = validated_data["title"],
 				description = validated_data["description"],
@@ -41,7 +42,7 @@ class PostsSerializer(serializers.ModelSerializer):
 			image_ids = list(filter(None,validated_data['image_ids']))
 			instance.image_ids = image_ids
 			set_imgdata(image_ids, instance.id)
-			#delete no post img
+			del_imgdata(image_ids, instance.id)
 		return instance
 
 
