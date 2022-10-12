@@ -11,13 +11,10 @@ class PostImgViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 	serializer_class = PostImageSerializer
 	queryset = ReviewPostImgs.objects.filter().order_by("created_at")
 
-	@swagger_auto_schema(tags=["PostImg에 관한 요청입니다."])
+	@swagger_auto_schema(tags=["PostImg에 관한 API입니다."],
+	operation_description="post이미지 생성 로직 입니다.",
+	operation_summary='Create PostImg')
 	def create(self, request, post_id):
-		'''
-		Create PostImg
-
-		post이미지 생성 로직 입니다.
-		'''
 		serializer = PostImageSerializer(data=request.data, context={'request' : request})
 		if serializer.is_valid():
 			serializer.save()
