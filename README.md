@@ -45,11 +45,11 @@
 
 - 회원가입
 
-    ![회원가입](https://user-images.githubusercontent.com/87049249/189102596-a3e7632a-61a4-4f13-8286-65ca5c784fdd.gif)
+    ![회원가입](https://user-images.githubusercontent.com/87049249/195292923-cfd86520-7d4a-4586-8ee3-e35043b1d69a.gif)
 
 - 책 CRUD
 
-    ![책사용](https://user-images.githubusercontent.com/87049249/189107028-de391920-3719-4b22-9f5e-f09d4a2c8d04.gif)
+    ![책CRUD](https://user-images.githubusercontent.com/87049249/195292911-3ef8374c-f0aa-46dc-9d9c-5cfd53932b32.gif)
 
 - 수정 및 이미지업로드
 
