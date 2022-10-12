@@ -44,7 +44,7 @@ class PostViewSet(viewsets.ModelViewSet):
 		else :
 			return Response(error_msg(serializer=serializer), status=status.HTTP_400_BAD_REQUEST)
 
-	def update(self, request, pk):
+	def update(self, request, book_id, pk):
 		serializer = self.get_serializer(data=request.data)
 		if serializer.is_valid():
 			rtn = serializer.update(ReviewPost.objects.get(id=pk), serializer.data)
