@@ -32,7 +32,7 @@ urlpatterns = [
     path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/oauth/', include(login_patterns)),
+    # path('api/oauth/', include(login_patterns)),
     # path('api/accounts/', include('dj_rest_auth.urls'), name='test'),
     # path('api/accounts/', include('dj_rest_auth.registration.urls')),
     re_path(r'api-auth/',include('dj_rest_auth.urls'), name='rest_auth'),

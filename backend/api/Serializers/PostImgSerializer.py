@@ -12,6 +12,8 @@ class PostImageSerializer(serializers.ModelSerializer):
 	def create(self, validated_data):
 		img_data = self.context['request'].FILES
 		for img in img_data.getlist('image'):
+			print((img))
+			print(type(img))
 			instance = ReviewPostImgs.objects.create(
 				title = validated_data["title"], 
 				image = img,)

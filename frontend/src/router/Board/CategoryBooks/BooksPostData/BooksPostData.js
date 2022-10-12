@@ -24,16 +24,16 @@ function BooksPostData() {
     const navigate = useNavigate()
 
     const loginState = () => {
-        if(isLogin()){
-            
-        }else{
+        if (isLogin()) {
+
+        } else {
             alert("로그인 후 이용해주세요");
             navigate("/login")
         }
     }
     useEffect(() => {
         loginState()
-    },[])
+    }, [])
 
 
     useEffect(() => {
@@ -58,13 +58,13 @@ function BooksPostData() {
             setNavigateData(res.data)
             setNavigateId(res.data[0].id);
         }).catch(error => {
-            if(error.response.status === 403) {
+            if (error.response.status === 403) {
                 alert("로그인 후 진행해주세요")
                 navigate("/login")
-              }else if (error.response.status === 429) {
+            } else if (error.response.status === 429) {
                 alert("요청이 많습니다 잠시만 기다려주세요");
                 navigate("/board/toomanyrequest")
-              }
+            }
         })
     }
 
@@ -79,18 +79,18 @@ function BooksPostData() {
     }
 
     const getBooksReviewData = () => {
-        axios.get(BooksPostDataUrl(id,postId), {
+        axios.get(BooksPostDataUrl(id, postId), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(res => {
             setPostList(res.data)
-            const description = res.data.description.replaceAll("\n" , "\n\n")
+            const description = res.data.description.replaceAll("\n", "\n\n")
             setPostDescription(description)
         })
-        .catch(error => {
+            .catch(error => {
 
-        })
+            })
     }
 
     const goBooksData = (itemId) => {
@@ -99,7 +99,7 @@ function BooksPostData() {
 
     const handleRemoveBtn = (e) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            axios.delete(BooksPostDataUrl(id , postId), {
+            axios.delete(BooksPostDataUrl(id, postId), {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
@@ -140,21 +140,23 @@ function BooksPostData() {
                     <div className="Navigations_var"  >
                         {navigateData && navigateData.map((item, index) => (
                             <>
-                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}><a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Note.png`} />    {item.title}</a></div>
+                                <div className={item.id === postList.id ? "selected" : "unSelected"} onClick={() => goBooksData(item.id)}>
+                                    <a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Note.png`} style={{marginRight:"5px"}} />&nbsp;{item.title}</a>
+                                </div>
                             </>
                         ))}
                         {navigateData && navigateData === null && (
                             <>
                             </>
                         )}
-                        <div className='add_booksBtn' onClick={() => navigate(`/board/categoryBooks/${id}/write`)}><a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>add Books</span></a></div>
+                        <div className='add_booksBtn' onClick={() => navigate(`/board/categoryBooks/${id}/write`)}><a href='#!'><img alt='img' src={`${process.env.PUBLIC_URL}/img/Add_books.png`} />&nbsp;<span>+ add Books</span></a></div>
                     </div>
                     <div className='remove_Btn' >
                         <button style={{ marginRight: "10px" }} onClick={() => navigate(`/board/CategoryBooks/${id}/changeReview/${postId}`)}>수정하기</button>
                         <button style={{ backgroundColor: "#e62e3d", color: "white" }} onClick={() => handleRemoveBtn()}>삭제하기</button>
                     </div>
                     <div className='prev_btn'>
-                        <img alt='img' /><button onClick={() => navigate(`/board/CategoryBooks/${id}`)}>이전 페이지</button>
+                        <button onClick={() => navigate(`/board/CategoryBooks/${id}`)}>이전 페이지</button>
                     </div>
                 </div>
             </div>

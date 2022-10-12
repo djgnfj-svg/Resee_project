@@ -5,20 +5,22 @@
     margin-bottom: 30px;
     width: 190px;
 }
-.Navigations_var img , .CloseBtn img{
+.Navigations_var img{
     width: 20px;
 }
-.Navigations_var div , .CloseBtn div{
+.Navigations_var div{
     border-bottom: 1px solid black;
     padding: 0.3rem;
-    font-size: 13px;
-    color: #9b9b9b;
+    font-size: 15px;
     border: none;
 }
-.Navigations_var .selected , .CloseBtn .selected{
+.Navigations_var .selected{
     background-color: #ffffff0E;
     color: rgb(255, 255, 255);
     font-weight: 400;
+}
+.Navigations_var > div > a{
+    color: white;
 }
 
 .Menu_var img{
@@ -67,19 +69,6 @@
     object-fit: cover;
 }
 
-.CloseBtn{
-    transition: 1s;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 200px;
-    text-align: left;
-    background-color: rgb(78,78,78);
-    height: 0px;
-}
-.CloseBtn .selected , .CloseBtn .unSelected{
-    display: none;
-}
 .prev_btn{
     top: 380px;
     left: 10px;

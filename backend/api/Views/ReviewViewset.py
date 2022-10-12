@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
@@ -9,8 +11,12 @@ from posts.models import ReviewPost
 
 from drf_yasg.utils import swagger_auto_schema
 
+tag = ["Review에 관한 API입니다."]
+@method_decorator(name='list', decorator=swagger_auto_schema(tags=tag,
+	operation_description='리뷰 리스트를 리턴합니다.', operation_summary='Get review list'))
+@method_decorator(name='create', decorator=swagger_auto_schema(tags=tag,
+	operation_description='복습한 내용의 post의 카운터를 올립니다.', operation_summary='review count up'))
 class ReviewViewSet(viewsets.ViewSet):
-	@swagger_auto_schema(tags=["Review"])
 	def list(self, request, book_id):
 		userid = getUserId(request.user)
 		review_list = ReviewPost.objects.filter(Book_id=book_id)
@@ -46,6 +52,8 @@ class ReviewViewSet(viewsets.ViewSet):
 
 		return_data = {}
 		return_data['ids'] = ''
+		if not review_data:
+			return Response(success_msg(204), status=status.HTTP_204_NO_CONTENT)
 		for i, data in enumerate(review_data):
 			temp = PostsSerializer(data).data
 			return_data[i] = temp
@@ -53,12 +61,10 @@ class ReviewViewSet(viewsets.ViewSet):
 		return_data['ids'] = return_data['ids'].rstrip()
 		return Response(return_data)
 
-	@swagger_auto_schema(tags=["Review"])
 	def create(self, request, book_id):
 		ids = str(request.data['ids'])
 		userid = getUserId(request.user)
 		ids = ids.split(" ")
-		#list형태로 오면 update함수로 한큐에 가능할듯하다
 		for i in ids:
 			temp = ReviewPost.objects.get(id = i, user_id = userid)
 			temp.review_count_up()
