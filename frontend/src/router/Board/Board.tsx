@@ -5,8 +5,11 @@ import Add_modal from './Section/js/Add_modal'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { BooksListUrl, CategoryDelete, CategoryListUrl, ReviewBooks } from '../../components/ApiUrl';
+import {useSelector} from 'react-redux'
 
 function Board() {
+
+    const loginState = useSelector((state:any) => state.loginState)
 
     type Books = {
         id: number;
@@ -24,20 +27,23 @@ function Board() {
         setShowModal(!showModal)
     }
 
-
     useEffect(() => {
-        if (booksData) {
-            getBooksData();
-        } else if (booksData === "") {
-            getBooksData();
-        } else {
-            alert("당신 어떻게 들어왔어 !!")
+        if(loginState === false){
+            alert("로그인 후 이용해주세요")
+            navigate("/login")
+        }else{
+            if (booksData) {
+                getBooksData();
+            } else if (booksData === "") {
+                getBooksData();
+            } else {
+                alert("당신 어떻게 들어왔어 !!")
+            }
         }
         //eslint-disable-next-line
     }, [showModal === false])
 
     const getBooksData = () => {
-        console.log(CategoryListUrl)
         axios.get(CategoryListUrl,
             {
                 headers: {
@@ -50,7 +56,6 @@ function Board() {
                 } else {
                     setBooksData(res.data);
                 }
-                console.log("정상작동")
             }).catch(error => {
                 if (error.response.status === 403) {
                     alert("로그인 후 이용해주세요")

@@ -43,7 +43,7 @@ function MyNavbar() {
 			localStorage.clear();
 			setAuth(false);
 			alert("로그아웃 성공")
-			navigate("/");
+			window.location.href = "/"
 		}).catch(error => {
 			alert("당신 무슨 짓을 한거야 !!!")
 		})
