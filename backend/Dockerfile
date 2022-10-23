@@ -3,12 +3,12 @@ FROM python:3.9.0
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update
-RUN api-get -y install vim
+RUN apt-get -y install vim
 
-RUN mkdir /srv/docker-django
-ADD . /srv/docker-django
+WORKDIR /usr/src/app
+ADD . /usr/src/app
 
-WORKDIR /srv/docker-django
+WORKDIR /usr/src/app
 
 RUN pip install --upgrade pip
-RUN pip insatll -r requirements.txt
+RUN pip install -r requirements.txt
