@@ -7,9 +7,9 @@ services:
     volumes :
       - /home/djgnfj/Resee_project/web/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /home/djgnfj/Resee_project/web/nginx/app.conf:/etc/nginx/conf.d/default.conf
-      # - /home/djgnfj/Resee_project/backend/static/:/static/
-      # - /home/djgnfj/Resee_project/frontend/build/django_static/:/django_static/
-      - static_volume:/app/backend/server/django_static
+      - /home/djgnfj/Resee_project/backend/static/:/static/
+      - /home/djgnfj/Resee_project/backend/django-static/rest_framework:/usr/share/nginx/html/django-static/rest_framework
+      - react_build:/var/www/react
     ports:
        - 80:8080
     depends_on:
@@ -24,6 +24,7 @@ services:
     volumes:
       - "./frontend/:/usr/src/app"
       - "/app/node_modules"
+      - react_build:/build
 
   django:
     container_name : docker-django
@@ -31,9 +32,7 @@ services:
       context: backend/
       dockerfile: Dockerfile
     command: gunicorn Resee.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - static_volume:/app/backend/server/django_static
-    ports:
-      - "8000:8000"
+    volumes :
+      - /home/djgnfj/Resee_project/backend/django-static/rest_framework:/usr/share/nginx/html/static/rest_framework
 volumes:
-    static_volume: {}
+  react_build:
