@@ -28,11 +28,6 @@
 ## Frontend(박형석)
 - HTML, CSS
 - React.js
----
-## 👜문서
-
-- [ERD](https://www.erdcloud.com/d/XhuoHNQ8E5XDYvMaM) 송영재
-- [API문서](https://reseep.com:8000/swagger) 송영재
 
 ---
 
